@@ -3,6 +3,7 @@ import React, { Component, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import { observer, PropTypes as ObservablePropTypes } from 'mobx-react';
 import PropTypes from 'prop-types';
+import Style from './index.less';
 
 console.log(observable)
 console.log(React)
@@ -67,7 +68,7 @@ class TodoList extends Component {
 	render() {
 		const store = this.props.store;
 		return <div className="todo-list">
-			<header>
+			<header className={Style.cat}>
 				<form onSubmit={this.handleSubmit}>
 					<input type="text"
 						onChange={this.handleChange}

@@ -5,6 +5,7 @@ const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 // 判断dll文件是否生成
 const manifestExists = fs.existsSync(path.resolve(__dirname, 'dll', 'mobx.manifest.json'));
@@ -37,7 +38,7 @@ const config = {
     entry: ['@babel/polyfill', path.resolve(__dirname, 'src/index.js')],
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'js/[name]-[hash].js'
+        filename: 'js/[name]-[chunkhash:8].js'
     },
     module: {
         rules: [{
@@ -51,6 +52,33 @@ const config = {
                     plugins: []
                 }
             }
+        }, {
+            test: /\.css$/,
+            use: [{
+                loader: MiniCssExtractPlugin.loader,
+                options: {
+                    hmr: process.env.NODE_ENV === 'development',
+                },
+            },
+            'css-loader',
+            ],
+        }, {
+            test: /\.less$/,
+            use: [{
+                loader: MiniCssExtractPlugin.loader,
+                options: {
+                    hmr: process.env.NODE_ENV === 'development',
+                },
+            },
+            {
+                loader: 'css-loader',
+                options: {
+                    modules: true,
+                }
+            },
+            'postcss-loader',
+            'less-loader',
+            ],
         }]
     },
     devtool: 'cheap-module-eval-source-map',
@@ -84,6 +112,46 @@ const config = {
     //         chunks: 'all',
     //         minSize: 40000
     //     }
+    // },
+    // optimization: {
+    //     splitChunks: {
+    //         chunks: 'all',
+    //         minSize: 30000,
+    //         minChunks: 1,
+    //         maxAsyncRequests: 5,
+    //         maxInitialRequests: 3,
+    //         automaticNameDelimiter: '~',
+    //         cacheGroups: {
+    //             // 单独打包react相关包
+    //             react: {
+    //                 priority: 199,
+    //                 name: 'vendor-react',
+    //                 filename: '[name].[hash:8].min.js?',
+    //                 chunks: 'initial', // initial只对入口文件处理
+    //                 minSize: 30000,
+    //                 test: /(react|react-dom|react-router-dom)/,
+    //             },
+    //             // 单独打包antd包
+    //             antd: {
+    //                 priority: 100,
+    //                 name: 'vendor-antd',
+    //                 filename: '[name].[hash:8]min.js?',
+    //                 chunks: 'initial',
+    //                 minSize: 30000,
+    //                 test: /(antd|@ant-design)/,
+    //             },
+    //             // 单独打包其它
+    //             vendors: {
+    //                 priority: -10,
+    //                 name: 'vendor',
+    //                 filename: '[name].[hash:8].min.js?',
+    //                 chunks: 'initial',
+    //                 test: /node_modules/,
+    //                 enforce: true
+    //             },
+    //             default: false,
+    //         }
+    //     },
     // },
     plugins: [
         // 压缩输出的 JS 代码
@@ -131,13 +199,11 @@ const config = {
         }),
         // 分析包插件
         new BundleAnalyzerPlugin(),
-        // 未验证 - 打包第三方库文件 - webpack4已删除
-        // new webpack.optimize.CommonsChunkPlugin({
-        //     name: (pkg.name ? (pkg.name + '-') : '') + 'vendor',
-        //     minChunks(module){
-        //         return module.context && module.context.indexOf('node_modules') !== -1
-        //     }
-        // }),
+        // 将CSS提取为独立的文件
+        new MiniCssExtractPlugin({
+            filename: 'css/[name]-[chunkhash:8].css',
+            chunkFilename: '[id]-[chunkhash:8].css',
+        }),
     ],
     // 不进行打包的库
     // externals: {
