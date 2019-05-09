@@ -5,7 +5,10 @@ import { observer, PropTypes as ObservablePropTypes } from 'mobx-react';
 import PropTypes from 'prop-types';
 import Style from './index.less';
 
+const a = Object.assign({}, { a: 1 });
+console.log(a);
 console.log(observable)
+console.log(13213)
 console.log(React)
 console.log(ReactDOM)
 console.log(observer)

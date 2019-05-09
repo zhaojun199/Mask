@@ -8,15 +8,18 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
+const rootPath = process.cwd();
+const dllPath = path.resolve(rootPath, 'dll');
+
 // 判断dll文件是否生成
-const manifestExists = fs.existsSync(path.resolve(__dirname, 'dll', 'mobx.manifest.json'));
+const manifestExists = fs.existsSync(path.resolve(dllPath, 'mobx.manifest.json'));
 if (!manifestExists) {
     console.error('请先执行`npm run dll`指令！');
     return;
 }
 
 const dllFiles = fs
-    .readdirSync(path.resolve(__dirname, 'dll'));
+    .readdirSync(dllPath);
 // 引入dll链接库打包的文件
 const dllMainfests = dllFiles
     .filter(it => {
@@ -24,8 +27,8 @@ const dllMainfests = dllFiles
     })
     .map(it => {
         return new webpack.DllReferencePlugin({
-            context: __dirname,
-            manifest: require(path.resolve(__dirname, 'dll', it)),
+            context: dllPath,
+            manifest: require(path.resolve(dllPath, it)),
         });
     });
 const dllJS = dllFiles
@@ -34,16 +37,15 @@ const dllJS = dllFiles
     });
 
 const config = {
-    mode: 'production',
-    // mode: 'development',
-    entry: [path.resolve(__dirname, 'src/index.js')],
+    mode: 'development',
+    entry: [path.resolve(rootPath, 'src/index.js')],
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(rootPath, 'dist'),
         filename: 'js/[name]-[chunkhash:8].js'
     },
     resolve: {
         alias: {
-            '@home': path.resolve(__dirname, 'src'),
+            '@home': path.resolve(rootPath, 'src'),
         },
         extensions: ['.jsx', '.js', '.json']
     },
@@ -64,7 +66,7 @@ const config = {
             use: [{
                 loader: MiniCssExtractPlugin.loader,
                 options: {
-                    // hmr: process.env.NODE_ENV === 'development',
+                    hmr: true,
                 },
             },
             'css-loader',
@@ -74,7 +76,7 @@ const config = {
             use: [{
                 loader: MiniCssExtractPlugin.loader,
                 options: {
-                    // hmr: process.env.NODE_ENV === 'development',
+                    hmr: true,
                 },
             },
             {
@@ -89,10 +91,9 @@ const config = {
         }]
     },
     devtool: 'cheap-module-eval-source-map',
-    // devtool: 'cheap-module-source-map',  生产环境
     // webpack-dev-server
     devServer: {
-        contentBase: path.resolve(__dirname, 'dist'),
+        contentBase: path.resolve(rootPath, 'dist'),
         open: true,
         port: 33330,
         hot: true,
@@ -146,62 +147,24 @@ const config = {
                 default: false,
             }
         },
-        minimizer: [
-            // 压缩输出的 JS 代码
-            new UglifyJSPlugin({
-                compress: {
-                    // 在UglifyJs删除没有用到的代码时不输出警告
-                    warnings: false,
-                    // 删除所有的 `console` 语句，可以兼容ie浏览器
-                    drop_console: true,
-                    // 内嵌定义了但是只用到一次的变量
-                    collapse_vars: true,
-                    // 提取出出现多次但是没有定义成变量去引用的静态值
-                    reduce_vars: true,
-                },
-                output: {
-                    // 最紧凑的输出
-                    beautify: false,
-                    // 删除所有的注释
-                    comments: false,
-                }
-            }),
-            // 压缩css
-            new OptimizeCSSAssetsPlugin({
-                assetNameRegExp: /\.css\.*(?!.*map)/g, // 注意不要写成 /\.css$/g
-                cssProcessor: require('cssnano'), //引入cssnano配置压缩选项
-                cssProcessorOptions: { 
-                    discardComments: { removeAll: true },
-                    // 避免 cssnano 重新计算 z-index
-                    safe: true,
-                    // cssnano 集成了autoprefixer的功能
-                    // 会使用到autoprefixer进行无关前缀的清理
-                    // 关闭autoprefixer功能
-                    // 使用postcss的autoprefixer功能
-                    autoprefixer: false,
-                },
-                canPrint: true //是否将插件信息打印到控制台
-            }),
-        ]
     },
     plugins: [
         // 将dll文件拷贝到dist目录
         new CopyWebpackPlugin([{
-            from: path.resolve(__dirname, 'dll'),
-            to: path.resolve(__dirname, 'dist', 'dll'),
+            from: path.resolve(dllPath),
+            to: path.resolve(rootPath, 'dist', 'dll'),
             ignore: ['html/*', '.DS_Store']
         }]),
         // 引入dll链接库打包的文件
         ...dllMainfests,
         new HtmlWebpackPlugin({
-            path: path.resolve(__dirname, 'dist'),
-            template: path.resolve(__dirname, 'index.html'),
+            path: path.resolve(dllPath),
+            template: path.resolve(dllPath, 'index.html'),
             title: 'mobx和webpack',
-            // version: '?v' + pkg.version,
             filename: 'index.html',
             inject: true,
             // 允许插入到模板中的一些chunk
-            chunks: ['main', 'vendors'],
+            chunks: ['main'],
             // hash: false,
             // minify: {
             //     removeComments: false,
@@ -219,10 +182,6 @@ const config = {
             chunkFilename: '[id]-[contenthash:8].css',
         }),
     ],
-    // 不进行打包的库
-    // externals: {
-    //     'mobx': 'mobx',
-    // },
 };
 
 module.exports = config;

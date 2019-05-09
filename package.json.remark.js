@@ -41,7 +41,10 @@
     "webpack-parallel-uglify-plugin": "^1.1.0"
   },
   "dependencies": {
-    "core-js": "^2.6.5",
+    "@babel/polyfill": "^7.4.3",  //  全局的es6语法库,会污染全局变量
+    //  polyfill局部使用，制造一个沙盒环境，不造成全局污染,但无法处理原型上的api
+    "@babel/runtime-corejs2": "^7.4.4",
+    "core-js": "^2.6.5",  //  @babel/polyfil和@babel/runtime-corejs2都依赖core-js(v2)
     "mobx": "^5.9.0",
     "mobx-react": "^5.4.3",
     "react": "^16.8.6",
