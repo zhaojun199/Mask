@@ -34,8 +34,8 @@ const dllJS = dllFiles
     });
 
 const config = {
-    mode: 'production',
-    // mode: 'development',
+    // mode: 'production',
+    mode: 'development',
     entry: [path.resolve(__dirname, 'src/index.js')],
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -88,8 +88,8 @@ const config = {
             ],
         }]
     },
-    devtool: 'cheap-module-eval-source-map',
-    // devtool: 'cheap-module-source-map',  生产环境
+    // devtool: 'cheap-module-eval-source-map',
+    devtool: 'cheap-module-source-map',  // 生产环境
     // webpack-dev-server
     devServer: {
         contentBase: path.resolve(__dirname, 'dist'),
@@ -146,43 +146,43 @@ const config = {
                 default: false,
             }
         },
-        minimizer: [
-            // 压缩输出的 JS 代码
-            new UglifyJSPlugin({
-                compress: {
-                    // 在UglifyJs删除没有用到的代码时不输出警告
-                    warnings: false,
-                    // 删除所有的 `console` 语句，可以兼容ie浏览器
-                    drop_console: true,
-                    // 内嵌定义了但是只用到一次的变量
-                    collapse_vars: true,
-                    // 提取出出现多次但是没有定义成变量去引用的静态值
-                    reduce_vars: true,
-                },
-                output: {
-                    // 最紧凑的输出
-                    beautify: false,
-                    // 删除所有的注释
-                    comments: false,
-                }
-            }),
-            // 压缩css
-            new OptimizeCSSAssetsPlugin({
-                assetNameRegExp: /\.css\.*(?!.*map)/g, // 注意不要写成 /\.css$/g
-                cssProcessor: require('cssnano'), //引入cssnano配置压缩选项
-                cssProcessorOptions: { 
-                    discardComments: { removeAll: true },
-                    // 避免 cssnano 重新计算 z-index
-                    safe: true,
-                    // cssnano 集成了autoprefixer的功能
-                    // 会使用到autoprefixer进行无关前缀的清理
-                    // 关闭autoprefixer功能
-                    // 使用postcss的autoprefixer功能
-                    autoprefixer: false,
-                },
-                canPrint: true //是否将插件信息打印到控制台
-            }),
-        ]
+        // minimizer: [
+        //     // 压缩输出的 JS 代码
+        //     new UglifyJSPlugin({
+        //         compress: {
+        //             // 在UglifyJs删除没有用到的代码时不输出警告
+        //             warnings: false,
+        //             // 删除所有的 `console` 语句，可以兼容ie浏览器
+        //             drop_console: true,
+        //             // 内嵌定义了但是只用到一次的变量
+        //             collapse_vars: true,
+        //             // 提取出出现多次但是没有定义成变量去引用的静态值
+        //             reduce_vars: true,
+        //         },
+        //         output: {
+        //             // 最紧凑的输出
+        //             beautify: false,
+        //             // 删除所有的注释
+        //             comments: false,
+        //         }
+        //     }),
+        //     // 压缩css
+        //     new OptimizeCSSAssetsPlugin({
+        //         assetNameRegExp: /\.css\.*(?!.*map)/g, // 注意不要写成 /\.css$/g
+        //         cssProcessor: require('cssnano'), //引入cssnano配置压缩选项
+        //         cssProcessorOptions: { 
+        //             discardComments: { removeAll: true },
+        //             // 避免 cssnano 重新计算 z-index
+        //             safe: true,
+        //             // cssnano 集成了autoprefixer的功能
+        //             // 会使用到autoprefixer进行无关前缀的清理
+        //             // 关闭autoprefixer功能
+        //             // 使用postcss的autoprefixer功能
+        //             autoprefixer: false,
+        //         },
+        //         canPrint: true //是否将插件信息打印到控制台
+        //     }),
+        // ]
     },
     plugins: [
         // 将dll文件拷贝到dist目录
