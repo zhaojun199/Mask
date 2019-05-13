@@ -3,7 +3,12 @@
 // import ReactDOM from 'react-dom';
 // import { observer, PropTypes as ObservablePropTypes } from 'mobx-react';
 // import PropTypes from 'prop-types';
-// import Style from './index.less';
+import Style from './index.less';
+import warning from 'warning';
+warning(
+    true,
+    `${213122313}. [${1313}]`,
+);
 
 const a = Object.assign({}, { a: 1 });
 console.log(a);

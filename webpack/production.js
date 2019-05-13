@@ -5,8 +5,9 @@ const merge = require('webpack-merge');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const UglifyJSPlugin = require('webpack-parallel-uglify-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
+// const UglifyJSPlugin = require('webpack-parallel-uglify-plugin');   //  迁移成TerserPlugin
+const TerserPlugin = require('terser-webpack-plugin');
 
 const rootPath = process.cwd();
 const dllPath = path.resolve(rootPath, 'dll');
@@ -37,74 +38,43 @@ const config = merge(common, {
         }),
     ],
     optimization: {
-        splitChunks: {
-            chunks: 'all',
-            minSize: 30000,
-            minChunks: 1,
-            maxAsyncRequests: 5,
-            maxInitialRequests: 3,
-            automaticNameDelimiter: '~',
-            cacheGroups: {
-                // 单独打包react相关包
-                // react: {
-                //     priority: 199,
-                //     name: 'vendor-react',
-                //     filename: '[name].[hash:8].min.js?',
-                //     chunks: 'initial', // initial只对入口文件处理
-                //     minSize: 30000,
-                //     test: /(react|react-dom|react-router-dom)/,
-                // },
-                // 单独打包antd包
-                // antd: {
-                //     priority: 100,
-                //     name: 'vendor-antd',
-                //     filename: '[name].[hash:8]min.js?',
-                //     chunks: 'initial',
-                //     minSize: 30000,
-                //     test: /(antd|@ant-design)/,
-                // },
-                // 单独打包@babel/polyfill
-                // polyfill: {
-                //     priority: 999,
-                //     name: 'polyfill',
-                //     filename: 'js/[name].[chunkhash:8].min.js?',
-                //     chunks: 'all',
-                //     test: /[\\/]node_modules[\\/]@babel[\\/]polyfill[\\/]/,
-                //     enforce: true
-                // },
-                // 单独打包其它
-                vendors: {
-                    priority: -10,
-                    name: 'vendors',
-                    filename: 'js/[name].[chunkhash:8].min.js?',
-                    chunks: 'initial',
-                    // chunks: 'async',
-                    test: /[\\/]node_modules[\\/]/,
-                    enforce: true
-                },
-                default: false,
-            }
-        },
         minimizer: [
             // 压缩输出的 JS 代码
-            new UglifyJSPlugin({
-                sourceMap: true,
-                uglifyJS: {
-                        compress: {
-                        // 在UglifyJs删除没有用到的代码时不输出警告
-                        warnings: false,
-                        // 删除所有的 `console` 语句，可以兼容ie浏览器
-                        drop_console: true,
-                        // 内嵌定义了但是只用到一次的变量
-                        collapse_vars: true,
-                        // 提取出出现多次但是没有定义成变量去引用的静态值
-                        reduce_vars: true,
-                    },
-                    output: {
-                        // 最紧凑的输出
-                        beautify: false,
-                        // 删除所有的注释
-                        comments: false,
+            // new UglifyJSPlugin({
+            //     sourceMap: true,
+            //     uglifyJS: {
+            //             compress: {
+            //             // 在UglifyJs删除没有用到的代码时不输出警告
+            //             warnings: false,
+            //             // 删除所有的 `console` 语句，可以兼容ie浏览器
+            //             drop_console: true,
+            //             // 内嵌定义了但是只用到一次的变量
+            //             collapse_vars: true,
+            //             // 提取出出现多次但是没有定义成变量去引用的静态值
+            //             reduce_vars: true,
+            //         },
+            //         output: {
+            //             // 最紧凑的输出
+            //             beautify: false,
+            //             // 删除所有的注释
+            //             comments: false,
+            //         },
+            //     },
+            // }),
+            new TerserPlugin({
+                cache: '.cache', //  缓存路径
+                parallel: true, //  多线程压缩
+                sourceMap: true,    //开启sourceMap
+                extractComments: true,  //  去除注释
+                warningsFilter: (warning, source) => {
+                    // console.log('warning ==== >', warning, source)
+                    return false;
+                },
+                terserOptions: {
+                    warnings: true,
+                    compress: {
+                        drop_console: true, //  删除所有的 `console` 语句
+                        drop_debugger: true,    //  remove debugger
                     },
                 },
             }),

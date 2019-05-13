@@ -5,3 +5,4 @@ dist
 package-lock.json
 dll
 stats.json
+.cache

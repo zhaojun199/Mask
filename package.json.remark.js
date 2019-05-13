@@ -34,11 +34,12 @@
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "postcss": "^7.0.14",
     "postcss-loader": "^3.0.0",
+    "terser-webpack-plugin": "^1.2.3",  //  webpack4.0以上版本的压缩js插件
     "webpack": "^4.29.0",
     "webpack-bundle-analyzer": "^3.3.2",
     "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.2.1",
-    "webpack-parallel-uglify-plugin": "^1.1.0"
+    "webpack-parallel-uglify-plugin": "^1.1.0"  //  webpack4.0迁移成terser-webpack-plugin
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.3",  //  全局的es6语法库,会污染全局变量
@@ -48,6 +49,7 @@
     "mobx": "^5.9.0",
     "mobx-react": "^5.4.3",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "warning": "^4.0.3"
   }
 }
