@@ -12,6 +12,7 @@ warning(
 
 const a = Object.assign({}, { a: 1 });
 console.log(a);
+window.console.log(a);
 // console.log(observable)
 // console.log(13213)
 // console.log(React)

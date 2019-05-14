@@ -65,15 +65,21 @@ const config = merge(common, {
                 cache: '.cache', //  缓存路径
                 parallel: true, //  多线程压缩
                 sourceMap: true,    //开启sourceMap
-                extractComments: true,  //  去除注释
-                warningsFilter: (warning, source) => {
-                    // console.log('warning ==== >', warning, source)
-                    return false;
-                },
+                extractComments: true,  //  提取出注释
+                // 过滤命令行控制台警告输出
+                // warningsFilter: (warning, source) => {
+                //     // console.log('warning ==== >', warning, source)
+                //     return false;
+                // },
                 terserOptions: {
-                    warnings: true,
+                    // https://github.com/terser-js/terser#output-options
+                    output: {
+                        comments: false,    //  去除代码和webpack中的注释
+                    },
+                    // warnings: true,  //  命令行控制台输出警告
+                    // https://github.com/terser-js/terser#compress-options
                     compress: {
-                        drop_console: true, //  删除所有的 `console` 语句
+                        drop_console: true, //  删除所有的 `console` 语句，不会删除window.console
                         drop_debugger: true,    //  remove debugger
                     },
                 },
