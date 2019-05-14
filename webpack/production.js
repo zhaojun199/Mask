@@ -8,18 +8,99 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 // const UglifyJSPlugin = require('webpack-parallel-uglify-plugin');   //  迁移成TerserPlugin
 const TerserPlugin = require('terser-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HappyPack = require('happypack');
+
+const os = require('os');
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
 const rootPath = process.cwd();
 const dllPath = path.resolve(rootPath, 'dll');
+const modulePath = path.resolve(rootPath, 'node_modules');
 
+const theme = require('./theme');   //  less变量名配置
+// debugger;
 const config = merge(common, {
     mode: 'production',
     output: {
         path: path.resolve(rootPath, 'dist'),
-        filename: 'js/[name]-[chunkhash:8].js'
+        filename: 'js/[name]-[chunkhash:8].js',
+        publicPath: './',   //  插入到html模板的路径前缀
     },
     devtool: 'cheap-module-source-map',
+    module: {
+        rules: [{
+            test: /\.css$/,
+            use: [
+                MiniCssExtractPlugin.loader,
+                'happypack/loader?id=cssLoader'
+            ],
+            exclude: [modulePath]
+        }, {
+            // 处理本地less样式文件，开启css module功能
+            test: /\.less$/,
+            use: [
+                MiniCssExtractPlugin.loader,
+                'happypack/loader?id=lessWithCssModuleLoader'
+            ],
+            exclude: [modulePath]
+        }, {
+            // 处理依赖包中的less样式文件，不开启css module功能
+            test: /\.less$/,
+            use: [
+                MiniCssExtractPlugin.loader,
+                'happypack/loader?id=lessLoader'
+            ],
+            include: [modulePath]
+        }],
+    },
     plugins: [
+        new HappyPack({
+            id: 'lessWithCssModuleLoader',
+            threadPool: happyThreadPool,
+            loaders: [
+                {
+                    loader: 'css-loader',
+                    options: {
+                        importLoaders: 2,
+                        modules: true,
+                        context: path.resolve(rootPath, 'src'),  //  配置了localIdentName必须配置context，hash名根路径
+                        localIdentName: '[path][name]-[local]-[hash:base64:2]', //  自定义hash名
+                    }
+                },
+                'postcss-loader',
+                {
+                    loader: 'less-loader',
+                    options: {
+                        modifyVars: theme,
+                        javascriptEnabled: true
+                    }
+                }
+            ]
+        }),
+        new HappyPack({
+            id: 'lessLoader',
+            threadPool: happyThreadPool,
+            loaders: [
+                'css-loader',
+                'postcss-loader',
+                {
+                    loader: 'less-loader',
+                    options: {
+                        modifyVars: theme,
+                        javascriptEnabled: true
+                    }
+                }
+            ]
+        }),
+        new HappyPack({
+            id: 'cssLoader',
+            threadPool: happyThreadPool,
+            loaders: [
+                'css-loader',
+                'postcss-loader',
+            ]
+        }),
         new CleanWebpackPlugin(),   //  每次编译清空文件夹
         new HtmlWebpackPlugin({
             path: path.resolve(rootPath),
@@ -79,7 +160,7 @@ const config = merge(common, {
                     // warnings: true,  //  命令行控制台输出警告
                     // https://github.com/terser-js/terser#compress-options
                     compress: {
-                        drop_console: true, //  删除所有的 `console` 语句，不会删除window.console
+                        // drop_console: true, //  删除所有的 `console` 语句，不会删除window.console
                         drop_debugger: true,    //  remove debugger
                     },
                 },

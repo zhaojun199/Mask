@@ -4,6 +4,9 @@ const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const HappyPack = require('happypack'); //  接入happypack进行多线程编译
+const os = require('os');
+const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
 const rootPath = process.cwd();
 const dllPath = path.resolve(rootPath, 'dll');
@@ -36,17 +39,12 @@ const config = {
     },
     module: {
         rules: [{
-            test: /\.js$/,
-            exclude: /node_modules/,
-            use: {
-                loader: 'babel-loader',
-                // 个人测试：如果配置了options，会和.babelrc的配置取并集
-                options: {
-                    presets: [],
-                    plugins: []
-                }
-            }
-        }, {
+            test: /\.(js|jsx)$/,
+            //把对.js 的文件处理交给id为happyBabel 的HappyPack 的实例执行
+            loader: 'happypack/loader?id=happyBabel',
+            //排除node_modules 目录下的文件
+            exclude: /node_modules/
+        }, /*{
             test: /\.css$/,
             use: [{
                 loader: MiniCssExtractPlugin.loader,
@@ -55,6 +53,7 @@ const config = {
                 },
             },
             'css-loader',
+            'postcss-loader',
             ],
         }, {
             test: /\.less$/,
@@ -67,6 +66,7 @@ const config = {
             {
                 loader: 'css-loader',
                 options: {
+                    // importLoaders: 2,
                     modules: true,
                     localIdentName: '[path][name]-[local]-[hash:base64:2]',
                 }
@@ -74,6 +74,21 @@ const config = {
             'postcss-loader',
             'less-loader',
             ],
+        }, */{
+            // 图片转化，小于8k自动转化成base64编码
+            test: /\.(png|jpg|gif)$/,
+            use: [{
+                loader: 'url-loader',
+                options: {
+                    limit: 11920
+                }
+            }],
+        }, {
+            // 字体
+            test: /\.(woff|svg|eot|ttf|otf)\??.*$/,
+            use: [{
+                loader: 'file-loader'
+            }],
         }]
     },
     optimization: {
@@ -132,6 +147,27 @@ const config = {
             filename: 'css/[name]-[contenthash:8].css',
             chunkFilename: '[id]-[contenthash:8].css',
         }),
+        //在开发时不需要每个页面都引用React
+        new webpack.ProvidePlugin({
+            'React': 'react',
+        }),
+        new HappyPack({
+            //用id来标识 happypack处理那里类文件
+            id: 'happyBabel',
+            //如何处理  用法和loader 的配置一样
+            loaders: [{
+                loader: 'babel-loader?cacheDirectory=true',
+            }],
+            //共享进程池
+            threadPool: happyThreadPool,
+            //允许 HappyPack 输出日志
+            verbose: true,
+        }),
+        // 只打包moment的中文语言包，达到减少打包体积的效果
+        new webpack.ContextReplacementPlugin(
+            /moment[/\\]locale$/,
+            /zh-cn/,
+        ),
     ],
     // 不进行打包的库
     // externals: {
