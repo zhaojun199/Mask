@@ -1,3 +1,4 @@
+// 简单配置可以参考此网站 https://createapp.dev/webpack
 const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
@@ -10,6 +11,9 @@ const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
 const rootPath = process.cwd();
 const dllPath = path.resolve(rootPath, 'dll');
+const modulePath = path.resolve(rootPath, 'node_modules');
+
+const theme = require('./theme');   //  less变量名配置
 
 const dllFiles = fs
     .readdirSync(dllPath);
@@ -44,37 +48,15 @@ const config = {
             loader: 'happypack/loader?id=happyBabel',
             //排除node_modules 目录下的文件
             exclude: /node_modules/
-        }, /*{
-            test: /\.css$/,
-            use: [{
-                loader: MiniCssExtractPlugin.loader,
-                options: {
-                    // hmr: process.env.NODE_ENV === 'development',
-                },
-            },
-            'css-loader',
-            'postcss-loader',
-            ],
         }, {
+            // 处理依赖包中的less样式文件，不开启css module功能
             test: /\.less$/,
-            use: [{
-                loader: MiniCssExtractPlugin.loader,
-                options: {
-                    // hmr: process.env.NODE_ENV === 'development',
-                },
-            },
-            {
-                loader: 'css-loader',
-                options: {
-                    // importLoaders: 2,
-                    modules: true,
-                    localIdentName: '[path][name]-[local]-[hash:base64:2]',
-                }
-            },
-            'postcss-loader',
-            'less-loader',
+            use: [
+                MiniCssExtractPlugin.loader,
+                'happypack/loader?id=lessLoader'
             ],
-        }, */{
+            include: [modulePath]
+        }, {
             // 图片转化，小于8k自动转化成base64编码
             test: /\.(png|jpg|gif)$/,
             use: [{
@@ -156,12 +138,27 @@ const config = {
             id: 'happyBabel',
             //如何处理  用法和loader 的配置一样
             loaders: [{
-                loader: 'babel-loader?cacheDirectory=true',
+                loader: 'babel-loader?cacheDirectory=true', //  启用缓存后，第一次不会输出babel debug
             }],
             //共享进程池
             threadPool: happyThreadPool,
             //允许 HappyPack 输出日志
             verbose: true,
+        }),
+        new HappyPack({
+            id: 'lessLoader',
+            threadPool: happyThreadPool,
+            loaders: [
+                'css-loader',
+                'postcss-loader',
+                {
+                    loader: 'less-loader',
+                    options: {
+                        modifyVars: theme,
+                        javascriptEnabled: true
+                    }
+                }
+            ]
         }),
         // 只打包moment的中文语言包，达到减少打包体积的效果
         new webpack.ContextReplacementPlugin(
@@ -177,6 +174,11 @@ const config = {
 
 const custom =  {
     dllJS: dllJS,
+    theme,
+    happyThreadPool,
+    rootPath,
+    dllPath,
+    modulePath,
 };
 
 module.exports = { config, custom };

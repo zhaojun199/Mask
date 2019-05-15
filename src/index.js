@@ -1,5 +1,5 @@
 import { observable, action, computed } from 'mobx';
-import React, { Component, Fragment } from 'react';
+import { Component, Fragment } from 'react';
 import ReactDOM from 'react-dom';
 import { observer, PropTypes as ObservablePropTypes } from 'mobx-react';
 import PropTypes from 'prop-types';
@@ -7,14 +7,14 @@ import Style from './index.less';
 import warning from 'warning';
 import moment from 'moment';
 warning(
-    true,
+    false,
     `${213122313}. [${1313}]`,
 );
 
 const a = Object.assign({}, { a: 1 });
 console.log(a);
 console.log(Style);
-window.console.log(a);
+window.console.log(React);
 console.log(observable)
 console.log(13213)
 console.log(React)

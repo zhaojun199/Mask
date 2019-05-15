@@ -11,14 +11,15 @@ const TerserPlugin = require('terser-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HappyPack = require('happypack');
 
-const os = require('os');
-const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
+const {
+    happyThreadPool,
+    rootPath,
+    dllPath,
+    modulePath,
+    theme,
+    dllJS,
+} = custom;
 
-const rootPath = process.cwd();
-const dllPath = path.resolve(rootPath, 'dll');
-const modulePath = path.resolve(rootPath, 'node_modules');
-
-const theme = require('./theme');   //  less变量名配置
 // debugger;
 const config = merge(common, {
     mode: 'production',
@@ -44,14 +45,6 @@ const config = merge(common, {
                 'happypack/loader?id=lessWithCssModuleLoader'
             ],
             exclude: [modulePath]
-        }, {
-            // 处理依赖包中的less样式文件，不开启css module功能
-            test: /\.less$/,
-            use: [
-                MiniCssExtractPlugin.loader,
-                'happypack/loader?id=lessLoader'
-            ],
-            include: [modulePath]
         }],
     },
     plugins: [
@@ -68,21 +61,6 @@ const config = merge(common, {
                         localIdentName: '[path][name]-[local]-[hash:base64:2]', //  自定义hash名
                     }
                 },
-                'postcss-loader',
-                {
-                    loader: 'less-loader',
-                    options: {
-                        modifyVars: theme,
-                        javascriptEnabled: true
-                    }
-                }
-            ]
-        }),
-        new HappyPack({
-            id: 'lessLoader',
-            threadPool: happyThreadPool,
-            loaders: [
-                'css-loader',
                 'postcss-loader',
                 {
                     loader: 'less-loader',
@@ -115,7 +93,7 @@ const config = merge(common, {
                 removeComments: true,
                 collapseWhitespace: true
             },
-            dll: custom.dllJS, // 自定义属性
+            dll: dllJS, // 自定义属性
         }),
     ],
     optimization: {
@@ -160,7 +138,7 @@ const config = merge(common, {
                     // warnings: true,  //  命令行控制台输出警告
                     // https://github.com/terser-js/terser#compress-options
                     compress: {
-                        // drop_console: true, //  删除所有的 `console` 语句，不会删除window.console
+                        drop_console: true, //  删除所有的 `console` 语句，不会删除window.console
                         drop_debugger: true,    //  remove debugger
                     },
                 },
