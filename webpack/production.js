@@ -13,9 +13,8 @@ const HappyPack = require('happypack');
 
 const {
     happyThreadPool,
-    rootPath,
-    dllPath,
-    modulePath,
+    ROOT_PATH,
+    MODULE_PATH,
     theme,
     dllJS,
 } = custom;
@@ -24,7 +23,7 @@ const {
 const config = merge(common, {
     mode: 'production',
     output: {
-        path: path.resolve(rootPath, 'dist'),
+        path: path.resolve(ROOT_PATH, 'dist'),
         filename: 'js/[name]-[chunkhash:8].js',
         publicPath: './',   //  插入到html模板的路径前缀
     },
@@ -36,7 +35,7 @@ const config = merge(common, {
                 MiniCssExtractPlugin.loader,
                 'happypack/loader?id=cssLoader'
             ],
-            exclude: [modulePath]
+            exclude: [MODULE_PATH]
         }, {
             // 处理本地less样式文件，开启css module功能
             test: /\.less$/,
@@ -44,7 +43,7 @@ const config = merge(common, {
                 MiniCssExtractPlugin.loader,
                 'happypack/loader?id=lessWithCssModuleLoader'
             ],
-            exclude: [modulePath]
+            exclude: [MODULE_PATH]
         }],
     },
     plugins: [
@@ -57,7 +56,7 @@ const config = merge(common, {
                     options: {
                         importLoaders: 2,
                         modules: true,
-                        context: path.resolve(rootPath, 'src'),  //  配置了localIdentName必须配置context，hash名根路径
+                        context: path.resolve(ROOT_PATH, 'src'),  //  配置了localIdentName必须配置context，hash名根路径
                         localIdentName: '[path][name]-[local]-[hash:base64:2]', //  自定义hash名
                     }
                 },
@@ -81,8 +80,8 @@ const config = merge(common, {
         }),
         new CleanWebpackPlugin(),   //  每次编译清空文件夹
         new HtmlWebpackPlugin({
-            path: path.resolve(rootPath),
-            template: path.resolve(rootPath, 'index.html'),
+            path: path.resolve(ROOT_PATH),
+            template: path.resolve(ROOT_PATH, 'index.html'),
             title: 'mobx和webpack',
             filename: 'index.html',
             inject: true,

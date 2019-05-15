@@ -2,21 +2,20 @@
 const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HappyPack = require('happypack'); //  接入happypack进行多线程编译
 const os = require('os');
 const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 
-const rootPath = process.cwd();
-const dllPath = path.resolve(rootPath, 'dll');
-const modulePath = path.resolve(rootPath, 'node_modules');
+const ROOT_PATH = process.cwd();
+const DLL_PATH = path.resolve(ROOT_PATH, 'dll');
+const MODULE_PATH = path.resolve(ROOT_PATH, 'node_modules');
 
 const theme = require('./theme');   //  less变量名配置
 
 const dllFiles = fs
-    .readdirSync(dllPath);
+    .readdirSync(DLL_PATH);
 // 引入dll链接库打包的文件
 const dllMainfests = dllFiles
     .filter(it => {
@@ -24,8 +23,8 @@ const dllMainfests = dllFiles
     })
     .map(it => {
         return new webpack.DllReferencePlugin({
-            context: dllPath,
-            manifest: require(path.resolve(dllPath, it)),
+            context: DLL_PATH,
+            manifest: require(path.resolve(DLL_PATH, it)),
         });
     });
 const dllJS = dllFiles
@@ -34,10 +33,10 @@ const dllJS = dllFiles
     });
 
 const config = {
-    entry: [path.resolve(rootPath, 'src/index.js')],
+    entry: [path.resolve(ROOT_PATH, 'src/index.js')],
     resolve: {
         alias: {
-            '@home': path.resolve(rootPath, 'src'),
+            '@home': path.resolve(ROOT_PATH, 'src'),
         },
         extensions: ['.jsx', '.js', '.json']   // require时省略的扩展名
     },
@@ -55,7 +54,7 @@ const config = {
                 MiniCssExtractPlugin.loader,
                 'happypack/loader?id=lessLoader'
             ],
-            include: [modulePath]
+            include: [MODULE_PATH]
         }, {
             // 图片转化，小于8k自动转化成base64编码
             test: /\.(png|jpg|gif)$/,
@@ -115,11 +114,10 @@ const config = {
         },
     },
     plugins: [
-        new CleanWebpackPlugin(),    //  每次编译清空文件夹
         // 将dll文件拷贝到dist目录
         new CopyWebpackPlugin([{
-            from: dllPath,
-            to: path.resolve(rootPath, 'dist', 'dll'),
+            from: DLL_PATH,
+            to: path.resolve(ROOT_PATH, 'dist', 'dll'),
             ignore: ['html/*', '.DS_Store']
         }]),
         // 引入dll链接库打包的文件
@@ -154,7 +152,7 @@ const config = {
                 {
                     loader: 'less-loader',
                     options: {
-                        modifyVars: theme,
+                        modifyVars: theme,  //  重定义less变量
                         javascriptEnabled: true
                     }
                 }
@@ -176,9 +174,9 @@ const custom =  {
     dllJS: dllJS,
     theme,
     happyThreadPool,
-    rootPath,
-    dllPath,
-    modulePath,
+    ROOT_PATH,
+    DLL_PATH,
+    MODULE_PATH,
 };
 
 module.exports = { config, custom };

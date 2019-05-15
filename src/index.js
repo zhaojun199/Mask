@@ -91,7 +91,7 @@ class TodoList extends Component {
 				</form>
 			</header>
 			<ul></ul>
-			<footer>{store.left} items left</footer>
+			<footer>{store.left} items left12</footer>
 		</div>
 	}
 }

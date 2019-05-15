@@ -9,9 +9,8 @@ const HappyPack = require('happypack');
 
 const {
     happyThreadPool,
-    rootPath,
-    dllPath,
-    modulePath,
+    ROOT_PATH,
+    MODULE_PATH,
     theme,
     dllJS,
 } = custom;
@@ -19,16 +18,18 @@ const {
 const config = merge(common, {
     mode: 'development',
     output: {
-        path: path.resolve(rootPath, 'dist'),
+        path: path.resolve(ROOT_PATH, 'dist'),
         filename: 'js/[name]-[hash:8].js'
     },
     devtool: 'cheap-module-eval-source-map',
     // webpack-dev-server
     devServer: {
-        contentBase: path.resolve(rootPath, 'dist'),
+        contentBase: path.resolve(ROOT_PATH, 'dist'),
         open: true,
         port: 33330,
         hot: true,
+        // hot 和 hotOnly 的区别是在某些模块不支持热更新的情况下，前者会自动刷新页面，后者不会刷新页面，而是在控制台输出热更新失败
+        hotOnly:true,
     },
     module: {
         rules: [{
@@ -42,7 +43,7 @@ const config = merge(common, {
                 },
                 'happypack/loader?id=cssLoader'
             ],
-            exclude: [modulePath]
+            exclude: [MODULE_PATH]
         }, {
             // 处理本地less样式文件，开启css module功能
             test: /\.less$/,
@@ -55,7 +56,7 @@ const config = merge(common, {
                 },
                 'happypack/loader?id=lessWithCssModuleLoader'
             ],
-            exclude: [modulePath]
+            exclude: [MODULE_PATH]
         }],
     },
     plugins: [
@@ -69,7 +70,7 @@ const config = merge(common, {
                     options: {
                         importLoaders: 2,
                         modules: true,
-                        context: path.resolve(rootPath, 'src'),  //  配置了localIdentName必须配置context，hash名根路径
+                        context: path.resolve(ROOT_PATH, 'src'),  //  配置了localIdentName必须配置context，hash名根路径
                         localIdentName: '[path][name]-[local]-[hash:base64:2]', //  自定义hash名
                     }
                 },
@@ -92,8 +93,8 @@ const config = merge(common, {
             ]
         }),
         new HtmlWebpackPlugin({
-            path: path.resolve(rootPath),
-            template: path.resolve(rootPath, 'index.html'),
+            path: path.resolve(ROOT_PATH),
+            template: path.resolve(ROOT_PATH, 'index.html'),
             title: 'mobx和webpack',
             filename: 'index.html',
             inject: true,

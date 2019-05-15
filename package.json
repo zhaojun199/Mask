@@ -11,7 +11,8 @@
     "dll": "webpack --config webpack/dll.js",
     "dev": "webpack-dev-server --config webpack/develop.js --profile",
     "dev:file": "webpack --config webpack/develop.js --profile",
-    "stat": "webpack --config webpack.config.js --json > stats.json"
+    "stat": "webpack --config webpack/production.js --json > stats.json",
+    "analyze": "webpack --config webpack/analyze.js --profile"
   },
   "author": "",
   "license": "ISC",
