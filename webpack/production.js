@@ -28,6 +28,7 @@ const config = merge(common, {
         publicPath: './',   //  插入到html模板的路径前缀
     },
     devtool: 'cheap-module-source-map',
+    bail: true, //  在遇到错误的时候，打包过程将会退出，且把错误信息打印到 stderr
     module: {
         rules: [{
             test: /\.css$/,
@@ -89,8 +90,9 @@ const config = merge(common, {
             chunks: ['main', 'vendors'],
             // hash: false,
             minify: {
-                removeComments: true,
-                collapseWhitespace: true
+                removeComments: true,   //  删除注释，但是会保留script和style中的注释
+                collapseWhitespace: true,   //  删除空格，但是不会删除SCRIPT、style和textarea中的空格
+                removeAttributeQuotes: true,    //  删除不需要引号的值
             },
             dll: dllJS, // 自定义属性
         }),
