@@ -103,7 +103,7 @@ const config = {
                 vendors: {
                     priority: -10,
                     name: 'vendors',
-                    filename: 'js/[name].[chunkhash:8].min.js?',
+                    filename: 'js/[name]-[chunkhash:8].min.js?',
                     chunks: 'initial',
                     // chunks: 'async',
                     test: /[\\/]node_modules[\\/]/,
@@ -163,6 +163,14 @@ const config = {
             /moment[/\\]locale$/,
             /zh-cn/,
         ),
+        // sourcemap插件，可配置内网souercemap地址
+        new webpack.SourceMapDevToolPlugin({
+            test: /\.jsx?$/,
+            filename: 'sourcemaps/[name]-[chunkhash:8].js.map',
+            // publicPath: 'http://hostname/sourcemaps/',   //  内外网分离时启用此配置
+            publicPath: '',
+        })
+
     ],
     // 不进行打包的库
     // externals: {
