@@ -122,7 +122,8 @@ const config = merge(common, {
             //     },
             // }),
             new TerserPlugin({
-                cache: '.cache', //  缓存路径
+                // TODO：缓存路径配置导致build文件不更新
+                // cache: '.cache', //  缓存路径
                 parallel: true, //  多线程压缩
                 sourceMap: true,    //开启sourceMap
                 extractComments: true,  //  提取出注释
