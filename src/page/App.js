@@ -1,5 +1,5 @@
-import { connect } from 'react-redux'
-import { setVisibilityFilter } from '@home/controller'
+import connect from '@home/core/connect'
+// import { setVisibilityFilter } from '@home/controller'
 
 const mapStateToProps = (state, ownProps) => ({
   // active: ownProps.filter === state.visibilityFilter

@@ -1,10 +1,5 @@
-import Dispatch from './Dispatch';
+import { connect } from 'react-redux'
 
-export default function(modelMap = {}) {
-	const props = {
-		...modelMap,
-	}
-	return function(component) {
-		<component {...props} />
-	}
+export default function(mapStateToProps, mapDispatchToProps) {
+	return connect(mapStateToProps, mapDispatchToProps);
 }

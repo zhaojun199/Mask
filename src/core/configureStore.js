@@ -3,8 +3,8 @@ import { applyMiddleware, compose, createStore } from 'redux'
 import monitorReducersEnhancer from '@home/enhancers/monitorReducer'
 import loggerMiddleware from '@home/middleware/logger'
 
-// import rootReducer from './reducers'
-const rootReducer = () => {}
+import rootReducer from './extractReducers'
+// const rootReducer = () => {}
 
 export default function configureStore(preloadedState) {
 	const middlewares = [loggerMiddleware]
