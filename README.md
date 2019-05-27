@@ -8,3 +8,6 @@
 - 2019-5-17
 	- 生产环境增加bail配置，用于输出错误日志
 	- 增加sourcemap插件，用于后期内外网分离访问sourcemap配置
+
+- 2019-5-27
+	- 新增@babel/plugin-proposal-optional-chaining插件，支持a?.b?.c语法

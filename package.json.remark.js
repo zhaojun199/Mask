@@ -17,6 +17,7 @@
     "@babel/core": "^7.2.2",
     "@babel/plugin-proposal-class-properties": "^7.3.0",
     "@babel/plugin-proposal-decorators": "^7.3.0",
+    "@babel/plugin-proposal-optional-chaining": "^7.2.0", //  可选链式调用
     "@babel/plugin-transform-runtime": "^7.4.4",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.0.0",
