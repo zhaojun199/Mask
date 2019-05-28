@@ -88,6 +88,13 @@ const config = merge(common, {
             inject: true,
             // 允许插入到模板中的一些chunk
             chunks: ['main', 'vendors'],
+            // 对chunks强制排序，防止其不按预期顺序加载
+            chunksSortMode(chunk1, chunk2) {
+                const order = ['vendors', 'main'];
+                const order1 = order.indexOf(chunk1.names[0]);
+                const order2 = order.indexOf(chunk2.names[0]);
+                return order1 - order2;  
+            },
             // hash: false,
             minify: {
                 removeComments: true,   //  删除注释，但是会保留script和style中的注释

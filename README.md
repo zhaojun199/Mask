@@ -11,3 +11,8 @@
 
 - 2019-5-27
 	- 新增@babel/plugin-proposal-optional-chaining插件，支持a?.b?.c语法
+
+- 2019-5-28
+	- html-webpack-plugin增加chunksSortMode配置，强制依赖依次执行
+	- devServer增加proxy代理api配置
+	- html增加若干meta

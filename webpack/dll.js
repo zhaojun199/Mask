@@ -1,3 +1,4 @@
+// DllPlugin 提取第三方模块不够完整，我一般用于开发环境加速构建，生产环境可以考虑使用 CommonsChunkPlugin 来划分第三方库
 const path = require('path');
 const webpack = require('webpack');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -12,6 +13,7 @@ const config = {
 		react: ['react'],
 		// 这里如果用中划线命名，则压缩会报错
 		reactDom: ['react-dom'],
+		// reactRouterDom: ['react-router-dom'],
 		mobxReact: ['mobx-react'],
 		propTypes: ['prop-types'],
 	},

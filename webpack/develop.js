@@ -32,6 +32,13 @@ const config = merge(common, {
         hot: true,
         // hot 和 hotOnly 的区别是在某些模块不支持热更新的情况下，前者会自动刷新页面，后者不会刷新页面，而是在控制台输出热更新失败
         hotOnly:true,
+        proxy: {
+            '*': {
+                target: 'http://domain.hostname.com',
+                changeOrigin: true,
+                pathRewrite: { '^/api': '' },
+            },
+        },
     },
     module: {
         rules: [{
@@ -102,11 +109,13 @@ const config = merge(common, {
             inject: true,
             // 允许插入到模板中的一些chunk
             chunks: ['main', 'vendors'],
-            // hash: false,
-            // minify: {
-            //     removeComments: false,
-            //     collapseWhitespace: false
-            // }
+            // 对chunks强制排序，防止其不按预期顺序加载
+            chunksSortMode(chunk1, chunk2) {
+                const order = ['vendors', 'main'];
+                const order1 = order.indexOf(chunk1.names[0]);
+                const order2 = order.indexOf(chunk2.names[0]);
+                return order1 - order2;  
+            },
             dll: dllJS, // 自定义属性
         }),
     ],
