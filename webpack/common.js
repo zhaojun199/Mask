@@ -119,6 +119,9 @@ const config = {
             from: DLL_PATH,
             to: path.resolve(ROOT_PATH, 'dist', 'dll'),
             ignore: ['html/*', '.DS_Store']
+        }, {
+            from: path.resolve(ROOT_PATH, 'static'),
+            to: path.resolve(ROOT_PATH, 'dist', 'static')
         }]),
         // 引入dll链接库打包的文件
         ...dllMainfests,

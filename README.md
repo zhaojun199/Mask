@@ -16,3 +16,4 @@
 	- html-webpack-plugin增加chunksSortMode配置，强制依赖依次执行
 	- devServer增加proxy代理api配置
 	- html增加若干meta
+	- 增加copy static目录到dist目录
