@@ -22,8 +22,20 @@ export default connect(
 	// setTimeout(() => {
 	// 	props.dispatch({
 	// 		type: 'demo/showText',
-	// 		id: 999,
+	// 		id: (props.demo.id || 0) + 1,
 	// 	})
-	// }, 1000)
-	return 123
+	// }, 10000)
+	// setTimeout(() => {
+	// 	props.dispatch({
+	// 		type: 'demo/asyncText',
+	// 		id: (props.demo.id || 0) + 1,
+	// 	})
+	// }, 10000)
+	// setTimeout(() => {
+	// 	props.dispatch({
+	// 		type: 'FETCH_USER',
+	// 		id: (props.demo.id || 0) + 1,
+	// 	})
+	// }, 10000)
+	return props.demo.id || 0
 })

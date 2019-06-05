@@ -58,3 +58,7 @@ export function getClassFunction(cls) {
 		});
 	return keysOnlyFunc;
 }
+// 判断是否是promise
+export function assertIsPromise(obj) {
+	return !!obj && (typeof obj === 'object' || typeof obj === 'function') && typeof obj.then === 'function';
+}

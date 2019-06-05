@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
 import warning from 'warning'
-import demo from '@home/controller/demo'
-import demo2 from '@home/controller/demo2'
-import { getClassName, getClassFunction } from './util'
+import demo from '@home/controller/demo.ctrl'
+import demo2 from '@home/controller/demo2.ctrl'
+import { getClassName, getClassFunction, assertIsPromise } from './util'
 
 const usedNamespace = []
 
@@ -21,6 +21,7 @@ const reducers = {};
 		const actionType = type
 		const extractActionType = actionType.split('/')
 		if (reducerName === extractActionType[0]) {
+			let newState = entry[extractActionType[1]](otherAction);
 			return {
 				...state,
 				...(entry[extractActionType[1]](otherAction))
