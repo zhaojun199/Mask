@@ -17,3 +17,7 @@
 	- devServer增加proxy代理api配置
 	- html增加若干meta
 	- 增加copy static目录到dist目录
+
+- TODO
+	- 获取dispatch结果
+	- 异步更新store里的reducer，Store.replaceReducer

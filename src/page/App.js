@@ -20,10 +20,11 @@ export default connect(
 )((props) => {
 	console.log('app', props)
 	// setTimeout(() => {
-	// 	props.dispatch({
+	// 	const a = props.dispatch({
 	// 		type: 'demo/showText',
 	// 		id: (props.demo.id || 0) + 1,
 	// 	})
+	// 	console.log(a)
 	// }, 10000)
 	// setTimeout(() => {
 	// 	props.dispatch({
@@ -31,11 +32,12 @@ export default connect(
 	// 		id: (props.demo.id || 0) + 1,
 	// 	})
 	// }, 10000)
-	// setTimeout(() => {
-	// 	props.dispatch({
-	// 		type: 'FETCH_USER',
-	// 		id: (props.demo.id || 0) + 1,
-	// 	})
-	// }, 10000)
+	setTimeout(() => {
+		const m = props.dispatch({
+			type: 'FETCH_USER',
+			id: (props.demo.id || 0) + 1,
+		})
+		console.log(m)
+	}, 10000)
 	return props.demo.id || 0
 })

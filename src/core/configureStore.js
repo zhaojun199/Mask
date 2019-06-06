@@ -6,6 +6,7 @@ import loggerMiddleware from '@home/middleware/logger'
 
 import rootReducer from './extractReducers'
 import rootEpic from './extractEpic';
+import demoEpic from '../epics/demo.epic.js';
 
 export default function configureStore(preloadedState) {
 	const epicMiddleware = createEpicMiddleware()
