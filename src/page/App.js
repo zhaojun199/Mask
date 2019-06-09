@@ -32,12 +32,12 @@ export default connect(
 	// 		id: (props.demo.id || 0) + 1,
 	// 	})
 	// }, 10000)
-	setTimeout(() => {
-		const m = props.dispatch({
-			type: 'FETCH_USER',
-			id: (props.demo.id || 0) + 1,
-		})
-		console.log(m)
-	}, 10000)
+	// setTimeout(() => {
+	// 	const m = props.dispatch({
+	// 		type: 'FETCH_USER',
+	// 		id: (props.demo.id || 0) + 1,
+	// 	})
+	// 	console.log(40, m)
+	// }, 5000)
 	return props.demo.id || 0
 })

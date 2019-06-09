@@ -7,15 +7,4 @@ const logger = store => next => action => {
 	return result
 }
 
-// function logger(store) {
-// 	console.log(store)
-// 	return function(next) {
-// 		console.log(next)
-// 		return function(action) {
-// 			console.log(action)
-// 			next(action)
-// 		}
-// 	}
-// }
-
 export default logger
