@@ -18,6 +18,9 @@
 	- html增加若干meta
 	- 增加copy static目录到dist目录
 
+- 2019-6-11
+	- webpack devServer 增加historyApiFallback配置，用于BrowserRouter的前端路由的重新解析
+
 - TODO
 	- 获取dispatch结果
 	- 异步更新store里的reducer，Store.replaceReducer
