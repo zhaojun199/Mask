@@ -1,6 +1,6 @@
 import { Component } from 'react'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom"
 import connect from '@home/core/connect'
+import GenRouter from '@home/router/GenRouter'
 // import { connect } from 'react-redux'
 import { setVisibilityFilter } from '@home/controller/action'
 
@@ -17,24 +17,16 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 })
 
 class App extends Component {
-	render() {
-		return (<div>
-			<Router>
-				<div>
-					<Route exact path="/" component={Home} />
-					<Route path="/about" component={About} />
-				</div>
-			</Router>
-		</div>);
+	componentDidMount() {
 	}
-}
 
-function Home() {
-  return <h2>Home</h2>;
-}
-
-function About() {
-  return <h2>About</h2>;
+	render() {
+		return (
+			<div>
+				<GenRouter />
+			</div>
+		);
+	}
 }
 
 export default connect(

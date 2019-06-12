@@ -18,10 +18,11 @@ const {
 const config = merge(common, {
     mode: 'development',
     output: {
+        publicPath: '/',
         path: path.resolve(ROOT_PATH, 'dist'),
         filename: 'js/[name]-[hash:8].js',
         hotUpdateChunkFilename: 'hot/hot-update.js',
-        hotUpdateMainFilename: 'hot/hot-update.json'
+        hotUpdateMainFilename: 'hot/hot-update.json',
     },
     devtool: 'cheap-module-eval-source-map',
     // webpack-dev-server

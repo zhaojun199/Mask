@@ -25,7 +25,7 @@ const config = merge(common, {
     output: {
         path: path.resolve(ROOT_PATH, 'dist'),
         filename: 'js/[name]-[chunkhash:8].js',
-        publicPath: './',   //  插入到html模板的路径前缀
+        publicPath: '/',   //  插入到html模板的路径前缀
     },
     // devtool: 'cheap-module-source-map',
     bail: true, //  在遇到错误的时候，打包过程将会退出，且把错误信息打印到 stderr

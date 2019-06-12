@@ -14,7 +14,7 @@
 <body>
 	<div id="root"></div>
 <% htmlWebpackPlugin.options.dll.forEach(function(dll){ %>
-<%= `<script src="dll/${dll}"></script>` %>
+<%= `<script src="/dll/${dll}"></script>` %>
 <% }); %>
 </body>
 <!-- <script>
