@@ -22,5 +22,7 @@
 	- webpack devServer 增加historyApiFallback配置，用于BrowserRouter的前端路由的重新解析
 
 - TODO
-	- 获取dispatch结果
-	- 异步更新store里的reducer，Store.replaceReducer
+	- [ ] 获取dispatch结果
+	- [ ] 异步更新store里的reducer，Store.replaceReducer
+	- [x] 实现路由嵌套
+	- [ ] 支持next.js

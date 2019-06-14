@@ -6,8 +6,8 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const DLL_PATH = path.join(process.cwd(), 'dll');
 
 const config = {
-    // mode: 'development',
-    mode: 'production',
+    mode: 'development',
+    // mode: 'production',
 	entry: {
 		mobx: ['mobx'],
 		react: ['react'],

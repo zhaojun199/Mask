@@ -2,8 +2,12 @@ import { lazy } from 'react'
 
 const RouterConfig = [{
 	path: '/home',
-	exact: true,
 	component: lazy(() => import('@home/page/home')),
+	children: [{
+		path: '/home/list',
+		exact: true,
+		component: lazy(() => import('@home/page/list')),
+	}]
 }, {
 	path: '/404',
 	exact: true,

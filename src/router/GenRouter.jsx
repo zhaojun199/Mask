@@ -1,30 +1,41 @@
 import { Component, Suspense } from 'react'
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom"
+// import { BrowserRouter as Router, Route, Switch, Redirect, Link } from "react-router-dom"
+// TO CONFIG
+import { HashRouter as Router, Route, Switch, Redirect, Link } from "react-router-dom"
 import AuthRoute from '@home/router/AuthRoute'
-import notFound from '@home/page/404'
 import RouterConfig from '@home/router/RouterConfig'
+import ErrorBoundary from '@home/router/ErrorBoundary'
+import notFound from '@home/page/404'
 
-class GenRouter extends Component {
-	state = {
-		
-	};
-
-	componentDidMount() {
-		
-	}
-
-	get genRouter() {
-		return RouterConfig
+class GenRouter {
+	loopRouter(routerList = []) {
+		return routerList
 			.map(router => {
+				const component = (routeProps) => {
+					const Component = router.component;
+					return (
+						<Suspense
+							fallback={<div>Loading...</div>}
+							// TO CONFIG
+							maxDuration={500}
+						>
+							<Component {...routeProps} />
+							{this.loopRouter(router.children)}
+						</Suspense>
+					)
+				}
 				return (
 					<AuthRoute
 						key={router.path}
 						path={router.path}
 						exact={router.exact}
-						component={router.component}
+						component={component}
 					/>
 				)
 			})
+	}
+	get genRouter() {
+		return this.loopRouter(RouterConfig)
 	}
 
 	render() {
@@ -34,10 +45,15 @@ class GenRouter extends Component {
 				forceRefresh={false}
 				keyLength={6}
 			>
-			{/*
-				Switch 仅渲染第一次匹配的路由
-			*/}
-				<Suspense fallback={<div>Loading...</div>}>
+			<ErrorBoundary>
+				<Link to="/list">list</Link>
+				<hr />
+				<Link to="/home">home</Link>
+				<hr />
+				<Link to="/home/list">homelist</Link>
+				{/*
+					Switch 仅渲染第一次匹配的路由
+				*/}
 					<Switch>
 						{this.genRouter}
 						<Route
@@ -57,7 +73,7 @@ class GenRouter extends Component {
 							component={notFound}
 						/>
 					</Switch>
-				</Suspense>
+				</ErrorBoundary>
 			</Router>
 		);
 	}

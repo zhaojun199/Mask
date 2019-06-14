@@ -23,7 +23,7 @@ class App extends Component {
 	render() {
 		return (
 			<div>
-				<GenRouter />
+				{new GenRouter().render()}
 			</div>
 		);
 	}
