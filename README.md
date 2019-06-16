@@ -23,6 +23,7 @@
 
 - TODO
 	- [ ] 获取dispatch结果
-	- [ ] 异步更新store里的reducer，Store.replaceReducer
+	- [x] 异步更新store里的reducer，Store.replaceReducer
+	- [ ] 优化reducer异步注入方式
 	- [x] 实现路由嵌套
 	- [ ] 支持next.js

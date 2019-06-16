@@ -1,7 +1,7 @@
 import { Component, Suspense } from 'react'
-// import { BrowserRouter as Router, Route, Switch, Redirect, Link } from "react-router-dom"
 // TO CONFIG
-import { HashRouter as Router, Route, Switch, Redirect, Link } from "react-router-dom"
+import { BrowserRouter as Router, Route, Switch, Redirect, Link } from "react-router-dom"
+// import { HashRouter as Router, Route, Switch, Redirect, Link } from "react-router-dom"
 import AuthRoute from '@home/router/AuthRoute'
 import RouterConfig from '@home/router/RouterConfig'
 import ErrorBoundary from '@home/router/ErrorBoundary'
@@ -46,11 +46,11 @@ class GenRouter {
 				keyLength={6}
 			>
 			<ErrorBoundary>
-				<Link to="/list">list</Link>
+				{/*<Link to="/list">list</Link>
 				<hr />
 				<Link to="/home">home</Link>
 				<hr />
-				<Link to="/home/list">homelist</Link>
+				<Link to="/home/list">homelist</Link>*/}
 				{/*
 					Switch 仅渲染第一次匹配的路由
 				*/}

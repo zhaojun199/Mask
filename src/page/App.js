@@ -8,7 +8,7 @@ const mapStateToProps = (state, ownProps) => {
 	console.log(state, ownProps)
 	return ({
 		// active: ownProps.filter === state.visibilityFilter
-		...state
+		...state.demo2,
 	})
 }
 
@@ -18,9 +18,11 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 class App extends Component {
 	componentDidMount() {
+		console.log('app componentDidMount')
 	}
 
 	render() {
+		console.log('app render')
 		return (
 			<div>
 				{new GenRouter().render()}

@@ -1,21 +1,48 @@
+import { applyMiddleware, compose, createStore } from 'redux'
+import { createEpicMiddleware } from 'redux-observable'
+
+import monitorReducersEnhancer from '@home/enhancers/monitorReducer'
+import loggerMiddleware from '@home/middleware/logger'
+import returnPromiseMiddleware from '@home/middleware/returnPromise'
+
+import hReducer from './hReducer'
+import rootEpic from './extractEpic'
+import demoEpic from '../epics/demo.epic.js'
+
+const rootReducer = hReducer.getReducers()
+
 // 数据池，单例
-let instance;
-Class Store {
-	constructor() {
+let instance
+
+class Store {
+	constructor(preloadedState) {
 		if (instance) {
-			return instance;
+			return instance
 		}
-		return this.dataCenter;
-	}
-	// 数据存储中心
-	dataCenter = {};
-
-	setData(key, value) {
-		this.dataCenter[key] = value;
+		instance = this.configureStore(preloadedState)
+		return instance
 	}
 
-	getData(key) {
-		return this.dataCenter[key];
+	asyncReducer = {}
+
+	configureStore(preloadedState) {
+		const epicMiddleware = createEpicMiddleware()
+		const middlewares = [loggerMiddleware, returnPromiseMiddleware, epicMiddleware]
+		const middlewareEnhancer = applyMiddleware(...middlewares)
+
+		const enhancers = [middlewareEnhancer, monitorReducersEnhancer]
+		const composedEnhancers = compose(...enhancers)
+
+		const store = createStore(rootReducer, preloadedState, composedEnhancers)
+
+		epicMiddleware.run(rootEpic)
+		// window.store = store
+		return store
+	}
+
+	static injectReducer({ key, reducers }) {
+		// this.asyncReducer[key] = reducers
+		new Store().replaceReducer(reducers)
 	}
 }
 

@@ -1,9 +1,10 @@
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import configureStore from '@home/core/configureStore'
+import '@home/util/log'
+import Store from '@home/core/Store'
 import App from '@home/page/App'
 
-const store = configureStore()
+const store = new Store()
 
 render(
   <Provider store={store}>
