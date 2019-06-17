@@ -2,7 +2,8 @@ import { Component } from 'react'
 import connect from '@home/core/connect'
 import hReducer from '@home/core/hReducer'
 import Store from '@home/core/Store'
-import ctrl from './controller.ctrl'
+import ctrl from './index.ctrl'
+import epic from './index.epic'
 
 const mapStateToProps = (state, ownProps) => {
 	return ({
@@ -16,18 +17,27 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 const store = new Store()
 hReducer.extraRecucer(ctrl)
-console.log(store)
 Store.injectReducer({ reducers: hReducer.getReducers(ctrl) })
+log(Store.epicMiddleware === Store.epicMiddleware)
+Store.epicMiddleware.run(epic)
 
 class List extends Component {
 	componentDidMount() {
 		console.log('Listdidmount')
-		this.fetchUser();
+		this.showList();
+		this.fetchList();
 	}
 
-	fetchUser = () => {
+	showList = () => {
 		this.props.dispatch({
 			type: 'list/showList',
+			id: (this.props.demo?.id || 0) + 1,
+		})
+	}
+
+	fetchList = () => {
+		this.props.dispatch({
+			type: 'FETCH_LIST',
 			id: (this.props.demo?.id || 0) + 1,
 		})
 	}

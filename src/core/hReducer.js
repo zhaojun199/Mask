@@ -33,6 +33,10 @@ class Hreducer {
 			const actionType = type
 			const extractActionType = actionType.split('/')
 			if (reducerName === extractActionType[0]) {
+				warning(
+						typeof entry[extractActionType[1]] === 'function',
+						`【${getClassName(entry)}】【${extractActionType[1]}】 - 未找到action`
+					)
 				let newState = entry[extractActionType[1]](otherAction);
 				return {
 					...state,

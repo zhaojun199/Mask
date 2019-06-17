@@ -26,8 +26,8 @@ class Store {
 	asyncReducer = {}
 
 	configureStore(preloadedState) {
-		const epicMiddleware = createEpicMiddleware()
-		const middlewares = [loggerMiddleware, returnPromiseMiddleware, epicMiddleware]
+		// const epicMiddleware = createEpicMiddleware()
+		const middlewares = [loggerMiddleware, returnPromiseMiddleware, Store.epicMiddleware]
 		const middlewareEnhancer = applyMiddleware(...middlewares)
 
 		const enhancers = [middlewareEnhancer, monitorReducersEnhancer]
@@ -35,7 +35,7 @@ class Store {
 
 		const store = createStore(rootReducer, preloadedState, composedEnhancers)
 
-		epicMiddleware.run(rootEpic)
+		Store.epicMiddleware.run(rootEpic)
 		// window.store = store
 		return store
 	}
@@ -44,6 +44,8 @@ class Store {
 		// this.asyncReducer[key] = reducers
 		new Store().replaceReducer(reducers)
 	}
+
+	static epicMiddleware = createEpicMiddleware()
 }
 
 export default Store;
