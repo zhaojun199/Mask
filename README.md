@@ -23,7 +23,10 @@
 
 - TODO
 	- [ ] 获取dispatch结果
-	- [x] 异步更新store里的reducer，Store.replaceReducer
+	- [x] 异步更新store里的reducer，api: Store.replaceReducer
+	- [x] 异步更新store里的epic，api: epicMiddleware.run
 	- [ ] 优化reducer异步注入方式
 	- [x] 实现路由嵌套
 	- [ ] 支持next.js
+	- [ ] redux-persist持久化store
+	- [ ] 多页面支持

@@ -18,7 +18,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 const store = new Store()
 hReducer.extraRecucer(ctrl)
 Store.injectReducer({ reducers: hReducer.getReducers(ctrl) })
-log(Store.epicMiddleware === Store.epicMiddleware)
 Store.epicMiddleware.run(epic)
 
 class List extends Component {
