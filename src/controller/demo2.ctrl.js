@@ -1,4 +1,4 @@
-export default class demo2Controller {
+export default class Demo2Controller {
 	namespace = 'demo2';
 	showText2(params, state) {
 		console.log(params, state);

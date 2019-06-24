@@ -3,13 +3,12 @@ import { createEpicMiddleware } from 'redux-observable'
 
 import monitorReducersEnhancer from '@home/enhancers/monitorReducer'
 import loggerMiddleware from '@home/middleware/logger'
-import returnPromiseMiddleware from '@home/middleware/returnPromise'
 
 import hReducer from './hReducer'
-import rootEpic from './extractEpic'
-import demoEpic from '../epics/demo.epic.js'
+import hEpic from './hEpic'
 
 const rootReducer = hReducer.getReducers()
+const rootEpic = hEpic.getEpics()
 
 // 数据池，单例
 let instance
@@ -27,7 +26,7 @@ class Store {
 
 	configureStore(preloadedState) {
 		// const epicMiddleware = createEpicMiddleware()
-		const middlewares = [loggerMiddleware, returnPromiseMiddleware, Store.epicMiddleware]
+		const middlewares = [loggerMiddleware, Store.epicMiddleware]
 		const middlewareEnhancer = applyMiddleware(...middlewares)
 
 		const enhancers = [middlewareEnhancer, monitorReducersEnhancer]

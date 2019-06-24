@@ -1,7 +1,6 @@
 import { Component } from 'react'
 import connect from '@home/core/connect'
-import hReducer from '@home/core/hReducer'
-import Store from '@home/core/Store'
+import factory from '@home/core/factory'
 import ctrl from './index.ctrl'
 import epic from './index.epic'
 
@@ -15,15 +14,12 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 	dispatch
 })
 
-const store = new Store()
-hReducer.extraRecucer(ctrl)
-Store.injectReducer({ reducers: hReducer.getReducers(ctrl) })
-Store.epicMiddleware.run(epic)
+factory({ ctrl, epic, namespace: 'list' })
 
 class List extends Component {
 	componentDidMount() {
 		console.log('Listdidmount')
-		this.showList();
+		// this.showList();
 		this.fetchList();
 	}
 
@@ -36,7 +32,7 @@ class List extends Component {
 
 	fetchList = () => {
 		this.props.dispatch({
-			type: 'FETCH_LIST',
+			type: 'list/get',
 			id: (this.props.demo?.id || 0) + 1,
 		})
 	}
@@ -46,6 +42,7 @@ class List extends Component {
 		return (
 			<div>
 				<h2 onClick={this.fetchUser}>List</h2>
+				<div>{this.props.list?.id}</div>
 			</div>
 		);
 	}

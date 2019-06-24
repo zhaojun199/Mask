@@ -4,4 +4,8 @@ export default class ListController {
 		console.log(params, state);
 		return params;
 	}
+	// get(params, state) {
+	// 	console.log(params, state);
+	// 	return params;
+	// }
 }

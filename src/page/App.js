@@ -2,12 +2,10 @@ import { Component } from 'react'
 import connect from '@home/core/connect'
 import GenRouter from '@home/router/GenRouter'
 // import { connect } from 'react-redux'
-import { setVisibilityFilter } from '@home/controller/action'
 
 const mapStateToProps = (state, ownProps) => {
 	console.log(state, ownProps)
 	return ({
-		// active: ownProps.filter === state.visibilityFilter
 		...state.demo2,
 	})
 }

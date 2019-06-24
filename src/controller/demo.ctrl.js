@@ -1,6 +1,6 @@
 import jsonp from 'fetch-jsonp';
 
-export default class demoController {
+export default class DemoController {
 	namespace = 'demo';
 	showText(params, state) {
 		console.log(params, state);

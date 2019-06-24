@@ -1,17 +1,26 @@
-import { combineEpics, ofType } from 'redux-observable'
+import { ofType } from 'redux-observable'
 import { filter, mapTo, mergeMap, map } from 'rxjs/operators'
 import http$ from '@home/util/http'
 
-// epic
-const fetchListEpic = action$ => action$.pipe(
-  	ofType('FETCH_LIST'),
-  	mergeMap(action =>
-    	http$.getJSON(`https://api.github.com/users/${action.payload}`).pipe(
-      		map(response => ({ type: 'list/showList', response, id: response.id }))
-    	)
-  	)
-);
+export default class ListEpic {
+	// epic命名空间,与controller ns 对应
+	namespace = 'list';
 
-const rootEpic = combineEpics(fetchListEpic)
+	fetchList(action$) {
+		return action$.pipe(
+			ofType('list/get'),
+			mergeMap(action =>
+				http$.getJSON(`https://api.github.com/users/${action.payload}`).pipe(
+					map(response => ({ type: 'list/showList', response, id: response.id }))
+				)
+			)
+		)
+	}
 
-export default rootEpic
+	// pingEpic(action$) {
+	// 	return action$.pipe(
+	// 		filter(action => action.type === 'PING'),
+	// 		mapTo({ type: 'PONG' })
+	// 	)
+	// }
+}
