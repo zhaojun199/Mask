@@ -15,8 +15,8 @@ function wrapDispatch(dispatch) {
 		apply (target, ctx, args) {
 			// console.log('handlerDispatch', target, ctx, args)
 			const action = args[0]
-			const actionType = action.type
-			const extractActionType = actionType.split('/')[1]
+			// const actionType = action.type
+			// const extractActionType = actionType.split('/')[1]
 			args[0] = {
 				...action,
 				// type: extractActionType,

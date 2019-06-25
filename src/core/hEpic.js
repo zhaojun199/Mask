@@ -2,7 +2,6 @@ import { combineEpics } from 'redux-observable'
 
 import warning from 'warning'
 
-import demo from '@home/epics/demo.epic'
 import { getClassName, getClassFunction, assertIsPromise } from './util'
 
 // 单例模式

@@ -6,9 +6,13 @@ import hEpic from './hEpic'
 const store = new Store()
 
 export default function factory({ namespace, ctrl, epic }) {
-	hReducer.extraRecucer(ctrl)
-	Store.injectReducer({ reducers: hReducer.getReducers() })
-	hEpic.extraEpic(epic)
-	// Store.injectEpic({ epics: hEpic.getEpic(epic) })
-	Store.epicMiddleware.run(hEpic.getEpics(namespace))
+	if (ctrl) {
+		hReducer.extraRecucer(ctrl)
+		Store.injectReducer({ reducers: hReducer.getReducers() })
+	}
+	if (epic) {
+		hEpic.extraEpic(epic)
+		// Store.injectEpic({ epics: hEpic.getEpic(epic) })
+		Store.epicMiddleware.run(hEpic.getEpics(namespace))
+	}
 }

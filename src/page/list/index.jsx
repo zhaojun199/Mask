@@ -4,17 +4,18 @@ import factory from '@home/core/factory'
 import ctrl from './index.ctrl'
 import epic from './index.epic'
 
+factory({ ctrl, epic, namespace: 'list' })
+
 const mapStateToProps = (state, ownProps) => {
+	// console.log(state)
 	return ({
-		...state
+		list: state.list,
 	})
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
 	dispatch
 })
-
-factory({ ctrl, epic, namespace: 'list' })
 
 class List extends Component {
 	componentDidMount() {
@@ -38,7 +39,7 @@ class List extends Component {
 	}
 
 	render() {
-		console.log('List', this.props)
+		console.log('List props', this.props)
 		return (
 			<div>
 				<h2 onClick={this.fetchUser}>List</h2>

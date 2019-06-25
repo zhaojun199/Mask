@@ -1,1 +1,1 @@
-window.log = console.log
+window.cout = console.log
