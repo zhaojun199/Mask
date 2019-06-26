@@ -35,3 +35,4 @@
 	- [ ] 支持next.js
 	- [ ] redux-persist持久化store
 	- [ ] 多页面支持
+	- [ ] 提取配置
