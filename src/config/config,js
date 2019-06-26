@@ -1,0 +1,4 @@
+const config = {
+	title: 'aurora',
+}
+export default config

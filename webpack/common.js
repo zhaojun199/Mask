@@ -188,6 +188,8 @@ const custom =  {
     ROOT_PATH,
     DLL_PATH,
     MODULE_PATH,
+    title: 'aurora',
+    favicon: path.resolve(ROOT_PATH, 'src', 'static/image/favicon.jpg'),
 };
 
 module.exports = { config, custom };

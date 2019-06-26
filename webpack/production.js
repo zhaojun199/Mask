@@ -17,6 +17,8 @@ const {
     MODULE_PATH,
     theme,
     dllJS,
+    title,
+    favicon,
 } = custom;
 
 // debugger;
@@ -83,7 +85,8 @@ const config = merge(common, {
         new HtmlWebpackPlugin({
             path: path.resolve(ROOT_PATH),
             template: path.resolve(ROOT_PATH, 'index.html'),
-            title: 'mobx和webpack',
+            title,
+            favicon,
             filename: 'index.html',
             inject: true,
             // 允许插入到模板中的一些chunk
