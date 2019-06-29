@@ -3,7 +3,6 @@ import jsonp from 'fetch-jsonp';
 export default class DemoController {
 	namespace = 'demo';
 	showText(params, state) {
-		console.log(params, state);
 		return params;
 	}
 	asyncText(params, state) {
@@ -12,9 +11,9 @@ export default class DemoController {
 		return r;
 	}
 	showArrow = (params, state) => {
-		console.log(params, state);
+		
 	}
 	static showStatic(params, state) {
-        console.log(params, state);
+        
     }
 }

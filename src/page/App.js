@@ -4,7 +4,6 @@ import GenRouter from '@home/router/GenRouter'
 // import { connect } from 'react-redux'
 
 const mapStateToProps = (state, ownProps) => {
-	console.log(state, ownProps)
 	return ({
 		...state.demo2,
 	})
@@ -33,27 +32,3 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(App)
-// (props) => {
-	// console.log('app', props)
-	// setTimeout(() => {
-	// 	const a = props.dispatch({
-	// 		type: 'demo/showText',
-	// 		id: (props.demo.id || 0) + 1,
-	// 	})
-	// 	console.log(a)
-	// }, 10000)
-	// setTimeout(() => {
-	// 	props.dispatch({
-	// 		type: 'demo/asyncText',
-	// 		id: (props.demo.id || 0) + 1,
-	// 	})
-	// }, 10000)
-	// setTimeout(() => {
-	// 	const m = props.dispatch({
-	// 		type: 'FETCH_USER',
-	// 		id: (props.demo.id || 0) + 1,
-	// 	})
-	// 	console.log(40, m)
-	// }, 5000)
-	// return props.demo.id || 0
-// })

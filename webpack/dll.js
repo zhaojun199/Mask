@@ -9,13 +9,13 @@ const config = {
     mode: 'development',
     // mode: 'production',
 	entry: {
-		mobx: ['mobx'],
 		react: ['react'],
+		propTypes: ['prop-types'],
 		// 这里如果用中划线命名，则压缩会报错
 		reactDom: ['react-dom'],
-		// reactRouterDom: ['react-router-dom'],
-		mobxReact: ['mobx-react'],
-		propTypes: ['prop-types'],
+		// reactRouterDom: ['react-router-dom'],	//	react-router-dom打dll报错，原因不明
+		// mobx: ['mobx'],
+		// mobxReact: ['mobx-react'],
 	},
 	output: {
 		path: DLL_PATH,
