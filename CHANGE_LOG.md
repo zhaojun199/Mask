@@ -27,6 +27,9 @@
 	- 优化title，增加favicon
 	- 优化static路径配置
 
+- 2019-6-29
+	- 新增项目通用文件抽离配置config.optimization.splitChunks.cacheGroups.common
+
 - TODO
 	- [x] 异步更新store里的reducer，api: Store.replaceReducer
 	- [x] 异步更新store里的epic，api: epicMiddleware.run

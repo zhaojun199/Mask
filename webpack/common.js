@@ -75,10 +75,10 @@ const config = {
     optimization: {
         splitChunks: {
             chunks: 'all',
-            minSize: 30000,
-            minChunks: 1,
-            maxAsyncRequests: 5,
-            maxInitialRequests: 3,
+            minSize: 30000, //  模块大于30k会被抽离到公共模块
+            minChunks: 1, //    模块出现1次就会被抽离到公共模块
+            maxAsyncRequests: 5, // 按需加载并发最大请求数，一次最多只能被加载5个
+            maxInitialRequests: 3,  //  最大的初始请求数
             automaticNameDelimiter: '~',
             cacheGroups: {
                 // 单独打包react相关包
@@ -99,17 +99,26 @@ const config = {
                 //     minSize: 30000,
                 //     test: /(antd|@ant-design)/,
                 // },
-                // 单独打包其它
+                // 打包项目公共文件
+                common: {
+                    priority: 5,
+                    chunks: 'all', //   这里最好配all, 配置全部文件抽离
+                    name: 'common',
+                    // filename: 'js/[name]-[chunkhash:8].min.js?',
+                    minSize: 0, //大于0个字节
+                    minChunks: 2, //抽离公共代码时，这个代码块最小被引用的次数
+                },
+                // 单独打包node_modules
                 vendors: {
-                    priority: -10,
+                    priority: 1,
+                    chunks: 'initial',
                     name: 'vendors',
                     filename: 'js/[name]-[chunkhash:8].min.js?',
-                    chunks: 'initial',
                     // chunks: 'async',
                     test: /[\\/]node_modules[\\/]/,
                     enforce: true
                 },
-                default: false,
+                // default: false,
             }
         },
     },
