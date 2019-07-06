@@ -1,0 +1,2 @@
+import './dom'
+import './xhrProxy'

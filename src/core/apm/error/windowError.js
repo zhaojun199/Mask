@@ -1,4 +1,4 @@
-import report from './report'
+import report from '../report/report'
 
 // 捕获全局异常
 window.addEventListener('error', function(event) {

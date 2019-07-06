@@ -10,13 +10,25 @@
 	<meta name="renderer" content="webkit">
 	<meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, initial-scale=1">
 	<title><%= htmlWebpackPlugin.options.title %></title>
+	<!-- speed  -->
+	<script type="text/javascript">
+        window.speed={start:(new Date()).getTime()};
+    </script>
 </head>
 <body>
 	<div id="root"></div>
+	<script type="text/javascript">
+        window.speed.complete=(new Date).getTime();
+    </script>
 <% htmlWebpackPlugin.options.dll.forEach(function(dll){ %>
 <%= `<script src="/dll/${dll}"></script>` %>
 <% }); %>
 </body>
+<script type="text/javascript">
+    window.speed.time=(new Date()).getTime() - window.speed.complete;
+    window.$$report.speed(window.speed)
+    window.$$report.domCount(window.$$getDomLength())
+</script>
 <!-- <script>
 var json = <%= JSON.stringify(htmlWebpackPlugin)%>
 console.log(json)

@@ -1,5 +1,7 @@
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
+import '@home/core/apm/error'
+import '@home/core/apm/performance'
 import '@home/util/log'
 import Store from '@home/core/Store'
 import App from '@home/page/App'
