@@ -28,6 +28,10 @@
     window.speed.time=(new Date()).getTime() - window.speed.complete;
     window.$$report.speed(window.speed)
     window.$$report.domCount(window.$$getDomLength())
+    window.$$report.fpt(window.$$getFPT())
+    window.$$getFMP().then((fmp) => {
+	    window.$$report.fmp(fmp)
+	})
 </script>
 <!-- <script>
 var json = <%= JSON.stringify(htmlWebpackPlugin)%>

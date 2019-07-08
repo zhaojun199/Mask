@@ -20,6 +20,14 @@ class Report {
 	static xhr(x) {
 		console.log('%c xhr time: ', 'color:#ec6e49;', x.time)
 	}
+	// first Paint Time
+	static fpt(f) {
+		console.log('%c first paint time: ', 'color:#ec6e49;', f)
+	}
+	// first Paint Time
+	static fmp(f) {
+		console.log('%c first meaningful paint: ', 'color:#ec6e49;', f)
+	}
 }
 window.$$report = Report
 
