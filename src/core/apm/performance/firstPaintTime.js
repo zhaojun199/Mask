@@ -14,7 +14,7 @@ export function getFPT() {
 
 // 首次有效渲染时间 (First Meaningful Paint)
 
-class FMP {
+export class FMP {
   /**
    * get first-meaningful-paint
    */
