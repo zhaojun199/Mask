@@ -7,9 +7,10 @@ import epic from './index.epic'
 factory({ ctrl, epic, namespace: 'list' })
 
 const mapStateToProps = (state, ownProps) => {
-	// console.log(state)
 	return ({
 		list: state.list,
+		http: state.http,
+		Http: state.Http,
 	})
 }
 

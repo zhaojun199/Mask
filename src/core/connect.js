@@ -1,10 +1,17 @@
 import { connect } from 'react-redux'
+import { http, Http } from '@home/util/http'
 
 // mapStateToProps包装器
 function wrapMapStateToProps(mapStateToProps) {
 	return function(state, ownProps) {
 		// console.log('wrapMapStateToProps', state, ownProps)
-		return mapStateToProps(state, ownProps)
+		// 注入请求器
+		const newState = {
+			...state,
+			http,
+			Http,
+		}
+		return mapStateToProps(newState, ownProps)
 	}
 }
 
