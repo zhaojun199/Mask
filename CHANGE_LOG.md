@@ -30,6 +30,9 @@
 - 2019-6-29
 	- 新增项目通用文件抽离配置config.optimization.splitChunks.cacheGroups.common
 
+- 2019-7-15
+	- 优化http方法，增加对拦截器的支持，增加重复点击取消功能
+
 - TODO
 	- [x] 异步更新store里的reducer，api: Store.replaceReducer
 	- [x] 异步更新store里的epic，api: epicMiddleware.run
@@ -37,6 +40,6 @@
 	- [x] 实现路由嵌套
 	- [ ] 支持next.js
 	- [ ] redux-persist持久化store
-	- [ ] 多页面支持
 	- [ ] 提取配置
-	- [ ] 支持apm
+	- [x] 支持apm
+	- [ ] redux增加数据初始化功能

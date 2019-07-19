@@ -32,7 +32,7 @@ export class Http {
 		const self = this
 		this.resInterceptors = this.axios.interceptors.response.use(function(response) {
 			// 删除请求
-			self.removeOldRequest(response.config)
+			self.removeRequest(response.config)
 			// 定义返回结口数据格式等
 			// ...
 			const respData = response.data || {}
@@ -52,7 +52,8 @@ export class Http {
 		}, function(error) {
 			// 对响应错误做点什么
 			if (error instanceof Error) {
-				self.removeOldRequest(response.config)
+				// 删除请求
+				self.removeRequest(error.config)
 				return Promise.reject(error)
 			} else {
 				// cancel的请求
@@ -88,7 +89,7 @@ export class Http {
 	}
 
 	// 取消重复请求
-	removeOldRequest(config, withCancel) {
+	removeRequest(config, withCancel) {
 		this.requests.some((request, i) => {
 			if (request.key === this.genKey(config)) {
 				if (withCancel) {
@@ -102,7 +103,7 @@ export class Http {
 	// 发送请求
 	send(config, dataType) {
 		const self = this
-		this.removeOldRequest(config, true)
+		this.removeRequest(config, true)
 		config.cancelToken = new Axios.CancelToken(function(c) {
 			self.requests.push({
 				key: self.genKey(config),
