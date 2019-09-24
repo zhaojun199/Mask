@@ -35,7 +35,8 @@
 
 - 2019-9-24
 	- index.html增加移动端识别，判断移动端自动跳转
-	- 增加Logger方法，代理console方法
+	- 增加Logger方法，cout代理console方法
+	- 增加log装饰器，审计组件内的方法
 
 - TODO
 	- [x] 异步更新store里的reducer，api: Store.replaceReducer

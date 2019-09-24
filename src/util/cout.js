@@ -1,0 +1,1 @@
+window.cout = console.log

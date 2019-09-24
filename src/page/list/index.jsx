@@ -1,6 +1,7 @@
 import { Component } from 'react'
 import connect from '@home/core/connect'
 import factory from '@home/core/factory'
+import { log } from '@home/util/log/index'
 import ctrl from './index.ctrl'
 import epic from './index.epic'
 
@@ -18,6 +19,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 	dispatch
 })
 
+@log
 class List extends Component {
 	componentDidMount() {
 		console.log('Listdidmount')

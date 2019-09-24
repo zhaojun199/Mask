@@ -284,7 +284,7 @@ class Logger {
     groupEnd(...args) {
         !this.isProd && this.proxy.groupEnd(...args);
     }
-	// 未使用
+	// 分组打印，输出耗时
     groupObj(type, groupLog, Obj) {
         if (window.log === false) {
             return;
@@ -384,7 +384,7 @@ class Logger {
 
 export default Logger
 
-window.cout = new Logger()
+// window.cout = new Logger().log
 
 /*// ex
 const log = new Logger()
