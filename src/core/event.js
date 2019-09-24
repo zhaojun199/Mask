@@ -34,10 +34,14 @@ class Event {
 		return this
 	}
 	// 获取事件
-	getEvent(id) {
-		warning(events[id], `${id}事件未注册`)
-		return events[id].map(e => e)
-	}
+    getEvent(id) {
+        warning(events[id], `${id}事件未注册`);
+        return this.isRegister(id) ? events[id].map(e => e) : [];
+    }
+    // 判断是否注册
+    isRegister(id) {
+        return !!events[id];
+    }
 }
 
 export default Event

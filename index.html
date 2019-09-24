@@ -10,6 +10,25 @@
 	<meta name="renderer" content="webkit">
 	<meta name="viewport" content="width=device-width, maximum-scale=1, minimum-scale=1, initial-scale=1">
 	<title><%= htmlWebpackPlugin.options.title %></title>
+	<script>
+        // 环境标识
+        var HBrowser = (function () {
+            var _UA = window.navigator.userAgent.toLowerCase();
+            return {
+                isMobile: !!(/Android|webOS|iPhone|iPod|iPad|BlackBerry/i.test(_UA)), // 是否为移动终端
+                isWX: !!_UA.match(/MicroMessenger/i), // 在微信中打开
+                isWB: !!_UA.match(/WeiBo/i), // 在新浪微博客户端打开
+                isQQ: !!_UA.match(/QQ/i), // 在QQ内置浏览器打开
+                isIOS: !!_UA.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/i), // ios终端
+                isIOSHD: !!_UA.match(/ipad/i), // ipad终端
+                isXinYue: !!_UA.match(/tgclub/i) // 是否在心悦APP
+            };
+        }());
+
+        if (HBrowser.isMobile || HBrowser.isIOS) {
+            window.location.href = '/mobile/#/home';
+        }
+    </script>
 	<!-- speed  -->
 	<script type="text/javascript">
         window.speed={start:(new Date()).getTime()};

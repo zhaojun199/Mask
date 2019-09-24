@@ -33,6 +33,10 @@
 - 2019-7-15
 	- 优化http方法，增加对拦截器的支持，增加重复点击取消功能
 
+- 2019-9-24
+	- index.html增加移动端识别，判断移动端自动跳转
+	- 增加Logger方法，代理console方法
+
 - TODO
 	- [x] 异步更新store里的reducer，api: Store.replaceReducer
 	- [x] 异步更新store里的epic，api: epicMiddleware.run
@@ -43,3 +47,4 @@
 	- [ ] 提取配置
 	- [x] 支持apm
 	- [ ] redux增加数据初始化功能
+	- [ ] http.js中增加全局loading效果
