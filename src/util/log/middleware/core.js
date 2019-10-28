@@ -1,4 +1,26 @@
 import { formatTime } from '../util'
+import differ from '../differ'
+
+/**
+ * Get log level string based on supplied params
+ *
+ * @param {string | function | object} level - console[level]
+ * @param {object} action - selected action
+ * @param {array} payload - selected payload
+ * @param {string} type - log entry type
+ *
+ * @returns {string} level
+ */
+function getLogLevel(level, action, payload, type) {
+    switch (typeof level) {
+    case 'object':
+        return typeof level[type] === 'function' ? level[type](...payload) : level[type];
+    case 'function':
+        return level(action);
+    default:
+        return level;
+    }
+}
 
 function defaultTitleFormatter(options) {
     const { duration } = options;
@@ -23,14 +45,14 @@ function printBuffer(buffer, options) {
         collapsed,
         colors,
         level,
-        diff
+        diff,
+        diffCollapsed,
     } = options;
 
     const isUsingDefaultFormatter = typeof options.titleFormatter === 'undefined'
 
 	buffer.forEach((logEntry, key) => {
 		const { started, startedTime, action, prevState, error } = logEntry;
-		cout('buffer ====> ', { started, startedTime, action, prevState, error })
 		let { took, nextState } = logEntry;
 		const nextEntry = buffer[key + 1];
 
@@ -63,7 +85,7 @@ function printBuffer(buffer, options) {
                 return;
             }
         }
-
+		// 按组打印action
         try {
             if (isCollapsed) {
                 if (colors.title && isUsingDefaultFormatter) {
@@ -78,6 +100,62 @@ function printBuffer(buffer, options) {
             }
         } catch (e) {
             logger.log(title);
+        }
+		// 获取打印等级，判断是否打印
+        const prevStateLevel = getLogLevel(level, formattedAction, [prevState], 'prevState');
+        const actionLevel = getLogLevel(level, formattedAction, [formattedAction], 'action');
+        const errorLevel = getLogLevel(level, formattedAction, [error, prevState], 'error');
+        const nextStateLevel = getLogLevel(level, formattedAction, [nextState], 'nextState');
+
+		// 打印prevState，action，error，nextState
+        if (prevStateLevel) {
+            if (colors.prevState) {
+                const styles = `color: ${colors.prevState(prevState)}; font-weight: bold`;
+
+                logger[prevStateLevel]('%c prev state', styles, prevState);
+            } else {
+                logger[prevStateLevel]('prev state', prevState);
+            }
+        }
+
+        if (actionLevel) {
+            if (colors.action) {
+                const styles = `color: ${colors.action(formattedAction)}; font-weight: bold`;
+
+                logger[actionLevel]('%c action    ', styles, formattedAction);
+            } else {
+                logger[actionLevel]('action    ', formattedAction);
+            }
+        }
+
+        if (error && errorLevel) {
+            if (colors.error) {
+                const styles = `color: ${colors.error(error, prevState)}; font-weight: bold;`;
+
+                logger[errorLevel]('%c error     ', styles, error);
+            } else {
+                logger[errorLevel]('error     ', error);
+            }
+        }
+
+        if (nextStateLevel) {
+            if (colors.nextState) {
+                const styles = `color: ${colors.nextState(nextState)}; font-weight: bold`;
+
+                logger[nextStateLevel]('%c next state', styles, nextState);
+            } else {
+                logger[nextStateLevel]('next state', nextState);
+            }
+        }
+
+		if (diff) {
+            differ(prevState, nextState, logger, diffCollapsed);
+        }
+
+        try {
+            logger.groupEnd();
+        } catch (e) {
+            logger.log('—— log end ——');
         }
 	})
 }

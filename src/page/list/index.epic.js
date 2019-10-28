@@ -19,7 +19,7 @@ export default class ListEpic {
 						event
 							.emitEvent('demo', 33, 55)
 							.emitEvent('demo', 44, 66)
-						return { type: 'list/showList', response, id: response.id }
+						return { type: 'list/showList', /*response, */id: response.id }
 					})
 				)
 			)

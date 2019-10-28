@@ -38,6 +38,10 @@
 	- 增加Logger方法，cout代理console方法
 	- 增加log装饰器，审计组件内的方法
 
+- 2019-10-28
+	- 增加log中间件，打印reducer前后变化
+	- 增加diff方法，比较reducer的preState和nextState
+
 - TODO
 	- [x] 异步更新store里的reducer，api: Store.replaceReducer
 	- [x] 异步更新store里的epic，api: epicMiddleware.run

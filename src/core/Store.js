@@ -18,6 +18,7 @@ class Store {
 		if (instance) {
 			return instance
 		}
+		// 单一store原则
 		instance = this.configureStore(preloadedState)
 		return instance
 	}

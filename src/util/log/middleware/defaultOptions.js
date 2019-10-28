@@ -1,8 +1,9 @@
 export default {
-  //   level: 'log',
+    level: 'log',
   //   logger: console,
     logErrors: true,    // 打印错误
-  //   collapsed: undefined,
+    // collapsed: undefined,  //  日志分组且收缩
+    collapsed: true,
   //   predicate: undefined,
     // duration: false,
     duration: true,
@@ -17,8 +18,10 @@ export default {
         nextState: () => '#4CAF50',
         error: () => '#F20404'
     },
-    diff: false,
-    diffPredicate: undefined,
+    // diff: false,
+    diff: true,  //  diff数据
+    diffCollapsed: false, //  diff数据是否收缩
+    diffPredicate: undefined, //  动态配置是否diff
 
   // // Deprecated options
   //   transformer: undefined
