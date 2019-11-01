@@ -47,9 +47,9 @@
 	- [x] 异步更新store里的epic，api: epicMiddleware.run
 	- [x] 优化reducer异步注入方式
 	- [x] 实现路由嵌套
-	- [ ] 支持next.js
 	- [ ] redux-persist持久化store
 	- [ ] 提取配置
 	- [x] 支持apm
 	- [ ] redux增加数据初始化功能
 	- [ ] http.js中增加全局loading效果
+	- [ ] http.js中增加缓存功能
