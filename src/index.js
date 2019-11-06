@@ -6,8 +6,8 @@ import '@home/util/cout'
 import Store from '@home/core/Store'
 import App from '@home/page/App'
 import factory from '@home/core/factory'
-import democtrl1 from '@home/controller/demo.ctrl'
-import democtrl2 from '@home/controller/demo2.ctrl'
+import democtrl1 from '@home/controllers/demo.ctrl'
+import democtrl2 from '@home/controllers/demo2.ctrl'
 import demoepic from '@home/epics/demo.epic'
 
 factory({ ctrl: democtrl1, epic: demoepic, namespace: 'demo' })
@@ -21,3 +21,5 @@ render(
   </Provider>,
   document.getElementById('root')
 )
+
+import '@home/page/room'

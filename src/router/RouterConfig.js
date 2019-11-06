@@ -16,6 +16,10 @@ const RouterConfig = [{
 	path: '/list',
 	exact: true,
 	component: lazy(() => import('@home/page/list')),
+}, {
+	path: '/room',
+	exact: true,
+	component: lazy(() => import('@home/page/room')),
 }]
 
 export default RouterConfig

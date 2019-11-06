@@ -53,3 +53,6 @@
 	- [ ] redux增加数据初始化功能
 	- [ ] http.js中增加全局loading效果
 	- [ ] http.js中增加缓存功能
+	- [ ] event 使用rx，增加防抖和节流等功能
+	- [ ] 增加errorhandle组件装饰器。兜底组件。
+	- [ ] 搭建多应用，每个应用一个store，多个模块，通过统一store处理数据，代理dispatch，添加dispatch的模块命名空间，添加跨应用globalDispatch方法

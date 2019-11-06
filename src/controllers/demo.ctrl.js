@@ -2,6 +2,10 @@ import jsonp from 'fetch-jsonp';
 
 export default class DemoController {
 	namespace = 'demo';
+	initial = {
+		id: 0,
+		ary: [1, 2, 3],
+	};
 	showText(params, state) {
 		return params;
 	}

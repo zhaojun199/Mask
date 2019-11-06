@@ -14,7 +14,7 @@
 │  │  index.js				- 入口文件
 │  │  index.less 			- 全局样式
 │  │  
-│  ├─controller				- 控制器 - 类似reducer
+│  ├─controllers				- 控制器 - 类似reducer
 │  │      demo.ctrl.js
 │  │      demo2.ctrl.js
 │  │      控制器.md
