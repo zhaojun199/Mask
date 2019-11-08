@@ -74,8 +74,8 @@ export { defaultOptions, createLogger }
 
 export default { defaultOptions, createLogger }
 
-const a = {a : 1}
-const m = m => m;
-const b = m(a)
-console.log(1111,b)
-a.c = 2;
+// const a = {a : 1}
+// const m = m => m;
+// const b = m(a)
+// console.log(1111,b)
+// a.c = 2;

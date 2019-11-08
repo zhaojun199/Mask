@@ -15,6 +15,6 @@ export default function combineControllers(...controllers) {
 		Object.keys(reducers).length === controllers.length,
 		`同一应用命名空间必须唯一`
 		)
-	
+
 	return combineReducers(reducers)
 }

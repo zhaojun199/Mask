@@ -10,7 +10,7 @@
 
 // export default logger
 
-import { middleware, Logger } from '@home/util/log'
+import { middleware, Logger } from '@home/core/log'
 
 const { createLogger } = middleware
 

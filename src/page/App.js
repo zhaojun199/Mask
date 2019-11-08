@@ -1,34 +1,35 @@
-import { Component } from 'react'
-import connect from '@home/core/connect'
+import { Component, Fragment } from 'react'
+// import connect from '@home/core/connect'
 import GenRouter from '@home/router/GenRouter'
+import { log } from '@home/core/log'
 // import { connect } from 'react-redux'
 
-const mapStateToProps = (state, ownProps) => {
-	return ({
-		...state.demo2,
-	})
-}
+// const mapStateToProps = (state, ownProps) => {
+// 	return ({
+// 		...state.demo2,
+// 	})
+// }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-	dispatch
-})
+// const mapDispatchToProps = (dispatch, ownProps) => ({
+// 	dispatch
+// })
 
+export default
+@log
 class App extends Component {
 	componentDidMount() {
-		console.log('app componentDidMount')
 	}
 
 	render() {
-		console.log('app render')
 		return (
-			<div>
+			<Fragment>
 				{new GenRouter().render()}
-			</div>
+			</Fragment>
 		);
 	}
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(App)
+// export default connect(
+//   mapStateToProps,
+//   mapDispatchToProps
+// )(App)

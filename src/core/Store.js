@@ -2,7 +2,7 @@ import { applyMiddleware, compose, createStore } from 'redux'
 import { createEpicMiddleware } from 'redux-observable'
 
 import monitorReducersEnhancer from '@home/enhancers/monitorReducer'
-import loggerMiddleware from '@home/middleware/logger'
+import loggerMiddleware from '@home/middlewares/logger'
 
 import hReducer from './hReducer'
 import hEpic from './hEpic'

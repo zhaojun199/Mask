@@ -21,5 +21,3 @@ render(
   </Provider>,
   document.getElementById('root')
 )
-
-import '@home/page/room'

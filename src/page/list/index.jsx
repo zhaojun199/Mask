@@ -1,7 +1,7 @@
 import { Component } from 'react'
 import connect from '@home/core/connect'
 import factory from '@home/core/factory'
-import { log } from '@home/util/log'
+import { log } from '@home/core/log'
 import ctrl from './index.ctrl'
 import epic from './index.epic'
 
