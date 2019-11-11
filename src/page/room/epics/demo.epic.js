@@ -11,15 +11,13 @@ export default class ListEpic {
 
 	fetchList(action$) {
 		return action$.pipe(
-			ofType('list/get'),
-			mergeMap(action =>
-				http$.getJSON(`https://api.github.com/users/${action.payload}`).pipe(
+			mergeMap(({ payload }) =>
+				http$.getJSON(`https://api.github.com/users/${payload.id}?param=${payload.id}`).pipe(
 					map(response => {
-						cout(event.getEvent('demo'))
-						event
-							.emitEvent('demo', 33, 55)
-							.emitEvent('demo', 44, 66)
-						return { type: 'list/showList', /*response, */id: response.id }
+						return {
+							type: 'demo/showList',
+							payload: response,
+						}
 					})
 				)
 			)

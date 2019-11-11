@@ -1,3 +1,7 @@
+import { Logger } from '@home/core/log'
+
+const log = new Logger()
+
 class Report {
 	static protected(e) {
 		console.log(e)
@@ -18,7 +22,7 @@ class Report {
 	}
 	// xhr时间
 	static xhr(x) {
-		console.log('%c xhr time: ', 'color:#ec6e49;', x.time)
+		log.groupObj(' xhr', x.url, x, x.method)
 	}
 	// first Paint Time
 	static fpt(f) {

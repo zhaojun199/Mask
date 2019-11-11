@@ -7,11 +7,10 @@ const event = new Event()
 
 export default class ListEpic {
 	// epic命名空间,与controller ns 对应
-	namespace = 'list';
+	namespace = 'list2';
 
 	fetchList2(action$) {
 		return action$.pipe(
-			ofType('list/get2'),
 			mergeMap(action =>
 				http$.getJSON(`https://api.github.com/users/${action.payload}`).pipe(
 					map(response => {

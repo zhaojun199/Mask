@@ -9,7 +9,7 @@ export default class DemoController extends Controller {
 		b: 2,
 	}
 
-	showText(payload, state) {
+	showList({ payload }, state) {
 		return payload;
 	}
 	showArrow = (payload, state) => {

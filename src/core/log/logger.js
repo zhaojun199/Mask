@@ -1,6 +1,7 @@
 import { formatTime, LoggerUtil } from './util'
 import addPx from './addPx'
 import { colorEnum } from './color';
+import genColorByMD5 from './genColorByMD5';
 
 /**
  * 代理方法列表
@@ -287,7 +288,7 @@ class Logger {
 		!this.isProd && this.proxy.groupEnd(...args);
 	}
 	// 分组打印，输出耗时
-	groupObj(type, groupLog, Obj) {
+	groupObj(type, groupLog, Obj, componentName = '') {
 		if (window.log === false) {
 			return;
 		}
@@ -298,13 +299,14 @@ class Logger {
 				return;
 			}
 		}
+		if (this.isProd) {
+			return;
+		}
+
 		const padding = 12;
 		const warnDuration = 17;
 		const errorDuration = 100;
 
-		if (this.isProd) {
-			return;
-		}
 		if (Obj.time) {
 			const duration = Obj.time.toFixed(2);
 
@@ -318,15 +320,17 @@ class Logger {
 				colorStyle = LoggerUtil.style(colorEnum.error);
 			}
 			this.groupCollapsed(
-				`%c${type} %c${groupLog} %c(in ${duration} ms)`,
+				`%c${type} %c${componentName} %c${groupLog} %c(in ${duration} ms)`,
 				LoggerUtil.style(colorEnum.gray),
+				genColorByMD5(componentName),
 				LoggerUtil.style(colorEnum.normal),
 				colorStyle
 			);
 		} else {
 			this.groupCollapsed(
-				`%c${type} %c${groupLog}`,
+				`%c${type} %c${componentName} %c${groupLog}`,
 				LoggerUtil.style(colorEnum.gray),
+				genColorByMD5(componentName),
 				LoggerUtil.style(colorEnum.normal)
 			);
 		}

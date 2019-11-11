@@ -6,7 +6,9 @@ import AuthRoute from '@home/router/AuthRoute'
 import RouterConfig from '@home/router/RouterConfig'
 import ErrorBoundary from '@home/router/ErrorBoundary'
 import notFound from '@home/page/404'
+import { log } from '@home/core/log'
 
+@log
 class GenRouter {
 	loopRouter(routerList = []) {
 		return routerList

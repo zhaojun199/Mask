@@ -1,5 +1,6 @@
 import { validateClass } from './validators';
 import Logger from './logger';
+import { LoggerUtil } from './util';
 
 const logger = new Logger();
 // 只显示错误
@@ -38,7 +39,9 @@ function proxyMethod(target, name) {
         if (this && this.props !== undefined) {
             logObj.props = this.props;
         }
-        !onlyError && logger.groupObj('@log', `${target.name} ${name}`, logObj);
+        const clsName = LoggerUtil.padEnd(target.name, 12);
+
+        !onlyError && logger.groupObj('@log', name, logObj, clsName);
 
         return result;
     };

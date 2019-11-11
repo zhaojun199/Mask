@@ -15,7 +15,11 @@ export default function epicClsToEpic(Epic) {
 
 	const actionsName = getClassFunction(entry)
 
-	epics[epicNS] = actionsName.map(epic => entry[epic])
+	epics[epicNS] = actionsName.map(epic => {
+		return function(action$) {
+			return entry[epic](action$.ofType(`${epicNS}/${epic}`))
+		}
+	})
 
 	return epics
 }

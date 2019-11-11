@@ -1,4 +1,5 @@
 import report from '../report/report'
+import { parse } from 'qs';
 
 if (!window.$$XMLHttpRequest) {
     window.$$XMLHttpRequest = window.XMLHttpRequest;
@@ -6,26 +7,37 @@ if (!window.$$XMLHttpRequest) {
 
 function XhrProxy() {
     const xhr = new window.$$XMLHttpRequest();
-    const xhrInfo = {};
+    const logObj = {};
     const _open = xhr.open
     xhr.open = ((...args) => {
         // 初始时间和信息
-        xhrInfo.startTime = new Date().valueOf();
-        xhrInfo.method = args[0];
-        xhrInfo.url = args[1];
+        logObj.startTime = new Date().valueOf();
+        logObj.method = args[0];
+        logObj.fullUrl = args[1];
+        const { href } = window.location;
+        if (logObj.fullUrl.includes(window.location.href)) {
+            logObj.url = args[1]
+                .replace(new RegExp(`^.*${href}`), '')
+                .replace(/\?.*/, '');
+        } else {
+            logObj.url = args[1].replace(/\?.*/, '');
+        }
+        logObj.query = parse(logObj.fullUrl.replace(/.*\?/, ''));
         _open.apply(xhr, args)
     });
 
     xhr.addEventListener('readystatechange', () => {
         // 请求结束
         if (xhr.readyState === 4) {
-            xhrInfo.endTime = new Date().valueOf();
-            xhrInfo.time = xhrInfo.endTime - xhrInfo.startTime;
-            report.xhr(xhrInfo);
+            logObj.endTime = new Date().valueOf();
+            logObj.time = logObj.endTime - logObj.startTime;
+            report.xhr(logObj);
         }
     });
 
     return xhr;
 }
 
-window.XMLHttpRequest = XhrProxy;
+if (process.env.NODE_ENV !== 'production') {
+    window.XMLHttpRequest = XhrProxy;
+}

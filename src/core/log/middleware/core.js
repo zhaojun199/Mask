@@ -89,12 +89,14 @@ function printBuffer(buffer, options) {
         try {
             if (isCollapsed) {
                 if (colors.title && isUsingDefaultFormatter) {
-                    logger.groupCollapsed(`[Middleware-Log @ ${formatTime(new Date())}] %c${title}`, ...headerCSS);
+                    // logger.groupCollapsed(`[Middleware-Log @ ${formatTime(new Date())}] %c${title}`, ...headerCSS);
+                    logger.groupCollapsed(`%c${title}`, ...headerCSS);
                 } else {
                     logger.groupCollapsed(title);
                 }
             } else if (colors.title && isUsingDefaultFormatter) {
-                logger.group(`[Middleware-Log @ ${formatTime(new Date())}] %c${title}`, ...headerCSS);
+                // logger.group(`[Middleware-Log @ ${formatTime(new Date())}] %c${title}`, ...headerCSS);
+                logger.group(`%c${title}`, ...headerCSS);
             } else {
                 logger.group(title);
             }
