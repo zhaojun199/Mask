@@ -2,20 +2,13 @@ import Launcher from '@home/core/launcher';
 
 import roomApp from './app/index';
 
-let app = new roomApp();
+// 直接实例化组件，不可以$cloneApp
+// const app = new roomApp()
+// const module = Launcher.getMountableComponent(app);
 
-export const mount = (componentProps) => {
-	let div = document.getElementById('room-mount-point');
-	app = new roomApp();
+// 不直接实例化组件，可以$cloneApp
+const module = Launcher.getMountableComponent(roomApp, {});
 
-	if (!div) {
-	    div = document.createElement('div');
-	    div.id = 'room-mount-point';
-	    div.className = 'CustomGroup';
-	    document.body.appendChild(div);
-	}
-	Launcher.render(app, document.getElementById('room-mount-point'), componentProps)
-};
+// module.$mount({testStr: 123123}, { id, className, style })
 
-// mount({testStr: 123123})
-export default Launcher.getMountableComponent(app);
+export default module;

@@ -14,6 +14,14 @@ import { log } from '@home/core/log'
 // 	dispatch
 // })
 
+import room, { $mount } from '@home/page/room'
+
+const A1 = room.$cloneApp()
+const A2 = room.$cloneApp()
+const A3 = room.$cloneApp()
+
+A1.$mount()
+
 export default
 @log
 class App extends Component {
@@ -24,6 +32,9 @@ class App extends Component {
 		return (
 			<Fragment>
 				{new GenRouter().render()}
+			<A1></A1>
+			<A2></A2>
+			<A3></A3>
 			</Fragment>
 		);
 	}

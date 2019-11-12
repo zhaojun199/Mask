@@ -1,3 +1,5 @@
+import warning from 'warning'
+import guid from '@home/util/guid'
 import container from './container'
 
 // { name, store, component }
@@ -27,9 +29,10 @@ export default function createApp(options = {}) {
 	            ...opts,
 	        };
 
-		    // errors
 	        if (!this.options.name) {
-	            throw new Error('Must provide `name` in options');
+	            // throw new Error('Must provide `name` in options');
+	            warning(false, 'Must provide `name` in options')
+	            this.options.name = options.name = guid('$store_');
 	        }
 
 	        container.registry(options);
@@ -39,6 +42,7 @@ export default function createApp(options = {}) {
 
 		get(providerName) {
 	        const value = this.container[providerName];
+
 
 	        if (typeof value !== 'undefined') {
 	            return value;

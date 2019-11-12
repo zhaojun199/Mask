@@ -56,3 +56,9 @@
 	- [ ] event 使用rx，增加防抖和节流等功能
 	- [ ] 增加errorhandle组件装饰器。兜底组件。
 	- [ ] 搭建多应用，每个应用一个store，多个模块，通过统一store处理数据，代理dispatch，添加dispatch的模块命名空间，添加跨应用globalDispatch方法
+	- [x] 优化epics语法，更接地气。
+	- [x] 优化同名模块无法不影响的直接复用问题。
+	- [x] module增加$cloneApp方法，用于复制组件。
+	- [x] module增加$mount方法，用于挂载组件。
+	- [x] $mount的store外部共用，$cloneApp的store内部独立。
+	- [ ] connect增加默认参数，直接传入所有state。

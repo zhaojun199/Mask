@@ -11,7 +11,7 @@ import reducers from '../controllers';
 import PageEntry from '../modules';
 
 export default Launcher.createApp({
-    name: 'roomApp',    //  应用名称，每个应用唯一
+    // name: 'roomApp',    //  应用名称，每个应用唯一
     storeFactory() {
         const storeProps = {
             preloadedState: window.__INITIAL_STATE__,

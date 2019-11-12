@@ -1,29 +1,17 @@
-import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-// import '@home/core/apm/error'
-// import '@home/core/apm/performance'
-// import '@home/util/cout'
-// import Store from '@home/core/Store'
-// import App from '@home/page/App'
-// import factory from '@home/core/factory'
-// import democtrl1 from '@home/controllers/demo.ctrl'
-// import democtrl2 from '@home/controllers/demo2.ctrl'
-// import demoepic from '@home/epics/demo.epic'
-
-// factory({ ctrl: democtrl1, epic: demoepic, namespace: 'demo' })
-// factory({ ctrl: democtrl2, namespace: 'demo2' })
-
-// const store = new Store()
-
-// render(
-//   <Provider store={store}>
-//     <App />
-//   </Provider>,
-//   document.getElementById('root')
-// )
+import render from './render'
+import guid from '@home/util/guid'
 
 // 从app获取数据，并把数据挂载到component上
-export default function getMountableComponent(app) {
+export default function getMountableComponent(App, AppOptions) {
+
+	let app
+
+	if (typeof App === 'function') {
+		app = new App(AppOptions)
+	} else {
+		app = App
+	}
 
 	const Component = app.get('component')
 	const store = app.get('store')
@@ -42,7 +30,45 @@ export default function getMountableComponent(app) {
 			</Provider>
 		)
 	}
-	return props => {
-        return <RootComponent {...props} />;
-    }
+
+	function rootComponent(props) {
+		return <RootComponent {...props} />;
+	}
+	
+	// 挂载组件
+	rootComponent.$mount = (componentProps, { id, className, style } = {}) => {
+
+		let div = id && document.getElementById(id);
+
+		if (!div) {
+		    div = document.createElement('div');
+
+		    if (id) {
+		    	div.id = id;
+		    } else {
+				div.id = guid('$mount_');
+		    }
+		    
+		    className && (div.className = className);
+		    style && (div.style = style);
+
+		    document.body.appendChild(div);
+		}
+		render(app, document.getElementById(div.id), componentProps)
+	}
+
+	// 克隆一个组件
+	rootComponent.$cloneApp = (name) => {
+		let app
+
+		if (typeof App === 'function') {
+			app = new App({ ...AppOptions, name });
+		} else {
+			throw new Error('$cloneApp 不能克隆已实例化的app');
+		}
+
+		return getMountableComponent(app)
+	}
+
+	return rootComponent;
 }
