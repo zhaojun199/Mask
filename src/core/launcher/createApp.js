@@ -35,7 +35,7 @@ export default function createApp(options = {}) {
 	            this.options.name = options.name = guid('$store_');
 	        }
 
-	        container.registry(options);
+	        container.registry(this.options);
 
 	        this.container = container.getApp(this.options.name);
 		}

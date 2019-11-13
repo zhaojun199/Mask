@@ -2,7 +2,7 @@ import Controller from '@home/core/baseClass/Controller';
 
 export default class DemoController extends Controller {
 
-	namespace = 'demo';
+	namespace = 'list';
 
 	initial = {
 		a: 1,

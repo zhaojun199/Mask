@@ -1,26 +1,14 @@
 import { Component, Fragment } from 'react'
-// import connect from '@home/core/connect'
 import GenRouter from '@home/router/GenRouter'
 import { log } from '@home/core/log'
-// import { connect } from 'react-redux'
-
-// const mapStateToProps = (state, ownProps) => {
-// 	return ({
-// 		...state.demo2,
-// 	})
-// }
-
-// const mapDispatchToProps = (dispatch, ownProps) => ({
-// 	dispatch
-// })
 
 import room, { $mount } from '@home/page/room'
 
-const A1 = room.$cloneApp()
-const A2 = room.$cloneApp()
-const A3 = room.$cloneApp()
+// const A1 = room.$cloneApp('xxx')
+// const A2 = room.$cloneApp()
+// const A3 = room.$cloneApp()
 
-A1.$mount()
+// A1.$mount()
 
 export default
 @log
@@ -32,15 +20,10 @@ class App extends Component {
 		return (
 			<Fragment>
 				{new GenRouter().render()}
-			<A1></A1>
+			{/*<A1></A1>
 			<A2></A2>
-			<A3></A3>
+			<A3></A3>*/}
 			</Fragment>
 		);
 	}
 }
-
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(App)

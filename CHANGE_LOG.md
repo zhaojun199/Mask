@@ -42,6 +42,14 @@
 	- 增加log中间件，打印reducer前后变化
 	- 增加diff方法，比较reducer的preState和nextState
 
+- 2019-11-12
+	- module增加$cloneApp方法，用于复制组件。
+	- module增加$mount方法，用于挂载组件。
+	- $mount的store外部共用，$cloneApp的store内部独立。
+
+- 2019-11-13
+	- 增加service和store装饰器，可注入service和store。
+
 - TODO
 	- [x] 异步更新store里的reducer，api: Store.replaceReducer
 	- [x] 异步更新store里的epic，api: epicMiddleware.run
@@ -61,4 +69,5 @@
 	- [x] module增加$cloneApp方法，用于复制组件。
 	- [x] module增加$mount方法，用于挂载组件。
 	- [x] $mount的store外部共用，$cloneApp的store内部独立。
-	- [ ] connect增加默认参数，直接传入所有state。
+	- [x] connect增加默认参数，直接传入所有state。
+	- [x] 增加context，用于注入全局信息。

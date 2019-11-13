@@ -1,10 +1,13 @@
-import { Provider } from 'react-redux'
+import { Provider, createProvider } from 'react-redux'
 import render from './render'
 import guid from '@home/util/guid'
+import { stores } from './createStore';
 
 // 从app获取数据，并把数据挂载到component上
-export default function getMountableComponent(App, AppOptions) {
-
+export default function getMountableComponent(
+	App,
+	AppOptions,
+) {
 	let app
 
 	if (typeof App === 'function') {
@@ -12,11 +15,12 @@ export default function getMountableComponent(App, AppOptions) {
 	} else {
 		app = App
 	}
-
+	
 	const Component = app.get('component')
 	const store = app.get('store')
 
 	const RootComponent = (compontProps) => {
+
 		if (store) {
 			return (
 				<Provider store={store}>
@@ -25,16 +29,14 @@ export default function getMountableComponent(App, AppOptions) {
 			)
 		}
 		return (
-			<Provider store={store}>
-			    <Component {...compontProps} />
-			</Provider>
+			<Component {...compontProps} />
 		)
 	}
 
 	function rootComponent(props) {
 		return <RootComponent {...props} />;
 	}
-	
+
 	// 挂载组件
 	rootComponent.$mount = (componentProps, { id, className, style } = {}) => {
 
@@ -58,11 +60,11 @@ export default function getMountableComponent(App, AppOptions) {
 	}
 
 	// 克隆一个组件
-	rootComponent.$cloneApp = (name) => {
+	rootComponent.$cloneApp = (alternateName) => {
 		let app
 
 		if (typeof App === 'function') {
-			app = new App({ ...AppOptions, name });
+			app = new App({ ...AppOptions, name: alternateName });
 		} else {
 			throw new Error('$cloneApp 不能克隆已实例化的app');
 		}

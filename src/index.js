@@ -1,23 +1,11 @@
-import { render } from 'react-dom'
-import { Provider } from 'react-redux'
 import '@home/core/apm/error'
 import '@home/core/apm/performance'
 import '@home/util/cout'
-import Store from '@home/core/Store'
+
+import { render } from 'react-dom'
 import App from '@home/page/App'
-import factory from '@home/core/factory'
-import democtrl1 from '@home/controllers/demo.ctrl'
-import democtrl2 from '@home/controllers/demo2.ctrl'
-import demoepic from '@home/epics/demo.epic'
-
-factory({ ctrl: democtrl1, epic: demoepic, namespace: 'demo' })
-factory({ ctrl: democtrl2, namespace: 'demo2' })
-
-const store = new Store()
 
 render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <App />,
   document.getElementById('root')
 )

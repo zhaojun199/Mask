@@ -9,6 +9,6 @@ import roomApp from './app/index';
 // 不直接实例化组件，可以$cloneApp
 const module = Launcher.getMountableComponent(roomApp, {});
 
-// module.$mount({testStr: 123123}, { id, className, style })
+// module.$mount({testStr: 123123})
 
 export default module;

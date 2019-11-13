@@ -1,6 +1,8 @@
 import { Component } from 'react'
 import connect from '@home/core/connect'
 import { log } from '@home/core/log'
+import Launcher from '@home/core/launcher'
+import demoService from '../services/demo'
 
 const mapStateToProps = (state, ownProps) => {
 	return ({
@@ -16,16 +18,25 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 
 export default
 @connect(
-  mapStateToProps,
-  mapDispatchToProps
+  // mapStateToProps,
+  // mapDispatchToProps
 )
 @log
 class AAA extends Component {
+
+	@Launcher.Service(demoService)
+	demoService
+
 	constructor(props) {
 		super(props)
 	}
+
 	componentDidMount() {
-		
+		this.demoService
+			.getInfo()
+			.subscribe((res) => {
+				console.log('test service', res)
+			})
 	}
 
 	pingEpic = () => {

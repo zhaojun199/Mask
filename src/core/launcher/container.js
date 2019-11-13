@@ -8,12 +8,12 @@ const containers = {
 
 class Container {
 	registry(app) {
-		const { name, storeFactory, component } = app
+		const { name, storeFactory = () => null, component } = app
 		warning(!containers[name], `${name} app 已经存在，app name 必须唯一`)
 		containers[name] = {
 			name,
 			component,
-			store: storeFactory(),
+			store: storeFactory()(name),
 		}
 	}
 

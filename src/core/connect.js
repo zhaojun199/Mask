@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import { http, Http } from '@home/util/http'
 
 // mapStateToProps包装器
-function wrapMapStateToProps(mapStateToProps) {
+function wrapMapStateToProps(mapStateToProps = (state) => ({ ...state })) {
 	return function(state, ownProps) {
 		// console.log('wrapMapStateToProps', state, ownProps)
 		// 注入请求器
@@ -36,16 +36,18 @@ function wrapDispatch(dispatch) {
 }
 
 // mapDispatchToProps包装器
-function wrapMapDispatchToProps(mapDispatchToProps) {
+function wrapMapDispatchToProps(mapDispatchToProps = (dispatch) => ({ dispatch })) {
 	return function(dispatch, ownProps) {
 		// console.log('wrapMapDispatchToProps', dispatch, ownProps)
 		return mapDispatchToProps(wrapDispatch(dispatch), ownProps)
 	}
 }
 
-export default function(mapStateToProps, mapDispatchToProps) {
+export default function(mapStateToProps, mapDispatchToProps, mergeProps, options = {}) {
 	return connect(
 		wrapMapStateToProps(mapStateToProps),
-		wrapMapDispatchToProps(mapDispatchToProps)
+		wrapMapDispatchToProps(mapDispatchToProps),
+		mergeProps,
+		options,
 	)
 }

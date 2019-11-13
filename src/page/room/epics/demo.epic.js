@@ -15,7 +15,7 @@ export default class ListEpic {
 				http$.getJSON(`https://api.github.com/users/${payload.id}?param=${payload.id}`).pipe(
 					map(response => {
 						return {
-							type: 'demo/showList',
+							type: 'list/showList',
 							payload: response,
 						}
 					})

@@ -2,25 +2,18 @@ import { ofType } from 'redux-observable'
 import { filter, mapTo, mergeMap, map } from 'rxjs/operators'
 import http$ from '@home/util/http'
 
-export default class DemoEpic {
+export default class UserEpic {
 	// epic命名空间,与controller ns 对应
-	namespace = 'demo';
+	namespace = 'user';
 
-	fetchUserEpic(action$) {
+	fetchUser(action$) {
 		return action$.pipe(
-			ofType('FETCH_USER'),
 			mergeMap(action =>
 				http$.getJSON(`https://api.github.com/users/${action.payload}`).pipe(
-					map(response => ({ type: 'demo/showText', response, id: response.id }))
+					map(response => ({ type: 'user/saveUser', payload: response }))
 				)
 			)
 		)
 	}
 
-	pingEpic(action$) {
-		return action$.pipe(
-			filter(action => action.type === 'PING'),
-			mapTo({ type: 'PONG' })
-		)
-	}
 }
