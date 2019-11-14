@@ -6,6 +6,7 @@ import { stores } from './createStore';
 const store = (appName) =>
     function (target, key) {
 		if (appName) {
+			// target[key] = stores[appName];
 			Object.defineProperties(target, {
 				[key]: {
 					get: function () {

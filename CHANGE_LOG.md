@@ -50,6 +50,9 @@
 - 2019-11-13
 	- 增加service和store装饰器，可注入service和store。
 
+- 2019-11-14
+	- module增加$unmount方法，用于卸载组件。
+
 - TODO
 	- [x] 异步更新store里的reducer，api: Store.replaceReducer
 	- [x] 异步更新store里的epic，api: epicMiddleware.run
@@ -63,11 +66,13 @@
 	- [ ] http.js中增加缓存功能
 	- [ ] event 使用rx，增加防抖和节流等功能
 	- [ ] 增加errorhandle组件装饰器。兜底组件。
-	- [ ] 搭建多应用，每个应用一个store，多个模块，通过统一store处理数据，代理dispatch，添加dispatch的模块命名空间，添加跨应用globalDispatch方法
+	- [x] 搭建多应用，每个应用一个store，多个模块，通过统一store处理数据，代理dispatch，添加dispatch的模块命名空间，添加跨应用globalDispatch方法
 	- [x] 优化epics语法，更接地气。
 	- [x] 优化同名模块无法不影响的直接复用问题。
 	- [x] module增加$cloneApp方法，用于复制组件。
 	- [x] module增加$mount方法，用于挂载组件。
+	- [x] module增加$unmount方法，用于卸载组件。
 	- [x] $mount的store外部共用，$cloneApp的store内部独立。
 	- [x] connect增加默认参数，直接传入所有state。
-	- [x] 增加context，用于注入全局信息。
+	- [ ] 增加context，用于注入全局信息。
+	- [ ] http增加全局loading对象，可以通过rx + hoc注入到组件中。

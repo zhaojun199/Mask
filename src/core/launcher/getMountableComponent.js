@@ -1,6 +1,7 @@
-import { Provider, createProvider } from 'react-redux'
-import render from './render'
+import { Provider } from 'react-redux'
+import { unmountComponentAtNode } from 'react-dom'
 import guid from '@home/util/guid'
+import render from './render'
 import { stores } from './createStore';
 
 // 从app获取数据，并把数据挂载到component上
@@ -16,7 +17,7 @@ export default function getMountableComponent(
 		app = App
 	}
 	
-	const Component = app.get('component')
+	let Component = app.get('component')
 	const store = app.get('store')
 
 	const RootComponent = (compontProps) => {
@@ -33,8 +34,14 @@ export default function getMountableComponent(
 		)
 	}
 
+	// 根组件
 	function rootComponent(props) {
-		return <RootComponent {...props} />;
+		if (Component.$$typeof.toString() === 'Symbol(react.lazy)') {
+			return <React.Suspense fallback="">
+				<RootComponent {...props} />
+			</React.Suspense>;
+		}
+		return <RootComponent {...props} />
 	}
 
 	// 挂载组件
@@ -56,20 +63,35 @@ export default function getMountableComponent(
 
 		    document.body.appendChild(div);
 		}
+
+		rootComponent.mountId = div.id;
+
 		render(app, document.getElementById(div.id), componentProps)
 	}
 
+	// 卸载组件
+	rootComponent.$unmount = () => {
+		if (rootComponent.mountId) {
+			let div = document.getElementById(rootComponent.mountId)
+			const unmountResult = unmountComponentAtNode(div)
+			if (unmountResult && div.parentNode) {
+				div.parentNode.removeChild(div);
+			}
+		} else {
+			throw new Error(`${app.get('name')} 未找到挂载节点`);
+		}
+	}
 	// 克隆一个组件
 	rootComponent.$cloneApp = (alternateName) => {
-		let app
+		let _app
 
 		if (typeof App === 'function') {
-			app = new App({ ...AppOptions, name: alternateName });
+			_app = new App({ ...AppOptions, name: alternateName });
 		} else {
 			throw new Error('$cloneApp 不能克隆已实例化的app');
 		}
 
-		return getMountableComponent(app)
+		return getMountableComponent(_app)
 	}
 
 	return rootComponent;

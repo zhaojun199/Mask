@@ -32,10 +32,11 @@ class AAA extends Component {
 	}
 
 	componentDidMount() {
+		// service用于处理异步事件完成后的动作
 		this.demoService
 			.getInfo()
 			.subscribe((res) => {
-				console.log('test service', res)
+				console.log('service finished', res)
 			})
 	}
 
@@ -43,7 +44,7 @@ class AAA extends Component {
 		this.props.dispatch({
 			type: 'list/fetchList',
 			payload: {
-				id: (this.props.demo?.login || 0) + 1,
+				id: (this.props.list?.login || 0) + 1,
 			},
 		});
 	}
@@ -51,9 +52,9 @@ class AAA extends Component {
 	render() {
 		return <div>
 			<span>room</span>
-			<div>{this.props.testStr}</div>
+			<div>testStr: {this.props.testStr}</div>
 			<button onClick={this.pingEpic}>click</button>
-			<div>{this.props.demo?.login}</div>
+			<div>id: {this.props.list?.login}</div>
 		</div>
 	}
 }
