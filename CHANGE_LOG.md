@@ -51,7 +51,7 @@
 	- 增加service和store装饰器，可注入service和store。
 
 - 2019-11-14
-	- module增加$unmount方法，用于卸载组件。
+	- module挂载后返回$unmount方法，用于卸载组件。
 
 - TODO
 	- [x] 异步更新store里的reducer，api: Store.replaceReducer

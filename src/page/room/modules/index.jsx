@@ -3,24 +3,10 @@ import connect from '@home/core/connect'
 import { log } from '@home/core/log'
 import Launcher from '@home/core/launcher'
 import demoService from '../services/demo'
-
-const mapStateToProps = (state, ownProps) => {
-	return ({
-		demo: state.demo,
-		http: state.http,
-		Http: state.Http,
-	})
-}
-
-const mapDispatchToProps = (dispatch, ownProps) => ({
-	dispatch
-})
+import multipleDispatch from '@home/page/multipleDispatch'
 
 export default
-@connect(
-  // mapStateToProps,
-  // mapDispatchToProps
-)
+@connect()
 @log
 class AAA extends Component {
 
@@ -49,11 +35,23 @@ class AAA extends Component {
 		});
 	}
 
+	mount = () => {
+		this.multipleDispatch = multipleDispatch.$mount();
+	}
+
+	unmount = () => {
+		this.multipleDispatch.$unmount();
+	}
+
 	render() {
 		return <div>
 			<span>room</span>
 			<div>testStr: {this.props.testStr}</div>
 			<button onClick={this.pingEpic}>click</button>
+			<span> </span>
+			<button onClick={this.mount}>mount</button>
+			<span> </span>
+			<button onClick={this.unmount}>unmount</button>
 			<div>id: {this.props.list?.login}</div>
 		</div>
 	}

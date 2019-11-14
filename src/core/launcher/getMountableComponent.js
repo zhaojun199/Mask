@@ -67,20 +67,21 @@ export default function getMountableComponent(
 		rootComponent.mountId = div.id;
 
 		render(app, document.getElementById(div.id), componentProps)
-	}
 
-	// 卸载组件
-	rootComponent.$unmount = () => {
-		if (rootComponent.mountId) {
-			let div = document.getElementById(rootComponent.mountId)
-			const unmountResult = unmountComponentAtNode(div)
-			if (unmountResult && div.parentNode) {
-				div.parentNode.removeChild(div);
-			}
-		} else {
-			throw new Error(`${app.get('name')} 未找到挂载节点`);
+		return {
+			// 卸载组件
+			$unmount: () => {
+				if (div) {
+					const unmountResult = unmountComponentAtNode(div)
+					if (unmountResult && div.parentNode) {
+						div.parentNode.removeChild(div);
+						div = undefined;
+					}
+				}
+			},
 		}
 	}
+
 	// 克隆一个组件
 	rootComponent.$cloneApp = (alternateName) => {
 		let _app
