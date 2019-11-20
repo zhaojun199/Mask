@@ -4,8 +4,10 @@ import { log } from '@home/core/log'
 import Launcher from '@home/core/launcher'
 import demoService from '../services/demo'
 import multipleDispatch from '@home/page/multipleDispatch'
+import loading from '@home/core/HOC/Loading'
 
 export default
+@loading({ debounce: 2000 })
 @connect()
 @log
 class AAA extends Component {
@@ -19,11 +21,15 @@ class AAA extends Component {
 
 	componentDidMount() {
 		// service用于处理异步事件完成后的动作
-		this.demoService
+		this.getInfo()
+			// .subscribe((res) => {
+			// 	console.log('service finished', res)
+			// })
+	}
+
+	getInfo = () => {
+		return this.demoService
 			.getInfo()
-			.subscribe((res) => {
-				console.log('service finished', res)
-			})
 	}
 
 	pingEpic = () => {
@@ -47,7 +53,8 @@ class AAA extends Component {
 		return <div>
 			<span>room</span>
 			<div>testStr: {this.props.testStr}</div>
-			<button onClick={this.pingEpic}>click</button>
+			<button onClick={this.pingEpic}>epic</button>
+			<button onClick={this.pingEpic}>service</button>
 			<span> </span>
 			<button onClick={this.mount}>mount</button>
 			<span> </span>

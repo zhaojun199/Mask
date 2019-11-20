@@ -75,7 +75,7 @@ export default function getMountableComponent(
 					const unmountResult = unmountComponentAtNode(div)
 					if (unmountResult && div.parentNode) {
 						div.parentNode.removeChild(div);
-						div = undefined;
+						div = null;
 					}
 				}
 			},

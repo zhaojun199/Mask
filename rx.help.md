@@ -37,3 +37,65 @@ Rx.Observable.zip(ob1, ob2).subscribe({
 ```
 
 zip和forkJoin的区别在于，forkJoin仅会合并各个子流最后发射的一次数据，触发一次回调；zip会等待每个子流都发射完一次数据然后合并发射，之后继续等待，直到其中某个流结束（因为此时不能使合并的数据包含每个子流的数据）
+
+## Subject
+
+RxJS Subject是一种特殊类型的Observable，允许将值多播到多个观察者Observer。虽然普通的Observable是单播的（每个订阅的Observer都拥有Observable的独立执行），但Subject是多播的。
+
+Subject类似于Observable，但可以多播到许多观察者。Subject就像EventEmitters
+
+```
+var subject = new Rx.Subject();
+
+subject.subscribe({
+    next: (v) => console.log('observerA: ' + v)
+});
+subject.subscribe({
+    next: (v) => console.log('observerB: ' + v)
+})
+
+subject.next(1);
+subject.next(2);
+
+// observerA: 1
+// observerB: 1
+// observerA: 2
+// observerB: 2
+```
+
+## operators
+
+### debounceTime
+
+防抖：
+
+`debounceTime(dueTime: number, scheduler: Scheduler): Observable`
+
+只有在指定的时间间隔内没有产生另外的数据的时候，之前产生的数据才能被observable发射出来。marble diagram如下所示
+
+a产生出来20ms后没有产生别的数据，订阅者可以得到a。b产生出来20ms内产生了新的数据c，b被忽略。c产生之后20ms内没有产生新数据，订阅者可以得到c
+
+### debounce
+
+`debounce(durationSelector: function): Observable`
+
+和debounceTime相比，observable A产生数据经过debounce处理后，产生的数据能否被订阅到，由另外一个observable B决定
+
+不断的点击红色的div，订阅者拿不到数据，点击一下蓝色的div，订阅者才能拿到数据。点击蓝色div这个事件被封装成了一个observable，他就像是一个开关一样，点一下就打开，不过只能有之前最近的时间内产生的那个数据才能通过
+
+### throttleTime
+
+`throttleTime(duration: number, scheduler: Scheduler): Observable`
+
+节流：
+
+发射第一个数据出来之后，之后发射的频率受duration影响，每次发射之后的duration时间之内不会发射出来新的数据。
+
+### throttle
+
+`throttle(durationSelector: function(value): Observable | Promise): Observable`
+
+接收一个返回Observable的方法，可以传入interval，timer等。
+throttle 预先设定一个执行周期，当调用动作的时刻大于等于执行周期则执行该动作，然后进入下一个新周期。
+
+以某个时间间隔为阈值，在 durationSelector 完成前将抑制新值的发出

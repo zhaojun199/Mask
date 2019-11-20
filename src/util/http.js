@@ -6,6 +6,7 @@ export default ajax
 // 2.多次发送同一个请求事件会取消之前的请求
 import Axios from 'axios'
 import qs from 'qs'
+import { BehaviorSubject } from 'rxjs';
 import Config from '@home/config/config'
 
 export class Http {
@@ -16,15 +17,25 @@ export class Http {
 		this.requests = []	//	正在发送的请求
 	}
 
+	observable = new BehaviorSubject({
+		loading: false,
+	})
+
 	// 添加请求拦截器
 	initReqInterceptors() {
-		// this.reqInterceptors = this.axios.interceptors.request.use(function(config) {
-		// 	// 在发送请求之前做些什么
-		// 	return config;
-		// }, function (error) {
-		// 	// 对请求错误做些什么
-		// 	return Promise.reject(error);
-		// })
+		const self = this
+		this.reqInterceptors = this.axios.interceptors.request.use(function(config) {
+			self.observable.next({
+				loading: true,
+			})
+			return config;
+		}, function (error) {
+			// 对请求错误做些什么
+			self.observable.next({
+				loading: false,
+			})
+			return Promise.reject(error);
+		})
 	}
 
 	// 添加响应拦截器
@@ -33,6 +44,9 @@ export class Http {
 		this.resInterceptors = this.axios.interceptors.response.use(function(response) {
 			// 删除请求
 			self.removeRequest(response.config)
+			self.observable.next({
+				loading: false,
+			})
 			// 定义返回结口数据格式等
 			// ...
 			const respData = response.data || {}
@@ -49,8 +63,11 @@ export class Http {
 					break;
 			}
 			return response
-		}, function(error) {
+		}, (error) => {
 			// 对响应错误做点什么
+			self.observable.next({
+				loading: false,
+			})
 			if (error instanceof Error) {
 				// 删除请求
 				self.removeRequest(error.config)
@@ -103,7 +120,7 @@ export class Http {
 	// 发送请求
 	send(config, dataType) {
 		const self = this
-		this.removeRequest(config, true)
+		self.removeRequest(config, true)
 		config.cancelToken = new Axios.CancelToken(function(c) {
 			self.requests.push({
 				key: self.genKey(config),

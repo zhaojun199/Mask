@@ -1,5 +1,5 @@
 import Service from '@home/core/baseClass/Service';
-import http$ from '@home/util/http'
+import { http } from '@home/util/http'
 
 import Launcher from '@home/core/launcher';
 
@@ -8,6 +8,9 @@ export default class DemoService extends Service {
 	@Launcher.store() stores;
 
 	getInfo() {
-		return http$.getJSON(`https://api.github.com/users/123`)
+		return http.send({
+			url:`https://api.github.com/users/123`,
+			method:'get',
+		})
 	}
 }

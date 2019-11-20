@@ -53,6 +53,10 @@
 - 2019-11-14
 	- module挂载后返回$unmount方法，用于卸载组件。
 
+- 2019-11-20
+	- http增加全局loading状态
+	- 增加loading装饰器，向组件注入全局loading状态，支持debounce
+
 - TODO
 	- [x] 异步更新store里的reducer，api: Store.replaceReducer
 	- [x] 异步更新store里的epic，api: epicMiddleware.run
@@ -61,8 +65,8 @@
 	- [ ] redux-persist持久化store
 	- [ ] 提取配置
 	- [x] 支持apm
-	- [ ] redux增加数据初始化功能
-	- [ ] http.js中增加全局loading效果
+	- [x] redux增加数据初始化功能
+	- [x] http.js中增加全局loading效果
 	- [ ] http.js中增加缓存功能
 	- [ ] event 使用rx，增加防抖和节流等功能
 	- [ ] 增加errorhandle组件装饰器。兜底组件。
@@ -75,4 +79,4 @@
 	- [x] $mount的store外部共用，$cloneApp的store内部独立。
 	- [x] connect增加默认参数，直接传入所有state。
 	- [ ] 增加context，用于注入全局信息。
-	- [ ] http增加全局loading对象，可以通过rx + hoc注入到组件中。
+	- [x] http增加全局loading对象，可以通过rx + hoc注入到组件中。
