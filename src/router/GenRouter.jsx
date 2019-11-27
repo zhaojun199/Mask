@@ -7,6 +7,7 @@ import RouterConfig from '@home/router/RouterConfig'
 import ErrorBoundary from '@home/router/ErrorBoundary'
 import notFound from '@home/page/404'
 import { log } from '@home/core/log'
+import Loading from '@home/components/Loading'
 
 @log
 class GenRouter {
@@ -17,7 +18,7 @@ class GenRouter {
 					const Component = router.component;
 					return (
 						<Suspense
-							fallback={<div>Loading...</div>}
+							fallback={<Loading><br /><br /><br /></Loading>}
 							// TO CONFIG
 							maxDuration={500}
 						>

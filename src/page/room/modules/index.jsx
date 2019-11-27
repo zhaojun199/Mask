@@ -4,10 +4,11 @@ import { log } from '@home/core/log'
 import Launcher from '@home/core/launcher'
 import demoService from '../services/demo'
 import multipleDispatch from '@home/page/multipleDispatch'
-import loading from '@home/core/HOC/Loading'
+import loading from '@home/core/HOC/loading'
+import Loading from '@home/components/Loading'
 
 export default
-@loading({ debounce: 2000 })
+@loading({ debounce: 300 })
 @connect()
 @log
 class AAA extends Component {
@@ -50,16 +51,17 @@ class AAA extends Component {
 	}
 
 	render() {
-		return <div>
+		return <Loading loading={this.props.$loading}>
 			<span>room</span>
 			<div>testStr: {this.props.testStr}</div>
 			<button onClick={this.pingEpic}>epic</button>
-			<button onClick={this.pingEpic}>service</button>
+			<button onClick={this.getInfo}>service</button>
 			<span> </span>
 			<button onClick={this.mount}>mount</button>
 			<span> </span>
 			<button onClick={this.unmount}>unmount</button>
 			<div>id: {this.props.list?.login}</div>
-		</div>
+			<div>loading: {this.props.$loading.toString()}</div>
+		</Loading>
 	}
 }

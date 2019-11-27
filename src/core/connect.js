@@ -17,6 +17,8 @@ function wrapMapStateToProps(mapStateToProps = (state) => ({ ...state })) {
 
 // dispatch包装器
 function wrapDispatch(dispatch) {
+	// ie不兼容Proxy
+	return dispatch
 	// console.log('wrapDispatch', dispatch)
 	const handlerDispatch = {
 		apply (target, ctx, args) {

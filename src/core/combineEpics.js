@@ -10,14 +10,14 @@ export default function combineEpics(...epicClses) {
 		epics.push(Object.values(epicClsToEpic(epicCls)));
 	})
 
-	const epicsFlat1 = epics.flat();
+	const epicsFlat1 = epics.flatMap(x => x);
 
 	warning(
 		epicsFlat1.length === epicClses.length,
 		`同一应用命名空间必须唯一`
 		)
 
-	const epicsFlat2 = epicsFlat1.flat();
+	const epicsFlat2 = epicsFlat1.flatMap(x => x);
 
 	return ce(...epicsFlat2)
 

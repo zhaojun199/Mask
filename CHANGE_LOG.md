@@ -57,6 +57,14 @@
 	- http增加全局loading状态
 	- 增加loading装饰器，向组件注入全局loading状态，支持debounce
 
+- 2019-11-27
+	- 兼容到ie10
+		- 安装@bebel/polyfill垫片
+		- 修改.babelrc，引入@bebel/polyfill
+		- src/core/combineEpics.js：修改flat方法为flatMap
+		- src/core/connect.js：去掉Proxy类
+		- webpack/develop.js：MiniCssExtractPlugin.loader修改为style-loader
+
 - TODO
 	- [x] 异步更新store里的reducer，api: Store.replaceReducer
 	- [x] 异步更新store里的epic，api: epicMiddleware.run

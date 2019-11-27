@@ -33,7 +33,7 @@ const dllJS = dllFiles
     });
 
 const config = {
-    entry: [path.resolve(ROOT_PATH, 'src/index.js')],
+    entry: ['@babel/polyfill', path.resolve(ROOT_PATH, 'src/index.js')],
     resolve: {
         alias: {
             '@home': path.resolve(ROOT_PATH, 'src'),
