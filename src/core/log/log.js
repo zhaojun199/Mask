@@ -46,6 +46,7 @@ function proxyMethod(target, name) {
         return result;
     };
 
+    // eslint-disable-next-line no-param-reassign
     target.prototype[name] = wrapFunction;
 }
 
@@ -67,9 +68,9 @@ function logClass(target) {
  * log EntityDto
  * @param {*} target
  */
-function logDto(target) {
-    target.prototype.log = true;
-}
+// function logDto(target) {
+//     target.prototype.log = true;
+// }
 
 function decorateHandler(args, param = false) {
     const target = args[0];

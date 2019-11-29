@@ -1,33 +1,36 @@
+/* eslint-disable */
 function getbrowser() {
-    var rwebkit = /(webkit)[ \/]([\w.]+)/;
-    var ropera = /(opera)(?:.*version)?[ \/]([\w.]+)/;
-    var rmsie = /(msie) ([\w.]+)/;
-    var rmozilla = /(mozilla)(?:.*? rv:([\w.]+))?/;
+    const rwebkit = /(webkit)[ \/]([\w.]+)/;
+    const ropera = /(opera)(?:.*version)?[ \/]([\w.]+)/;
+    const rmsie = /(msie) ([\w.]+)/;
+    const rmozilla = /(mozilla)(?:.*? rv:([\w.]+))?/;
 
     function uaMatch(ua) {
+        
         ua = ua.toLowerCase();
 
-        var match = rwebkit.exec( ua ) ||
-            ropera.exec( ua ) ||
-            rmsie.exec( ua ) ||
-            ua.indexOf("compatible") < 0 && rmozilla.exec( ua ) ||
-            [];
+        const match = rwebkit.exec(ua)
+            || ropera.exec(ua)
+            || rmsie.exec(ua)
+            || ua.indexOf('compatible') < 0 && rmozilla.exec(ua)
+            || [];
 
-        return { browser: match[1] || "", version: match[2] || "0" };
-    };
+        return { browser: match[1] || '', version: match[2] || '0' };
+    }
 
-    var browserResult = {
+    const browserResult = {
         mozilla: false,
         webkit: false,
         opera: false,
-        msie: false
+        msie: false,
     };
-    var browserMatch = uaMatch(navigator.userAgent);
+    const browserMatch = uaMatch(navigator.userAgent);
 
     browserResult[browserMatch.browser] = true;
     browserResult.version = browserMatch.version;
-    browserResult.safari = browserResult.webkit ? true : false;
+    browserResult.safari = !!browserResult.webkit;
 
     return browserResult;
 }
 
+export default getbrowser;

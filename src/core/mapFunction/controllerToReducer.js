@@ -1,36 +1,33 @@
-import warning from 'warning'
-import { getClassName, getClassFunction, assertIsPromise } from '../util'
+import warning from 'warning';
+import { getClassName } from '../util';
 
 // controller转换成reducer
 export default function controllerToReducer(Controller) {
-	const entry = new Controller()
-	const ns = entry.namespace
-	const initialValue = { '@@INIT': true, ...entry.initial }
+    const entry = new Controller();
+    const ns = entry.namespace;
+    const initialValue = { '@@INIT': true, ...entry.initial };
 
-	warning(ns, `【${getClassName(entry)}】 - 未找到命名空间`)
-	
-	const reducer = {}
+    warning(ns, `【${getClassName(entry)}】 - 未找到命名空间`);
 
-	reducer[ns] = (state = initialValue, action) => {
+    const reducer = {};
 
-		const { type, ...otherAction } = action
-		const actionType = type
-		const extractActionType = actionType.split('/')
+    reducer[ns] = (state = initialValue, action) => {
+        const { type, ...otherAction } = action;
+        const actionType = type;
+        const extractActionType = actionType.split('/');
 
-		if (ns === extractActionType[0]) {
+        if (ns === extractActionType[0]) {
+            const isFunc = typeof entry[extractActionType[1]] === 'function';
 
-			const isFunc = typeof entry[extractActionType[1]] === 'function'
-			
-			if (isFunc) {
-				let newState = entry[extractActionType[1]](otherAction);
-				return {
-					...state,
-					...(entry[extractActionType[1]](otherAction))
-				}
-			}
-		}
-		return state
-	}
+            if (isFunc) {
+                return {
+                    ...state,
+                    ...(entry[extractActionType[1]](otherAction)),
+                };
+            }
+        }
+        return state;
+    };
 
-	return reducer
+    return reducer;
 }

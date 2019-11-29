@@ -4,20 +4,20 @@ import differ from 'deep-diff';
 const dictionary = {
     E: {
         color: '#2196F3',
-        text: 'CHANGED:'
+        text: 'CHANGED:',
     },
     N: {
         color: '#4CAF50',
-        text: 'ADDED:'
+        text: 'ADDED:',
     },
     D: {
         color: '#F44336',
-        text: 'DELETED:'
+        text: 'DELETED:',
     },
     A: {
         color: '#2196F3',
-        text: 'ARRAY:'
-    }
+        text: 'ARRAY:',
+    },
 };
 
 export function style(kind) {
@@ -25,7 +25,9 @@ export function style(kind) {
 }
 
 export function render(diff) {
-    const { kind, path, lhs, rhs, index, item } = diff;
+    const {
+        kind, path, lhs, rhs, index, item,
+    } = diff;
 
     switch (kind) {
     case 'E':

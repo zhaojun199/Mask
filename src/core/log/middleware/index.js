@@ -4,38 +4,38 @@ import printBuffer from './core';
 /**
  * 创建日志中间件
  * @param {object} options - 配置参数
- * 
+ *
  * @return {function} logger middleware
  */
 function createLogger(options = {}) {
-	const loggerOptions = Object.assign({}, defaultOptions, options)
-	const {
-		logger,
-		stateTransformer,
-		errorTransformer,
-		predicate,
-		logErrors,
-		diffPredicate
-	} = loggerOptions
-	if (typeof logger === 'undefined') {
-		return () => next => action => next(action)
-	}
-	// if (options.getState && options.dispatch) {
-	// 	console.error('please config middleware');
-	// 	return () => next => action => next(action);
-	// }
-	
-	const logBuffer = []
+    const loggerOptions = { ...defaultOptions, ...options };
+    const {
+        logger,
+        stateTransformer,
+        errorTransformer,
+        // predicate,
+        logErrors,
+        diffPredicate,
+    } = loggerOptions;
+    if (typeof logger === 'undefined') {
+        return () => (next) => (action) => next(action);
+    }
+    // if (options.getState && options.dispatch) {
+    //     console.error('please config middleware');
+    //     return () => next => action => next(action);
+    // }
 
-	return ({ getState }) => next => (action) => {
-		// if (typeof predicate === 'function' && !predicate(getState, action)) {
-		// 	return next(action);
-		// }
-		const logEntry = {};
+    const logBuffer = [];
 
-		logBuffer.push(logEntry);
+    return ({ getState }) => (next) => (action) => {
+        // if (typeof predicate === 'function' && !predicate(getState, action)) {
+        //     return next(action);
+        // }
+        const logEntry = {};
 
-		logEntry.started = Date.now();
+        logBuffer.push(logEntry);
+
+        logEntry.started = Date.now();
         logEntry.startedTime = new Date();
         logEntry.prevState = stateTransformer(getState());
         logEntry.action = action;
@@ -56,10 +56,10 @@ function createLogger(options = {}) {
         logEntry.nextState = stateTransformer(getState());
 
         const diff = loggerOptions.diff && typeof diffPredicate === 'function'
-        ? diffPredicate(getState, action)
-        : loggerOptions.diff;
-		// 合并配置
-        const bufferOptions = Object.assign({}, loggerOptions, { diff })
+            ? diffPredicate(getState, action)
+            : loggerOptions.diff;
+        // 合并配置
+        const bufferOptions = { ...loggerOptions, diff };
 
         printBuffer(logBuffer, bufferOptions);
         logBuffer.length = 0;
@@ -67,12 +67,12 @@ function createLogger(options = {}) {
         if (logEntry.error) { throw logEntry.error; }
 
         return returnedValue;
-	}
+    };
 }
 
-export { defaultOptions, createLogger }
+export { defaultOptions, createLogger };
 
-export default { defaultOptions, createLogger }
+export default { defaultOptions, createLogger };
 
 // const a = {a : 1}
 // const m = m => m;

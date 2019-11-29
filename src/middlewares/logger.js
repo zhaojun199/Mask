@@ -1,21 +1,21 @@
 // const logger = store => next => action => {
-// 	console.group(action.type)
-// 	console.info('dispatching', action)
-// 	console.log('pre state', store.getState())
-// 	let result = next(action)
-// 	console.log('next state', store.getState())
-// 	console.groupEnd()
-// 	return result
+//     console.group(action.type)
+//     console.info('dispatching', action)
+//     console.log('pre state', store.getState())
+//     let result = next(action)
+//     console.log('next state', store.getState())
+//     console.groupEnd()
+//     return result
 // }
 
 // export default logger
 
-import { middleware, Logger } from '@home/core/log'
+import { middleware, Logger } from '@home/core/log';
 
-const { createLogger } = middleware
+const { createLogger } = middleware;
 
 const loggerMiddleware = createLogger({
-	logger: new Logger(),
-})
+    logger: new Logger(),
+});
 
-export default loggerMiddleware
+export default loggerMiddleware;

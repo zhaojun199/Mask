@@ -1,11 +1,8 @@
-import '@home/core/apm/error'
-import '@home/core/apm/performance'
-import '@home/util/cout'
+import '@home/core/apm/error';
+import '@home/core/apm/performance';
+import '@home/util/cout';
 
-import { render } from 'react-dom'
-import App from '@home/page/App'
+import { render } from 'react-dom';
+import App from '@home/page/App';
 
-render(
-  <App />,
-  document.getElementById('root')
-)
+render(<App />, document.getElementById('root'));

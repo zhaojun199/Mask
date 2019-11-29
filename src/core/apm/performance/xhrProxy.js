@@ -1,5 +1,5 @@
-import report from '../report/report'
 import { parse } from 'qs';
+import report from '../report/report';
 
 if (!window.$$XMLHttpRequest) {
     window.$$XMLHttpRequest = window.XMLHttpRequest;
@@ -8,7 +8,7 @@ if (!window.$$XMLHttpRequest) {
 function XhrProxy() {
     const xhr = new window.$$XMLHttpRequest();
     const logObj = {};
-    const _open = xhr.open
+    const _open = xhr.open;
     xhr.open = ((...args) => {
         // 初始时间和信息
         logObj.startTime = new Date().valueOf();
@@ -23,7 +23,7 @@ function XhrProxy() {
             logObj.url = args[1].replace(/\?.*/, '');
         }
         logObj.query = parse(logObj.fullUrl.replace(/.*\?/, ''));
-        _open.apply(xhr, args)
+        _open.apply(xhr, args);
     });
 
     xhr.addEventListener('readystatechange', () => {

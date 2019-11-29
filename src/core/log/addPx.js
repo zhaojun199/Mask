@@ -57,7 +57,7 @@ const IS_UNITLESS = {
 
     strokeOpacity: true,
 
-    strokeWidth: true
+    strokeWidth: true,
 };
 
 export default function (name, value) {

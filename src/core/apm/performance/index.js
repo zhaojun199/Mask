@@ -1,3 +1,3 @@
-import './dom'
-import './xhrProxy'
-import './firstPaintTime'
+import './dom';
+import './xhrProxy';
+import './firstPaintTime';

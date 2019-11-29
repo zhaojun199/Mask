@@ -2,40 +2,40 @@
 const colorDic = {
     warn: {
         color: '#ff7b00',
-        weight: 'bold'
+        weight: 'bold',
     },
     debug: {
         color: '#ffb270',
-        weight: 'bold'
+        weight: 'bold',
     },
     info: {
         color: '#000000',
-        weight: 'normal'
+        weight: 'normal',
     },
     title: {
         color: '#000000',
-        weight: 'bold'
+        weight: 'bold',
     },
     gray: {
         color: 'gray',
-        weight: 'lighter'
+        weight: 'lighter',
     },
     error: {
         color: 'red',
-        weight: 'bold'
+        weight: 'bold',
     },
     field: {
         color: '#2196F3',
-        weight: 'bold'
+        weight: 'bold',
     },
     normal: {
         color: 'black',
-        weight: 'bold'
+        weight: 'bold',
     },
     default: {
         color: 'black',
-        weight: 'normal'
-    }
+        weight: 'normal',
+    },
 };
 
 const colorEnum = {
@@ -47,7 +47,7 @@ const colorEnum = {
     error: 'error',
     field: 'field',
     normal: 'normal',
-    default: 'default'
+    default: 'default',
 };
 
 export { colorDic, colorEnum };

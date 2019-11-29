@@ -1,4 +1,4 @@
-import combineControllers from '@home/core/combineControllers'
+import combineControllers from '@home/core/combineControllers';
 import demo from './demo.ctrl';
 import demo2 from './demo2.ctrl';
 

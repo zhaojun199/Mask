@@ -1,5 +1,5 @@
-import { formatTime } from '../util'
-import differ from '../differ'
+import { formatTime } from '../util';
+import differ from '../differ';
 
 /**
  * Get log level string based on supplied params
@@ -38,7 +38,7 @@ function defaultTitleFormatter(options) {
 }
 
 function printBuffer(buffer, options) {
-	const {
+    const {
         logger,
         actionTransformer,
         titleFormatter = defaultTitleFormatter(options),
@@ -49,32 +49,34 @@ function printBuffer(buffer, options) {
         diffCollapsed,
     } = options;
 
-    const isUsingDefaultFormatter = typeof options.titleFormatter === 'undefined'
+    const isUsingDefaultFormatter = typeof options.titleFormatter === 'undefined';
 
-	buffer.forEach((logEntry, key) => {
-		const { started, startedTime, action, prevState, error } = logEntry;
-		let { took, nextState } = logEntry;
-		const nextEntry = buffer[key + 1];
+    buffer.forEach((logEntry, key) => {
+        const {
+            started, startedTime, action, prevState, error,
+        } = logEntry;
+        let { took, nextState } = logEntry;
+        const nextEntry = buffer[key + 1];
 
-		if (nextEntry) {
+        if (nextEntry) {
             nextState = nextEntry.prevState;
             took = nextEntry.started - started;
         }
 
         const formattedAction = actionTransformer(action);
         const isCollapsed = typeof collapsed === 'function' ? collapsed(() => nextState, action, logEntry) : collapsed;
-	    const formattedTime = formatTime(startedTime);
+        const formattedTime = formatTime(startedTime);
 
         const titleCSS = colors.title ? `color: ${colors.title(formattedAction)};` : '';
         const headerCSS = ['color: gray; font-weight: lighter;'];
         headerCSS.push(titleCSS);
-		if (options.duration) {
+        if (options.duration) {
             headerCSS.push('color: gray; font-weight: lighter;');
         }
 
         const title = titleFormatter(formattedAction, formattedTime, took);
-		// log配置
-		if (window.log === false) {
+        // log配置
+        if (window.log === false) {
             return;
         }
 
@@ -85,7 +87,7 @@ function printBuffer(buffer, options) {
                 return;
             }
         }
-		// 按组打印action
+        // 按组打印action
         try {
             if (isCollapsed) {
                 if (colors.title && isUsingDefaultFormatter) {
@@ -103,13 +105,13 @@ function printBuffer(buffer, options) {
         } catch (e) {
             logger.log(title);
         }
-		// 获取打印等级，判断是否打印
+        // 获取打印等级，判断是否打印
         const prevStateLevel = getLogLevel(level, formattedAction, [prevState], 'prevState');
         const actionLevel = getLogLevel(level, formattedAction, [formattedAction], 'action');
         const errorLevel = getLogLevel(level, formattedAction, [error, prevState], 'error');
         const nextStateLevel = getLogLevel(level, formattedAction, [nextState], 'nextState');
 
-		// 打印prevState，action，error，nextState
+        // 打印prevState，action，error，nextState
         if (prevStateLevel) {
             if (colors.prevState) {
                 const styles = `color: ${colors.prevState(prevState)}; font-weight: bold`;
@@ -150,7 +152,7 @@ function printBuffer(buffer, options) {
             }
         }
 
-		if (diff) {
+        if (diff) {
             differ(prevState, nextState, logger, diffCollapsed);
         }
 
@@ -159,7 +161,7 @@ function printBuffer(buffer, options) {
         } catch (e) {
             logger.log('—— log end ——');
         }
-	})
+    });
 }
 
-export default printBuffer
+export default printBuffer;

@@ -1,13 +1,12 @@
 export default class UserController {
+    namespace = 'user';
 
-	namespace = 'user';
+    initial = {
+        info: {},
+        permission: {},
+    };
 
-	initial = {
-		info: {},
-		permission: {},
-	};
-
-	saveUser({ payload }, state) {
-		return payload;
-	}
+    saveUser({ payload }) {
+        return payload;
+    }
 }

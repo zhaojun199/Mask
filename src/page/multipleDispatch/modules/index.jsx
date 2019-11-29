@@ -4,64 +4,64 @@ import { log } from '@home/core/log'
 import Launcher from '@home/core/launcher'
 import demoService from '../services/demo'
 
-const mapStateToProps = (state, ownProps) => {
-	return ({
-		demo: state.demo,
-		http: state.http,
-		Http: state.Http,
-	})
+const mapStateToProps = (state) => {
+    return ({
+        demo: state.demo,
+        http: state.http,
+        Http: state.Http,
+    })
 }
 
-const mapDispatchToProps = (dispatch, ownProps) => ({
-	dispatch
+const mapDispatchToProps = (dispatch) => ({
+    dispatch,
 })
 
 export default
 @connect(
-  // mapStateToProps,
-  // mapDispatchToProps
+    mapStateToProps,
+    mapDispatchToProps,
 )
 @log
 class BBB extends Component {
 
-	@Launcher.Service(demoService)
-	demoService
+    @Launcher.Service(demoService)
+    demoService
 
-	constructor(props) {
-		super(props)
-	}
+    constructor(props) {
+        super(props)
+    }
 
-	componentDidMount() {
-		
-	}
+    componentDidMount() {
 
-	onClick = () => {
-		this.props.dispatch({
-			type: 'list/getList',
-			payload: {
-				id: (this.props.list?.id) + 1
-			}
-		})
-		this.onClickAfter();
-	}
+    }
 
-	onClickAfter() {
-		this.props.dispatch({
-			type: 'list/getList2',
-			payload: {
-				uid: (this.props.list?.uid) - 1
-			}
-		})
-	}
+    onClick = () => {
+        this.props.dispatch({
+            type: 'list/getList',
+            payload: {
+                id: (this.props.list?.id) + 1,
+            },
+        })
+        this.onClickAfter();
+    }
 
-	render() {
-		return <div>
-			<p>-----------</p>
-			<span>multipleDispatch</span>
-			<div>testStr: {this.props.testStr}</div>
-			<button onClick={this.onClick}>click</button>
-			<div>id: {this.props.list?.id}</div>
-			<div>uid: {this.props.list?.uid}</div>
-		</div>
-	}
+    onClickAfter() {
+        this.props.dispatch({
+            type: 'list/getList2',
+            payload: {
+                uid: (this.props.list?.uid) - 1,
+            }
+        })
+    }
+
+    render() {
+        return <div>
+            <p>-----------</p>
+            <span>multipleDispatch</span>
+            <div>testStr: {this.props.testStr}</div>
+            <button onClick={this.onClick}>click</button>
+            <div>id: {this.props.list?.id}</div>
+            <div>uid: {this.props.list?.uid}</div>
+        </div>
+    }
 }

@@ -1,2 +1,2 @@
-import './protectedEntryPoints'
-import './windowError'
+import './protectedEntryPoints';
+import './windowError';

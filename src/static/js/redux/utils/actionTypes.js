@@ -5,17 +5,16 @@
  * Do not reference these action types directly in your code.
  */
 
-const randomString = () =>
-  Math.random()
+const randomString = () => Math.random()
     .toString(36)
     .substring(7)
     .split('')
-    .join('.')
+    .join('.');
 
 const ActionTypes = {
-  INIT: `@@redux/INIT${randomString()}`,
-  REPLACE: `@@redux/REPLACE${randomString()}`,
-  PROBE_UNKNOWN_ACTION: () => `@@redux/PROBE_UNKNOWN_ACTION${randomString()}`
-}
+    INIT: `@@redux/INIT${randomString()}`,
+    REPLACE: `@@redux/REPLACE${randomString()}`,
+    PROBE_UNKNOWN_ACTION: () => `@@redux/PROBE_UNKNOWN_ACTION${randomString()}`,
+};
 
-export default ActionTypes
+export default ActionTypes;
