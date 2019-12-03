@@ -65,6 +65,10 @@
 		- src/core/connect.js：去掉Proxy类
 		- webpack/develop.js：MiniCssExtractPlugin.loader修改为style-loader
 
+- 2019-12-3
+	- 增加eslint配置
+	- 修复文件所有eslint
+
 - TODO
 	- [x] 异步更新store里的reducer，api: Store.replaceReducer
 	- [x] 异步更新store里的epic，api: epicMiddleware.run
