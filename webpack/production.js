@@ -33,6 +33,11 @@ const config = merge(common, {
     bail: true, //  在遇到错误的时候，打包过程将会退出，且把错误信息打印到 stderr
     module: {
         rules: [{
+            test: /\.(js|jsx)$/,
+            loader: 'eslint-loader',
+            enforce: 'pre',
+            include: [path.resolve(__dirname, '../src')], // 指定检查的目录
+        }, {
             test: /\.css$/,
             use: [
                 MiniCssExtractPlugin.loader,
