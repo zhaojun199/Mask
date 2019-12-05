@@ -1,11 +1,11 @@
+import React from 'react'
 import { http } from '@home/util/http'
 import { log } from '@home/core/log'
 import { debounceTime } from 'rxjs/operators';
-import Loading from '@home/components/Loading'
 
 function loadingDecorator({ debounce = 500 } = {}) {
 
-    return function(Target) {
+    return function (Target) {
         @log
         class Loading extends React.Component {
             constructor(props) {
@@ -17,10 +17,6 @@ function loadingDecorator({ debounce = 500 } = {}) {
 
             componentDidMount() {
                 this.initSubscribe()
-            }
-
-            shouldComponentUpdate(nextProps, nextState) {
-                return true
             }
 
             componentWillUnmount() {

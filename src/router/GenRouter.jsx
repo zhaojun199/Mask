@@ -1,6 +1,6 @@
-import { Component, Suspense } from 'react'
+import { Suspense } from 'react'
 // TO CONFIG
-import { BrowserRouter as Router, Route, Switch, Redirect, Link } from "react-router-dom"
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 // import { HashRouter as Router, Route, Switch, Redirect, Link } from "react-router-dom"
 import AuthRoute from '@home/router/AuthRoute'
 import RouterConfig from '@home/router/RouterConfig'
@@ -37,6 +37,7 @@ class GenRouter {
                 )
             })
     }
+
     get genRouter() {
         return this.loopRouter(RouterConfig)
     }
@@ -48,15 +49,15 @@ class GenRouter {
                 forceRefresh={false}
                 keyLength={6}
             >
-            <ErrorBoundary>
-                {/*<Link to="/list">list</Link>
-                <hr />
-                <Link to="/home">home</Link>
-                <hr />
-                <Link to="/home/list">homelist</Link>*/}
-                {/*
-                    Switch 仅渲染第一次匹配的路由
-                */}
+                <ErrorBoundary>
+                    {/* <Link to="/list">list</Link>
+                    <hr />
+                    <Link to="/home">home</Link>
+                    <hr />
+                    <Link to="/home/list">homelist</Link> */}
+                    {/*
+                        Switch 仅渲染第一次匹配的路由
+                    */}
                     <Switch>
                         {this.genRouter}
                         <Route

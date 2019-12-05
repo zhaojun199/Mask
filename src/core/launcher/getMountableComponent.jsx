@@ -36,7 +36,7 @@ export default function getMountableComponent(
     function rootComponent(props) {
         if (Component.$$typeof.toString() === 'Symbol(react.lazy)') {
             return (
-              <React.Suspense fallback="">
+                <React.Suspense fallback="">
                     <RootComponent {...props} />
                 </React.Suspense>
             );

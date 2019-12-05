@@ -1,3 +1,4 @@
+import React from 'react'
 import style from './index.less'
 
 export default class Loading extends React.PureComponent {

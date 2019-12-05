@@ -1,16 +1,18 @@
 import React from 'react';
 
+// eslint-disable-next-line import/no-cycle
 import getMountableComponent from './getMountableComponent';
 
 export default function render(app, node, nodeData) {
 
-    if(node === null) throw new Error('找不到挂载点')
+    if (node === null) throw new Error('找不到挂载点')
 
     const MountableComponent = getMountableComponent(app);
     const ReactDOM = require('react-dom');
 
     if (nodeData) {
-        return ReactDOM.render(<MountableComponent {...nodeData} />, node);
+        ReactDOM.render(<MountableComponent {...nodeData} />, node);
+        return;
     }
-    return ReactDOM.render(<MountableComponent />, node);
+    ReactDOM.render(<MountableComponent />, node);
 }
