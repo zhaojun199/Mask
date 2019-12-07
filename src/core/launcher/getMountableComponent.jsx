@@ -20,15 +20,16 @@ export default function getMountableComponent(
 
     const Component = app.get('component');
     const store = app.get('store');
+    const http = app.get('http');
 
     const RootComponent = (compontProps) => {
         if (store) {
             return (<Provider store={store}>
-                <Component {...compontProps} />
+                <Component $http={http} {...compontProps} />
             </Provider>);
         }
         return (
-            <Component {...compontProps} />
+            <Component $http={http} {...compontProps} />
         );
     };
 

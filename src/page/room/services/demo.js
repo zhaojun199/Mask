@@ -9,6 +9,7 @@ export default class DemoService extends Service {
     @Launcher.store() stores;
 
     getInfo() {
+        console.log(this)
         return http.send({
             url: 'https://api.github.com/users/123',
             method: 'get',

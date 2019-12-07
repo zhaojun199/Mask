@@ -67,7 +67,10 @@
 
 - 2019-12-3
 	- 增加eslint配置
+
+- 2019-12-3
 	- 修复文件所有eslint
+	- webpack预编译检测eslint
 
 - TODO
 	- [x] 异步更新store里的reducer，api: Store.replaceReducer

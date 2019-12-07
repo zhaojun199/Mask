@@ -5,6 +5,7 @@
 import { lazy } from 'react';
 import Launcher from '@home/core/launcher';
 import loggerMiddleware from '@home/middlewares/logger';
+import { Http } from '@home/util/http';
 
 import epics from '../epics';
 import reducers from '../controllers';
@@ -25,4 +26,5 @@ export default Launcher.createApp({
         return store;
     },
     component: PageEntry,
+    Http: Http,
 });
