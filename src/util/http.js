@@ -5,12 +5,14 @@ import { ajax } from 'rxjs/ajax';
 import Axios from 'axios';
 import qs from 'qs';
 import { BehaviorSubject } from 'rxjs';
+import { fromPromise } from 'rxjs/observable/fromPromise'
 import Config from '@home/config/config';
 
 export default ajax;
 
 export class Http {
-    constructor() {
+    constructor(name) {
+        this.name = name
         this.axios = Axios.create();
         this.initReqInterceptors();
         this.initResInterceptors();
@@ -132,12 +134,19 @@ export class Http {
         }));
         config.timeout = config.timeout === undefined ? Config.http.timeout : config.timeout;
         config = this.genHeadersConfig(config, dataType);
-        return this.axios.request(config);
+        return this.axios
+            .request(config)
+            .then(({ data }) => Promise.resolve(data));
+    }
+
+    $send(...args) {
+        return fromPromise(this.send(...args))
     }
 }
 
 const httpInstance = new Http();
 export const http = httpInstance;
+
 
 // const m = new Http()
 // m.send({ url: '/404', method: 'post', data: {a: 123, b: '%? 333'} }, 'formData').then(cout)

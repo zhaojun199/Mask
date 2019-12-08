@@ -2,9 +2,8 @@ import warning from 'warning';
 
 import { getClassName, getClassFunction } from '../util';
 
-export default function epicClsToEpic(Epic) {
+export default function epicClsToEpic(entry) {
     const epics = {};
-    const entry = new Epic();
     const epicNS = entry.namespace;
     warning(epicNS, `【${getClassName(entry)}】 - 未找到命名空间`);
 

@@ -14,7 +14,7 @@ class Container {
         containers[name] = {
             name,
             component,
-            store: storeFactory()(name),
+            store: storeFactory()({ name, http }),
             http,
         };
     }

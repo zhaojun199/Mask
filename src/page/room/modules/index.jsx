@@ -3,7 +3,7 @@ import connect from '@home/core/connect'
 import { log } from '@home/core/log'
 import Launcher from '@home/core/launcher'
 import multipleDispatch from '@home/page/multipleDispatch'
-import loading from '@home/core/HOC/loading'
+import loading from '@home/core/inject/Loading'
 import Loading from '@home/components/Loading'
 import demoService from '../services/demo'
 

@@ -1,3 +1,4 @@
+import combineEpics from '@home/core/combineEpics';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { createEpicMiddleware } from 'redux-observable';
 
@@ -10,10 +11,9 @@ export default function configureStore({
     enhancers = [],
     reducers,
 }) {
-    return function (name) {
+    return function ({ name, http }) {
         let epicMiddleware;
         let mergedMiddlewares;
-
         if (epics) {
             epicMiddleware = createEpicMiddleware();
             mergedMiddlewares = [...middlewares, epicMiddleware];
@@ -29,7 +29,8 @@ export default function configureStore({
         const store = createStore(reducers, preloadedState, composedEnhancers);
 
         if (epics) {
-            epicMiddleware.run(epics);
+            const originalEpics = combineEpics(http)(...epics);
+            epicMiddleware.run(originalEpics);
         }
 
         store.reducers = reducers;

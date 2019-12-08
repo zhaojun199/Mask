@@ -72,6 +72,11 @@
 	- 修复文件所有eslint
 	- webpack预编译检测eslint
 
+- 2019-12-8
+	- 模块（epics + modules）注入$http，支持请求模块化，每个模块独立一个axios类
+	- $loading状态支持模块化，支持模块内部独立$loading状态
+	- 增加rxjs-compat包兼容fromPromise
+
 - TODO
 	- [x] 异步更新store里的reducer，api: Store.replaceReducer
 	- [x] 异步更新store里的epic，api: epicMiddleware.run
@@ -94,4 +99,5 @@
 	- [x] $mount的store外部共用，$cloneApp的store内部独立。
 	- [x] connect增加默认参数，直接传入所有state。
 	- [ ] 增加context，用于注入全局信息。
-	- [x] http增加全局loading对象，可以通过rx + hoc注入到组件中。
+	- [x] http增加全局loading对象，可以通过rx + injectLoading注入到组件中。
+	- [x] http增加模块loading对象，可以通过rx + injectLoading注入到组件中。

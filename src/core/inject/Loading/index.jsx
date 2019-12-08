@@ -1,5 +1,4 @@
 import React from 'react'
-import { http } from '@home/util/http'
 import { log } from '@home/core/log'
 import { debounceTime } from 'rxjs/operators';
 
@@ -27,7 +26,7 @@ function loadingDecorator({ debounce = 500 } = {}) {
 
             // 初始化订阅
             initSubscribe() {
-                this.sub = http.observable.pipe(debounceTime(debounce)).subscribe({
+                this.sub = this.props.$http.observable.pipe(debounceTime(debounce)).subscribe({
                     next: ({ loading }) => {
                         if (this.state.loading !== loading) {
                             this.setState({
