@@ -77,6 +77,9 @@
 	- $loading状态支持模块化，支持模块内部独立$loading状态
 	- 增加rxjs-compat包兼容fromPromise
 
+- 2019-12-9
+	- 模块（service）注入$http，支持请求模块化，每个模块独立一个axios类
+
 - TODO
 	- [x] 异步更新store里的reducer，api: Store.replaceReducer
 	- [x] 异步更新store里的epic，api: epicMiddleware.run

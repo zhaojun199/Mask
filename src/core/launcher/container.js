@@ -28,6 +28,11 @@ class Container {
     getStore(name) {
         return containers[name].store;
     }
+
+    // 获取http实例
+    getHttp(name) {
+        return containers[name].http;
+    }
 }
 
 export default new Container();

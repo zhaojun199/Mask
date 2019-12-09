@@ -3,10 +3,11 @@ import {
 } from 'rxjs/operators';
 import http$ from '@home/util/http';
 import Event from '@home/core/event';
+import Epic from '@home/core/baseClass/Epic';
 
 const event = new Event();
 
-export default class ListEpic {
+export default class ListEpic extends Epic {
     // epic命名空间,与controller ns 对应
     namespace = 'list2';
 
