@@ -1,6 +1,7 @@
 import '@home/core/apm/error';
 import '@home/core/apm/performance';
 import '@home/util/cout';
+import '@home/core/data/dataCenter';
 
 import { render } from 'react-dom';
 import App from '@home/page/App';
