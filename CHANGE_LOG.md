@@ -80,6 +80,9 @@
 - 2019-12-9
 	- 模块（service）注入$http，支持请求模块化，每个模块独立一个axios类
 
+- 2019-12-10
+	- 增加react-hot-loader，用热替换代替热更新
+
 - TODO
 	- [x] 异步更新store里的reducer，api: Store.replaceReducer
 	- [x] 异步更新store里的epic，api: epicMiddleware.run
@@ -104,3 +107,4 @@
 	- [ ] 增加context，用于注入全局信息。
 	- [x] http增加全局loading对象，可以通过rx + injectLoading注入到组件中。
 	- [x] http增加模块loading对象，可以通过rx + injectLoading注入到组件中。
+	- [x] 用热替换代替热更新。

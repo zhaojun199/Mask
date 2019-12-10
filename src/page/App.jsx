@@ -1,4 +1,5 @@
 import { Component, Fragment } from 'react';
+import { hot } from 'react-hot-loader'
 import GenRouter from '@home/router/GenRouter';
 import { log } from '@home/core/log';
 
@@ -12,7 +13,7 @@ import { log } from '@home/core/log';
 // room.$mount()
 // setTimeout(A1.$unmount, 3000)
 
-export default
+
 @log
 class App extends Component {
     componentDidMount() {
@@ -29,3 +30,5 @@ class App extends Component {
         );
     }
 }
+
+export default hot(module)(App)

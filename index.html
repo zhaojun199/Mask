@@ -40,7 +40,7 @@
         window.speed.complete=(new Date).getTime();
     </script>
 <% htmlWebpackPlugin.options.dll.forEach(function(dll){ %>
-<%= `<script src="/dll/${dll}"></script>` %>
+<%= `<script src="./dll/${dll}"></script>` %>
 <% }); %>
 </body>
 <script type="text/javascript">

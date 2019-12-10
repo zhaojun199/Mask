@@ -33,7 +33,11 @@ const dllJS = dllFiles
     });
 
 const config = {
-    entry: ['@babel/polyfill', path.resolve(ROOT_PATH, 'src/index.js')],
+    entry: [
+        '@babel/polyfill',
+        'react-hot-loader/patch',
+        path.resolve(ROOT_PATH, 'src/index.js')
+    ],
     resolve: {
         alias: {
             '@home': path.resolve(ROOT_PATH, 'src'),
