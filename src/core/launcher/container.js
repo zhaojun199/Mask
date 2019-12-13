@@ -8,14 +8,15 @@ const containers = {
 
 class Container {
     registry(app) {
-        const { name, storeFactory = () => null, component, Http } = app;
+        const { name, storeFactory = () => null, component, Http, persist } = app;
         warning(!containers[name], `${name} app 已经存在，app name 必须唯一`);
         const http = Http ? new Http(name) : defaultHttp
         containers[name] = {
             name,
             component,
-            store: storeFactory()({ name, http }),
+            store: storeFactory()({ name, http, persist }),
             http,
+            persist,
         };
     }
 

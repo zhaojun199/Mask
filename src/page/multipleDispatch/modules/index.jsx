@@ -6,7 +6,7 @@ import demoService from '../services/demo'
 
 const mapStateToProps = (state) => {
     return ({
-        demo: state.demo,
+        list: state.list,
         http: state.http,
         Http: state.Http,
     })

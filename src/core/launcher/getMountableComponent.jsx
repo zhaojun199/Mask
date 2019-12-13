@@ -1,6 +1,8 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { unmountComponentAtNode } from 'react-dom';
+import { PersistGate } from 'redux-persist/lib/integration/react';
+import { persistStore } from 'redux-persist'
 import guid from '@home/util/guid';
 // eslint-disable-next-line import/no-cycle
 import render from './render';
@@ -21,16 +23,24 @@ export default function getMountableComponent(
     const Component = app.get('component');
     const store = app.get('store');
     const http = app.get('http');
+    const persist = app.get('persist');
 
     const RootComponent = (compontProps) => {
-        if (store) {
-            return (<Provider store={store}>
+        if (!store) {
+            return (
                 <Component $http={http} {...compontProps} />
+            );
+        }
+        if (persist) {
+            return (<Provider store={store}>
+                <PersistGate loading={null} persistor={persistStore(store)}>
+                    <Component $http={http} {...compontProps} />
+                </PersistGate>
             </Provider>);
         }
-        return (
+        return <Provider store={store}>
             <Component $http={http} {...compontProps} />
-        );
+        </Provider>
     };
 
     // 根组件

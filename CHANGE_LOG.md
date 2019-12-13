@@ -83,18 +83,21 @@
 - 2019-12-10
 	- 增加react-hot-loader，用热替换代替热更新
 
+- 2019-12-13
+	- 增加redux-persist，实现数据持久化
+
 - TODO
 	- [x] 异步更新store里的reducer，api: Store.replaceReducer
 	- [x] 异步更新store里的epic，api: epicMiddleware.run
 	- [x] 优化reducer异步注入方式
 	- [x] 实现路由嵌套
-	- [ ] redux-persist持久化store
+	- [x] redux-persist持久化store
 	- [ ] 提取配置
 	- [x] 支持apm
 	- [x] redux增加数据初始化功能
 	- [x] http.js中增加全局loading效果
 	- [ ] http.js中增加缓存功能
-	- [ ] event 使用rx，增加防抖和节流等功能
+	- [x] event 使用rx，增加防抖和节流等功能
 	- [ ] 增加errorhandle组件装饰器。兜底组件。
 	- [x] 搭建多应用，每个应用一个store，多个模块，通过统一store处理数据，代理dispatch，添加dispatch的模块命名空间，添加跨应用globalDispatch方法
 	- [x] 优化epics语法，更接地气。
@@ -104,7 +107,7 @@
 	- [x] module增加$unmount方法，用于卸载组件。
 	- [x] $mount的store外部共用，$cloneApp的store内部独立。
 	- [x] connect增加默认参数，直接传入所有state。
-	- [ ] 增加context，用于注入全局信息。
+	- [x] 增加dataCenter，用于注入全局信息。
 	- [x] http增加全局loading对象，可以通过rx + injectLoading注入到组件中。
 	- [x] http增加模块loading对象，可以通过rx + injectLoading注入到组件中。
 	- [x] 用热替换代替热更新。

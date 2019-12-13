@@ -12,9 +12,11 @@ export default function epicClsToEpic(entry) {
 
     const actionsName = getClassFunction(entry);
 
-    epics[epicNS] = actionsName.map((epic) => function (action$) {
-        return entry[epic](action$.ofType(`${epicNS}/${epic}`));
-    });
+    epics[epicNS] = actionsName
+        .filter(epic => epic !== '__reactstandin__regenerateByEval')
+        .map((epic) => function (action$) {
+            return entry[epic](action$.ofType(`${epicNS}/${epic}`));
+        });
 
     return epics;
 }
