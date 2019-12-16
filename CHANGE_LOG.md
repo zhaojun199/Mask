@@ -86,6 +86,10 @@
 - 2019-12-13
 	- 增加redux-persist，实现数据持久化
 
+- 2019-12-16
+	- http.js中增加缓存功能
+	- 增加cookie工具
+
 - TODO
 	- [x] 异步更新store里的reducer，api: Store.replaceReducer
 	- [x] 异步更新store里的epic，api: epicMiddleware.run
@@ -96,7 +100,7 @@
 	- [x] 支持apm
 	- [x] redux增加数据初始化功能
 	- [x] http.js中增加全局loading效果
-	- [ ] http.js中增加缓存功能
+	- [x] http.js中增加缓存功能
 	- [x] event 使用rx，增加防抖和节流等功能
 	- [ ] 增加errorhandle组件装饰器。兜底组件。
 	- [x] 搭建多应用，每个应用一个store，多个模块，通过统一store处理数据，代理dispatch，添加dispatch的模块命名空间，添加跨应用globalDispatch方法

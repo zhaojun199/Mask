@@ -4,15 +4,16 @@ const log = new Logger();
 
 class Report {
     static protected(e) {
-        log.info(e);
+        log.log('protected:', e);
+        // throw e;
     }
 
     static jsError(e) {
-        log.log(e);
+        log.log('jsError:', e);
     }
 
     static promiseError(e) {
-        log.log(e);
+        log.log('promiseError:', e);
     }
 
     // 页面加载时间

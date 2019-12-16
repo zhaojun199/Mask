@@ -12,7 +12,24 @@ export default class ListEpic extends Epic {
             mergeMap(({ payload }) => {
                 return this.$http
                     .$send({
-                        url: `https://api.github.com/users/${payload.id}?param=${payload.id}`
+                        url: `https://api.github.com/users/${payload.id}?param=${payload.id}`,
+                    }).pipe(
+                        map((response) => ({
+                            type: 'list/showList',
+                            payload: response,
+                        })),
+                    )
+            }),
+        );
+    }
+
+    fetchListFromCache(action$) {
+        return action$.pipe(
+            mergeMap(() => {
+                return this.$http
+                    .$send({
+                        url: 'https://api.github.com/users/1?param=1',
+                        cache: true,
                     }).pipe(
                         map((response) => ({
                             type: 'list/showList',

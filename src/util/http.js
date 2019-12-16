@@ -10,6 +10,15 @@ import Config from '@home/config/config';
 
 export default ajax;
 
+// 校验缓存时间
+function checkCacheTimeout(cache) {
+    if (!cache) {
+        return false;
+    }
+    const now = new Date();
+    return now - cache.cacheTime < cache.cacheTimeout;
+}
+
 export class Http {
     constructor(name) {
         this.name = name
@@ -17,6 +26,7 @@ export class Http {
         this.initReqInterceptors();
         this.initResInterceptors();
         this.requests = []; //    正在发送的请求
+        this.cache = {}; //  缓存的请求
     }
 
     observable = new BehaviorSubject({
@@ -121,6 +131,9 @@ export class Http {
     }
 
     // 发送请求
+    // config axios配置的超集
+    // cache: 是否缓存
+    // cacheTimeout： 缓存ms数
     send(_config, dataType) {
         let config = { ..._config };
         const self = this;
@@ -134,14 +147,46 @@ export class Http {
         }));
         config.timeout = config.timeout === undefined ? Config.http.timeout : config.timeout;
         config = this.genHeadersConfig(config, dataType);
-        return this.axios
-            .request(config)
-            .then(({ data }) => Promise.resolve(data));
+        return this.cachedRequest(config);
     }
 
     $send(...args) {
         return fromPromise(this.send(...args))
     }
+
+
+    /* 处理缓存 - begin */
+    cachingGet(get) {
+        const self = this;
+        return function cachedGet(config) {
+            const key = config.url;
+            if (checkCacheTimeout(self.cache[key])) {
+                return self.cache[key].value;
+            }
+            // eslint-disable-next-line prefer-rest-params
+            const request = get(...arguments);
+            self.cache[key] = {
+                value: request,
+                cacheTime: new Date(),
+                cacheTimeout: config.cacheTimeout || Infinity
+            };
+            return request;
+        };
+    }
+
+    // 判断是缓存请求还是实时请求
+    cachedRequest(config) {
+        let send;
+        if (config.cache === true) {
+            send = this.cachingGet(this.axios.request);
+        } else {
+            send = this.axios.request;
+        }
+        return send(config)
+            .then(({ data }) => Promise.resolve(data));
+    }
+    /* 处理缓存 - end */
+
 }
 
 const httpInstance = new Http();
