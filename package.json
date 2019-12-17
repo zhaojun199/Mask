@@ -14,7 +14,8 @@
     "stat": "webpack --config webpack/production.js --json > stats.json",
     "analyze": "webpack --config webpack/analyze.js --profile",
     "lint": "eslint --ext .js  --ext .jsx src",
-    "lint:fix": "eslint --fix --ext .js  --ext .jsx src"
+    "lint:fix": "eslint --fix --ext .js  --ext .jsx src",
+    "server": "node server/app.js"
   },
   "author": "",
   "license": "ISC",
@@ -82,6 +83,17 @@
     "redux-persist": "^6.0.0",
     "rxjs": "^6.5.2",
     "rxjs-compat": "^6.5.3",
-    "warning": "^4.0.3"
+    "warning": "^4.0.3",
+    "debug": "~2.6.8",
+    "koa": "^2.11.0",
+    "koa-bodyparser": "^4.2.1",
+    "koa-convert": "^1.2.0",
+    "koa-json": "^2.0.2",
+    "koa-logger": "^3.2.1",
+    "koa-onerror": "^3.1.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^3.0.0",
+    "koa-views": "^6.2.1",
+    "nunjucks": "~3.0.1"
   }
 }
