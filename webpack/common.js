@@ -46,6 +46,12 @@ const config = {
     },
     module: {
         rules: [{
+            test: /\.jsx?$/,
+            use: [{
+                loader: 'happypack/loader?id=antd'
+            }],
+            // loader: "awesome-typescript-loader"
+        }, {
             test: /\.(js|jsx)$/,
             //把对.js 的文件处理交给id为happyBabel 的HappyPack 的实例执行
             loader: 'happypack/loader?id=happyBabel',
@@ -127,6 +133,16 @@ const config = {
         },
     },
     plugins: [
+        new HappyPack({
+            id: 'antd',
+            threadPool: happyThreadPool,
+            loaders: [{
+            //     path: 'ts-loader',
+            //     query: { happyPackMode: true }
+            // }, {
+                path: path.resolve(__dirname, 'antBuildLoader.js'),
+            }]
+        }),
         // 将dll文件拷贝到dist目录
         new CopyWebpackPlugin([{
             from: DLL_PATH,
