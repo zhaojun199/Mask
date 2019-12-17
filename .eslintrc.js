@@ -57,6 +57,7 @@ module.exports = {
     "comma-dangle": ['off'],  //  不要求或禁止使用拖尾逗号
     "global-require": ['off'],  //  不要求 require() 出现在顶层模块作用域中
     "arrow-parens": ['off'],  //  不要要求箭头函数的参数使用圆括号
+    "prefer-arrow-callback": ['off'],  //  不要要求箭头函数的参数使用圆括号
     "jsx-quotes": ['error', "prefer-double"], //强制在JSX属性（jsx-quotes）中一致使用双引号
 
     "react/destructuring-assignment": ['off'],  //  关闭使用解构赋值的检测
