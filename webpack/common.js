@@ -101,14 +101,13 @@ const config = {
                 //     test: /(react|react-dom|react-router-dom)/,
                 // },
                 // 单独打包antd包
-                // antd: {
-                //     priority: 100,
-                //     name: 'vendor-antd',
-                //     filename: '[name].[hash:8]min.js?',
-                //     chunks: 'initial',
-                //     minSize: 30000,
-                //     test: /(antd|@ant-design)/,
-                // },
+                antd: {
+                    priority: 100,
+                    filename: '[name].[hash:8]min.js?',
+                    chunks: 'all',
+                    minSize: 30000,
+                    test: /(antd|@ant-design)/,
+                },
                 // 打包项目公共文件
                 common: {
                     priority: 5,

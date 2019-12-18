@@ -95,7 +95,7 @@ const config = merge(common, {
             filename: 'index.html',
             inject: true,
             // 允许插入到模板中的一些chunk
-            chunks: ['main', 'vendors'],
+            chunks: ['antd', 'main', 'vendors'],
             // 对chunks强制排序，防止其不按预期顺序加载
             chunksSortMode(chunk1, chunk2) {
                 const order = ['vendors', 'main'];

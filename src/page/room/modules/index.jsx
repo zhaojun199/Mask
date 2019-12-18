@@ -60,7 +60,7 @@ class AAA extends Component {
         return <Loading loading={this.props.$loading}>
             <span>room</span>
             <div>testStr: {this.props.testStr}</div>
-            <button onClick={this.pingEpic}>epic</button>
+            <Button type="primary" onClick={this.pingEpic}>epic</Button>
             <span> </span>
             <button onClick={this.fetchListFromCache}>fetchListFromCache</button>
             <span> </span>

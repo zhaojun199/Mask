@@ -30,7 +30,9 @@ function transAntLib(word) {
             // 过滤掉空值
             finalComponents = finalComponents.filter(item => { return !isEmpty(item) })
             // 转化Button为 import Button from 'antd/lib/button'
-            finalComponents = finalComponents.map(item => { return `import ${item} from 'antd/lib/${toLineStr(item)}';\r\n` })
+            finalComponents = finalComponents.map(item => {
+                return `import ${item} from 'antd/lib/${toLineStr(item)}';\r\nimport 'antd/lib/${toLineStr(item)}/style/index.less';\r\n`
+            })
             return finalComponents.join('');
         }
     } else {
