@@ -90,6 +90,9 @@
 	- http.js中增加缓存功能
 	- 增加cookie工具
 
+- 2019-12-19
+	- 加入antd组件库
+
 - TODO
 	- [x] 异步更新store里的reducer，api: Store.replaceReducer
 	- [x] 异步更新store里的epic，api: epicMiddleware.run

@@ -1,10 +1,22 @@
-import Event from '@home/core/event'
+import { Component } from 'react';
+import { log } from '@home/core/log';
+import header from '@home/common/header'
 
-const event = new Event()
+const _header = header.$cloneApp('home-header')
 
-export default function Home() {
-    event
-        .addEventListener('demo', (a, b) => { window.cout('test' + a + b) })
-        .addEventListener('demo', (a, b) => { window.cout('test2' + a + b) })
-    return <h2>Home</h2>;
+@log
+class Home extends Component {
+    componentDidMount() {
+        this._header = _header.$mount();
+    }
+
+    render() {
+        return (
+            <div>
+                <div id="header" />
+            </div>
+        );
+    }
 }
+
+export default Home
