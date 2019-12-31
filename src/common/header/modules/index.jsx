@@ -3,6 +3,7 @@ import connect from '@home/core/connect'
 import { log } from '@home/core/log'
 import Swiper from 'react-id-swiper'
 import 'swiper/css/swiper.css'
+import Background from './Background'
 
 export default
 @connect()
@@ -19,11 +20,8 @@ class Header extends Component {
     render() {
         return <div>
             <Swiper>
-                <div>Slide 1</div>
-                <div>Slide 2</div>
-                <div>Slide 3</div>
-                <div>Slide 4</div>
-                <div>Slide 5</div>
+                <div><Background /></div>
+                <div><Background /></div>
             </Swiper>
         </div>
     }
