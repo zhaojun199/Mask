@@ -52,6 +52,12 @@ const config = {
             //排除node_modules 目录下的文件
             exclude: /node_modules/
         }, {
+            test: /\.css$/,
+            use: [
+                'style-loader', 'css-loader',
+            ],
+            include: [MODULE_PATH]
+        }, {
             // 处理依赖包中的less样式文件，不开启css module功能
             test: /\.less$/,
             use: [
