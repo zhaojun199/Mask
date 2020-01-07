@@ -1,0 +1,60 @@
+@import "~@home/config/default";
+
+.nav-warp {
+    width: 100%;
+    background: @primary-background;
+    .nav {
+        height: @nav-height;
+        width: 1158px;
+        @media screen and (max-width: 1740px) and (min-width: 1430px) {
+            width: 1158px;
+        }
+        margin: 0 auto;
+        .logo {
+            height: @nav-height;
+            line-height: @nav-height;
+            width: 176px;
+            float: left;
+        }
+        .nav-menu-wrap {
+            float: left;
+            .nav-menu {
+                margin-left: 42px;
+                @media screen and (max-width: 1740px) and (min-width: 1430px) {
+                    margin-left: 20px;
+                }
+                &:before, &:after {
+                    content: " ";
+                    display: table;
+                }
+                &:after {
+                    clear: both;
+                }
+                .nav-menu-link {
+                    float: left;
+                    position: relative;
+                    margin: 0 4px;
+                    & > a {
+                        position: relative;
+                        z-index: 1;
+                        display: inline-block;
+                        vertical-align: middle;
+                        margin: 16px 0;
+                        width: 64px;
+                        line-height: 36px;
+                        height: 36px;
+                        text-align: center;
+                        color: #fff;
+                        font-size: 17px;
+                    }
+                    &.active > a {
+                        color: @primary-color;
+                    }
+                    &:hover > a {
+                        color: @primary-color;
+                    }
+                }
+            }
+        }
+    }
+}

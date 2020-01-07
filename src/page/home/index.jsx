@@ -10,6 +10,10 @@ class Home extends Component {
         this._header = _header.$mount();
     }
 
+    componentWillUnmount() {
+        this._header.$unmount();
+    }
+
     render() {
         return (
             <div>
