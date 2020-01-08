@@ -3,6 +3,7 @@ import { hot } from 'react-hot-loader'
 import '@home/static/css/reset.css'
 import GenRouter from '@home/router/GenRouter';
 import { log } from '@home/core/log';
+import '@home/static/css/antd-recover.less'
 
 // import room from '@home/page/room'
 

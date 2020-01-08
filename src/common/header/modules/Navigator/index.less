@@ -66,23 +66,33 @@
             .nav-search {
 
             }
-            .nav-login-wrap {
-                padding: 8px 0;
-                .nav-unlogin {
-
-                }
-                .nav-login-icon {
-                    display: block;
-                    width: 52px;
-                    height: 52px;
-                    background-image: url(../../static/img/unlogin.png);
-                    background-repeat: no-repeat;
-                    background-position: 0 0;
-                    background-size: auto 100%;
-                    animation: unloginAnimate 1s steps(1) infinite;
-                }
-            }
         }
+    }
+}
+.login-wrap {
+    padding: 8px 0;
+    .unlogin {
+        padding-bottom: 10px;
+    }
+    .login-icon {
+        display: block;
+        width: 52px;
+        height: 52px;
+        background-image: url(../../static/img/unlogin.png);
+        background-repeat: no-repeat;
+        background-position: 0 0;
+        background-size: auto 100%;
+        animation: unloginAnimate 1s steps(1) infinite;
+    }
+}
+.unlogin-content {
+    color: #888;
+    h3 {
+        line-height: 54px;
+        font-size: 14px;
+        text-align: left;
+        font-weight: 400;
+        padding: 0 17px;
     }
 }
 
@@ -90,39 +100,30 @@
     0% {
         background-position: 0 0
     }
-
     4% {
         background-position: -52px 0
     }
-
     8% {
         background-position: -104px 0
     }
-
     12% {
         background-position: -156px 0
     }
-
     16% {
         background-position: -208px 0
     }
-
     20% {
         background-position: -260px 0
     }
-
     24% {
         background-position: -312px 0
     }
-
     28% {
         background-position: -364px 0
     }
-
     32% {
         background-position: -416px 0
     }
-
     to {
         background-position: -416px 0
     }

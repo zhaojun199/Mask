@@ -1,6 +1,6 @@
 import connect from '@home/core/connect'
 import { log } from '@home/core/log'
-import { Popover } from 'antd'
+import { Popover, Button } from 'antd'
 import styles from '../index.less'
 
 export default
@@ -15,12 +15,20 @@ class Login extends React.PureComponent {
 
     }
 
+    renderUnlogin() {
+        return <div className={styles['unlogin-content']}>
+            <h3>登录或注册，使用更丰富的功能哦~</h3>
+            <Button type="primary" style={{ marginLeft: 7 }}>登录</Button>
+            <Button style={{ marginLeft: 8 }}>注册</Button>
+        </div>
+    }
+
     render() {
-        return <div className={styles['nav-login-wrap']}>
-            <div className={styles['nav-unlogin']}>
+        return <div className={styles['login-wrap']}>
+            <div className={styles['unlogin']}>
                 <div className="mask-dropmenu">
-                    <Popover content={123}>
-                        <span className={styles['nav-login-icon']}>&nbsp;</span>
+                    <Popover placement="topRight" content={this.renderUnlogin()}>
+                        <span className={styles['login-icon']}>&nbsp;</span>
                     </Popover>
                 </div>
             </div>

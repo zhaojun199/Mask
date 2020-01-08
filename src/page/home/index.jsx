@@ -7,7 +7,7 @@ const _header = header.$cloneApp('home-header')
 @log
 class Home extends Component {
     componentDidMount() {
-        this._header = _header.$mount();
+        this._header = _header.$mount({}, { id: 'header' });
     }
 
     componentWillUnmount() {
