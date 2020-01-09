@@ -3,6 +3,8 @@
 .nav-warp {
     width: 100%;
     background: @primary-background;
+    height: @nav-height;
+    overflow: hidden;
     .nav {
         height: @nav-height;
         width: 1158px;
@@ -21,7 +23,7 @@
         }
         .nav-menu-wrap {
             float: left;
-            max-width: 800px;
+            max-width: 650px;
             max-height: @nav-height;
             .nav-menu {
                 margin-left: 42px;
@@ -69,8 +71,17 @@
         }
     }
 }
+// search
+.nav-search-wrap {
+    float: left;
+    height: @nav-height;
+    padding: 15px 0;
+    margin-right: 20px;
+}
+// login
 .login-wrap {
     padding: 8px 0;
+    float: left;
     .unlogin {
         padding-bottom: 10px;
     }

@@ -1,5 +1,6 @@
 import connect from '@home/core/connect'
 import { log } from '@home/core/log'
+import search from '@home/common/search'
 import Login from './Login'
 import styles from './index.less'
 
@@ -12,7 +13,11 @@ class Navigator extends React.PureComponent {
     }
 
     componentDidMount() {
+        this._search = search.$mount({}, { id: 'header-search' })
+    }
 
+    componentWillUnmount() {
+        this._search.$unmount();
     }
 
     render() {
@@ -37,7 +42,7 @@ class Navigator extends React.PureComponent {
                     </ul>
                 </div>
                 <div className={styles['nav-right']}>
-                    <div className={styles['nav-search']}></div>
+                    <div id="header-search" className={styles['nav-search-wrap']} />
                     <Login />
                 </div>
             </nav>
