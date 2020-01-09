@@ -19,7 +19,7 @@ class Header extends Component {
     }
 
     render() {
-        return <div>
+        return <div className="header">
             {/* <Swiper>
                 <div><Background /></div>
                 <div><Background /></div>

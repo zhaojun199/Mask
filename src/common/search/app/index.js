@@ -26,5 +26,5 @@ export default Launcher.createApp({
     },
     component: PageEntry,
     Http: Http,
-    persist: true,
+    persist: false,
 });

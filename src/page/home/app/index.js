@@ -13,7 +13,7 @@ import reducers from '../controllers';
 const PageEntry = lazy(() => import('../modules'));
 
 export default Launcher.createApp({
-    name: 'header', //  应用名称，每个应用唯一
+    name: 'home', //  应用名称，每个应用唯一
     storeFactory() {
         const storeProps = {
             preloadedState: window.__INITIAL_STATE__,
@@ -26,5 +26,5 @@ export default Launcher.createApp({
     },
     component: PageEntry,
     Http: Http,
-    persist: false,
+    persist: true,
 });
