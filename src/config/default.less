@@ -2,3 +2,19 @@
 @primary-color: #fd5a2f;                        // 全局主色
 @border-color: #ff5d23;                         // 边框主色
 @nav-height: 68px;                                // 导航高度
+@container-width-lg: 1158px;                      // 容器宽度-lg
+@container-width-md: 1158px;                      // 容器宽度-md
+@container-width-xs: 1158px;                      // 容器宽度-xs
+
+.mixin-container-width() {
+    width: @container-width-lg;
+    margin: 0 auto;
+    @media screen and (max-width: 1740px) and (min-width: 1430px) {
+        width: @container-width-lg;
+    }
+    @media only screen and (max-width: 1167px) {}
+    @media only screen and (max-width: 1430px) {}
+    @media only screen and (max-width: 1740px) {
+
+    }
+}

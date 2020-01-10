@@ -2,6 +2,8 @@ import { Component } from 'react'
 import connect from '@home/core/connect'
 import { log } from '@home/core/log'
 import header from '@home/common/header'
+import News from './News'
+import styles from './index.less'
 
 const _header = header.$cloneApp('home-header')
 
@@ -24,9 +26,10 @@ class Home extends Component {
 
     render() {
         return (
-            <div>
+            <main>
                 <div id="header" />
-            </div>
+                <News />
+            </main>
         );
     }
 }

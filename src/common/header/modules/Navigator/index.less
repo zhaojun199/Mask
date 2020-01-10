@@ -7,11 +7,11 @@
     overflow: hidden;
     .nav {
         height: @nav-height;
-        width: 1158px;
-        @media screen and (max-width: 1740px) and (min-width: 1430px) {
-            width: 1158px;
-        }
         margin: 0 auto;
+        width: @container-width;
+        @media screen and (max-width: 1740px) and (min-width: 1430px) {
+            width: @container-width;
+        }
         .logo {
             height: @nav-height;
             line-height: @nav-height;

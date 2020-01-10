@@ -25,7 +25,7 @@ class Header extends Component {
                 <div><Background /></div>
             </Swiper> */}
             <Navigator />
-            <img src={require('./bg.png')} alt=""/>
+            <img src={require('./bg.png')} alt="" style={{ position: 'fixed', top: 68, zIndex: -1 }} />
         </div>
     }
 }
