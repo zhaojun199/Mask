@@ -8,10 +8,7 @@
     .nav {
         height: @nav-height;
         margin: 0 auto;
-        width: @container-width;
-        @media screen and (max-width: 1740px) and (min-width: 1430px) {
-            width: @container-width;
-        }
+        .mixin-container-width();
         .logo {
             height: @nav-height;
             line-height: @nav-height;
