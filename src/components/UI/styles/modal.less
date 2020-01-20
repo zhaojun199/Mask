@@ -1,0 +1,140 @@
+@import './variables.less';
+@import './themes/@{so-theme}.less';
+@modal-prefix: ~'@{so-prefix}-modal';
+
+.@{modal-prefix} {
+  position: fixed;
+  z-index: @zindex-modal;
+  top: 0;
+  left: 0;
+  overflow: auto;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 0.2s linear;
+
+  &-panel {
+    // max-width: 90%;
+    text-align: left;
+    margin: 0 auto;
+    transform: translate(0, -100px);
+    transition: transform 0.2s linear;
+  }
+
+  &-title {
+    color: @modal-title-color;
+    font-size: @modal-title-font-size;
+    font-weight: 500;
+  }
+
+  & &-body {
+    padding: 40px 40px 20px 70px;
+
+    .@{modal-prefix}-title {
+      margin-bottom: 8px;
+    }
+
+    .@{modal-prefix}-icon {
+      position: absolute;
+      top: 40px;
+      left: 32px;
+      width: @modal-icon-size;
+      height: @modal-icon-size;
+    }
+  }
+
+  &-show {
+    opacity: 1;
+
+    .@{modal-prefix}-panel {
+      transform: translate(0, 0);
+    }
+  }
+
+  &-right {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    margin: 0;
+    transform: translate(100%, 0);
+  }
+
+  &-left {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    transform: translate(-100%, 0);
+  }
+
+  &-top {
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: 0;
+    transform: translate(0, -100%);
+  }
+
+  &-bottom {
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    transform: translate(0, 100%);
+  }
+
+  &-top,
+  &-bottom {
+    max-width: 100%;
+  }
+
+  &-success &-icon path {
+    fill: @colors-success;
+  }
+
+  &-info &-icon path {
+    fill: @colors-primary;
+  }
+
+  &-warning &-icon path,
+  &-confirm &-icon path {
+    fill: @colors-warning;
+  }
+
+  &-error &-icon path {
+    fill: @colors-error;
+  }
+
+  &-info,
+  &-success,
+  &-warning,
+  &-error,
+  &-normal,
+  &-confirm {
+    .@{modal-prefix}-footer {
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+  &-close {
+    position: absolute;
+    z-index: 100;
+    top: 13px;
+    right: 16px;
+    display: block;
+    width: 10px;
+    height: 10px;
+    padding: 0;
+  }
+
+  &-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}

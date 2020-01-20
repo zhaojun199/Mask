@@ -11,6 +11,7 @@ const {
     happyThreadPool,
     ROOT_PATH,
     MODULE_PATH,
+    UI_PATH,
     theme,
     dllJS,
     title,
@@ -76,7 +77,7 @@ const config = merge(common, {
                 },
                 'happypack/loader?id=lessWithCssModuleLoader'
             ],
-            exclude: [MODULE_PATH]
+            exclude: [MODULE_PATH, UI_PATH]
         }],
     },
     plugins: [

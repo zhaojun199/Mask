@@ -11,6 +11,7 @@ const happyThreadPool = HappyPack.ThreadPool({ size: os.cpus().length });
 const ROOT_PATH = process.cwd();
 const DLL_PATH = path.resolve(ROOT_PATH, 'dll');
 const MODULE_PATH = path.resolve(ROOT_PATH, 'node_modules');
+const UI_PATH = path.resolve(ROOT_PATH, 'src/components/UI');
 
 const theme = require('./theme');   //  less变量名配置
 
@@ -64,7 +65,7 @@ const config = {
                 MiniCssExtractPlugin.loader,
                 'happypack/loader?id=lessLoader'
             ],
-            include: [MODULE_PATH]
+            include: [MODULE_PATH, UI_PATH]
         }, {
             // 图片转化，小于8k自动转化成base64编码
             test: /\.(png|jpg|gif)$/,
@@ -207,6 +208,7 @@ const custom =  {
     ROOT_PATH,
     DLL_PATH,
     MODULE_PATH,
+    UI_PATH,
     title: 'aurora',
     favicon: path.resolve(ROOT_PATH, 'src', 'static/image/favicon.jpg'),
 };
