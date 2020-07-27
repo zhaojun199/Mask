@@ -74,6 +74,7 @@ module.exports = {
     "react/jsx-fragments": ['off'],
     "react/jsx-props-no-spreading": ['off'],  //  不禁止jsx props展开传递
     "react/no-this-in-sfc": ['off'],  //  Stateless functional components can use this
+    "react/static-property-placement": ['off'],
 
     "jsx-a11y/no-static-element-interactions": ['off'],  //  Enforce that non-interactive, visible elements (such as <div>) that have click handlers use the role attribute
     "jsx-a11y/no-noninteractive-element-interactions": ['off'],  //  Non-interactive elements should not be assigned mouse or keyboard event listeners
