@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack -w",
+    "start": "npm run dev",
     "build": "webpack --config webpack/production.js",
     "dll": "webpack --config webpack/dll.js",
     "dev": "webpack-dev-server --config webpack/develop.js --profile",

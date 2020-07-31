@@ -24,6 +24,14 @@ const RouterConfig = [{
     path: '/contextDemo',
     exact: true,
     component: lazy(() => import('@home/page/contextDemo')),
+}, {
+    path: '/hookDemo',
+    exact: true,
+    component: lazy(() => import('@home/page/hookDemo')),
+}, {
+    path: '/debounceFormDemo',
+    exact: true,
+    component: lazy(() => import('@home/page/debounceFormDemo')),
 }];
 
 export default RouterConfig;
