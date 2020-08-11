@@ -1,6 +1,6 @@
 // rewrire from https://github.com/fgfg163/react-component-debounce/blob/master/src/index.jsx
-import { Component } from 'react'
-// import { Logger } from '@home/core/log';
+import { Component, PureComponent } from 'react'
+import { log } from '@home/core/log';
 import defaultOption from './defaultOption'
 import debounce from './debounce'
 
@@ -18,7 +18,8 @@ export default function (options) {
         getValueFromEvent,
     } = _options;
     return function (ReactComponent) {
-        return class DebounceFormComponent extends Component {
+        @log
+        class DebounceFormComponent extends PureComponent {
             static getDerivedStateFromProps(nextProps, prevState) {
                 if (nextProps[valuePropName] !== prevState[valuePropName]) {
                     return {
@@ -46,15 +47,15 @@ export default function (options) {
             //     }
             // }
 
-            shouldComponentUpdate(nextProps, nextState) {
-                if (nextProps[valuePropName] !== nextState[valuePropName]) {
-                    return true
-                }
-                if (nextState !== this.state) {
-                    return true
-                }
-                return false
-            }
+            // shouldComponentUpdate(nextProps, nextState) {
+            //     if (nextProps[valuePropName] !== nextState[valuePropName]) {
+            //         return true
+            //     }
+            //     if (nextState !== this.state) {
+            //         return true
+            //     }
+            //     return false
+            // }
 
             handlePropsChange(value) {
                 let debounceChange = this.props[trigger]
@@ -84,5 +85,6 @@ export default function (options) {
                 />
             }
         }
+        return DebounceFormComponent
     }
 }
